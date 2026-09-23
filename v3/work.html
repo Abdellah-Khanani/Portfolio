@@ -14,7 +14,7 @@
 <meta property="og:image" content="assets/img/portrait-hero.jpg">
 <link rel="preload" href="assets/font/archivo-300_900.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/font/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/app.css?v=80">
+<link rel="stylesheet" href="css/app.css?v=81">
 <script>(function(){var c='js';try{if(sessionStorage.getItem('ak:pt')!==null)c+=' pt-in';if(sessionStorage.getItem('ak:cover'))c+=' pt-cover'}catch(e){}document.documentElement.className=c})();</script>
 </head>
 <body>
@@ -121,19 +121,26 @@
 </footer>
 
 <!-- ══════════ SCRIPTS ══════════ -->
-<script src="js/lib/lenis.min.js?v=80"></script>
-<script src="js/lib/gsap.min.js?v=80"></script>
-<script src="js/lib/ScrollTrigger.min.js?v=80"></script>
-<script src="js/projects.js?v=80"></script>
-<script src="js/pages.js?v=80"></script>
-<script src="js/app.js?v=80"></script>
-<!-- GoatCounter: privacy-first, no cookies, no consent banner needed.
+<script src="js/lib/lenis.min.js?v=81"></script>
+<script src="js/lib/gsap.min.js?v=81"></script>
+<script src="js/lib/ScrollTrigger.min.js?v=81"></script>
+<script src="js/projects.js?v=81"></script>
+<script src="js/pages.js?v=81"></script>
+<script src="js/app.js?v=81"></script>
+<!-- GoatCounter: privacy-first, no cookies, so no consent banner is needed.
      Swap YOURCODE below for the code you pick when you create the site. -->
 <script>
-  // local and preview runs must not pollute the real numbers
-  window.goatcounter = { no_onload: location.hostname === 'localhost' || location.hostname === '127.0.0.1' };
+  window.goatcounter = {
+    // local and preview runs must not pollute the real numbers
+    no_onload: location.hostname === 'localhost' || location.hostname === '127.0.0.1',
+    // keep ?p=slug so every project page is counted on its own, drop any other query noise
+    path: () => {
+      const p = new URLSearchParams(location.search).get('p');
+      return location.pathname + (p ? '?p=' + p : '');
+    }
+  };
 </script>
 <script data-goatcounter="https://YOURCODE.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+        async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>

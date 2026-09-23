@@ -495,7 +495,11 @@ function quote() {
       ok.hidden = false;
       ok.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     } catch (err) {
-      bad.hidden = false;                          // the mail fallback is written in the markup
+      // carry what they typed into the fallback, so nothing has to be rewritten
+      const a = $('a', bad);
+      if (a) a.href = `mailto:${to}?subject=${encodeURIComponent('Project request: ' + info.chosen)}&body=${encodeURIComponent(info.lines.join('\n'))}`;
+      bad.hidden = false;
+      bad.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     } finally {
       btn.disabled = false; btnT.textContent = label;
     }
