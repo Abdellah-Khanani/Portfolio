@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js has-gsap">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Abdellah Khanani, filmmaker and video editor in Bolzano</title>
+<link rel="icon" type="image/png" href="assets/logo/ak-icon-48.png">
+<link rel="apple-touch-icon" href="assets/logo/ak-icon-180.png">
+<meta name="description" content="Abdellah Khanani is an independent filmmaker and video editor in Bolzano, Italy, making cinematic content for brands, artists and events. 47 million views and counting.">
+<meta name="theme-color" content="#000000">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Abdellah Khanani, filmmaker and video editor">
+<meta property="og:description" content="Independent filmmaker and visual creator based in Bolzano, Italy.">
+<meta property="og:image" content="assets/img/portrait-hero.jpg">
+<link rel="preload" as="image" href="assets/img/w/bts-03-320.webp" imagesrcset="assets/img/w/bts-03-320.webp 320w, assets/img/w/bts-03-640.webp 640w" imagesizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" fetchpriority="high">
+<link rel="preload" href="assets/font/archivo-300_900.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/font/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/app.css?v=80">
+<script>(function(){var c='js';try{if(sessionStorage.getItem('ak:pt')!==null)c+=' pt-in';if(sessionStorage.getItem('ak:cover'))c+=' pt-cover'}catch(e){}document.documentElement.className=c})();</script>
+</head>
+<body>
+
+<!-- ══════════ LOADER ══════════ -->
+<div class="ld" id="ld" aria-hidden="true"></div>
+
+<!-- ══════════ OVERLAYS ══════════ -->
+<div class="grain" aria-hidden="true"></div>
+<div class="scan" aria-hidden="true"></div>
+<div class="gate" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+<!-- ══════════ CURSOR ══════════ -->
+<div class="cur" id="cur" aria-hidden="true">
+  <div class="cur__ring"><span class="cur__txt"></span></div>
+  <div class="cur__dot"></div>
+</div>
+
+<!-- ══════════ HOVER PREVIEW ══════════ -->
+<div class="peek" id="peek" aria-hidden="true">
+  <img data-k="brand" src="assets/img/work-awlab.webp" alt="" loading="lazy">
+  <img data-k="edit"  src="assets/img/work-studio.webp" alt="" loading="lazy">
+  <img data-k="event" src="assets/img/work-busk.webp" alt="" loading="lazy">
+  <img data-k="film"  src="assets/img/bts-18.webp" alt="" loading="lazy">
+  <img data-k="over"  src="assets/img/zblito-01.webp" alt="" loading="lazy">
+</div>
+
+<!-- ══════════ RAIL ══════════ -->
+<div class="rail" aria-hidden="true">
+  <div class="rail__l"><i id="railF"></i></div>
+  <span class="rail__p tc" id="railP">00</span>
+  <span class="rail__s cap" id="railS">Scroll<i></i></span>
+</div>
+
+<!-- ══════════ HEADER ══════════ -->
+<header class="hdr" id="hdr">
+  <a href="index.html" class="hdr__b" aria-label="Abdellah Khanani, home" data-pt="Home"><img class="hdr__m" src="assets/logo/ak-mark.webp" alt="AK" width="162" height="81"><span class="hdr__r cap"><i></i>Rec</span></a>
+  <span class="hdr__tc tc" id="tc" aria-hidden="true">00:00:00:00</span>
+  <div class="hdr__e">
+    <span class="hdr__c cap">Bolzano <b class="tc" id="clk">00:00:00</b></span>
+    <a href="contact.html" class="pill" data-mag data-pt="Start a project"><span>Start a project</span></a>
+    <button class="brg" id="brg" aria-label="Menu" aria-expanded="false"><i></i><i></i></button>
+  </div>
+</header>
+
+<!-- ══════════ NAV ══════════ -->
+<nav class="nav" id="nav" aria-hidden="true">
+  <div class="nav__bg"></div>
+  <ul class="nav__l">
+    <li><a href="work.html" data-pt="All work">Work</a></li>
+    <li><a href="index.html#live" data-pt="On stage">On stage</a></li>
+    <li><a href="index.html#services" data-pt="Services">Services</a></li>
+    <li><a href="index.html#press" data-pt="Press">Press</a></li>
+    <li><a href="bts.html" data-pt="Behind the scenes">Behind the scenes</a></li>
+    <li><a href="index.html#about" data-pt="About">About</a></li>
+    <li><a href="contact.html" data-pt="Start a project">Start a project</a></li>
+  </ul>
+  <div class="nav__f cap">
+    <span>Bolzano, Italy / available worldwide</span>
+    <a href="https://instagram.com/abdellah_khanani" target="_blank" rel="noopener">@abdellah_khanani</a>
+  </div>
+</nav>
+
+<!-- ══════════ DOCK ══════════ -->
+<nav class="dock glass" id="dock" aria-label="Sections">
+  <span class="dock__lens glass" aria-hidden="true"></span>
+  <a class="dock__a" href="index.html#work" data-k="work" data-pt="Work">Work</a>
+  <a class="dock__a" href="index.html#live" data-k="live" data-pt="On stage">Stage</a>
+  <a class="dock__a dock__a--x" href="index.html#services" data-k="services" data-pt="Services">Services</a>
+  <a class="dock__a" href="index.html#about" data-k="about" data-pt="About">About</a>
+  <a class="dock__a" href="contact.html" data-k="contact" data-pt="Start a project">Contact</a>
+</nav>
+
+<!-- ══════════ /CHROME ══════════ -->
+<main id="top">
+
+<!-- HERO — DAILIES WALL -->
+<section class="hero" id="hero">
+  <div class="hero__zoom">
+    <div class="wall" id="wall" aria-hidden="true">
+      <div class="wall__c" data-dir="-1" data-sp="0.42"><div class="wall__r">
+        <img src="assets/img/w/bts-02-640.webp" srcset="assets/img/w/bts-02-320.webp 320w, assets/img/w/bts-02-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async"><img src="assets/img/w/bts-05-640.webp" srcset="assets/img/w/bts-05-320.webp 320w, assets/img/w/bts-05-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async"><img loading="lazy" src="assets/img/w/work-lost-640.webp" srcset="assets/img/w/work-lost-320.webp 320w, assets/img/w/work-lost-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async"><img loading="lazy" src="assets/img/w/bts-11-640.webp" srcset="assets/img/w/bts-11-320.webp 320w, assets/img/w/bts-11-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async"><img loading="lazy" src="assets/img/w/portrait-lean-640.webp" srcset="assets/img/w/portrait-lean-320.webp 320w, assets/img/w/portrait-lean-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async"><img loading="lazy" src="assets/img/w/bts-08-640.webp" srcset="assets/img/w/bts-08-320.webp 320w, assets/img/w/bts-08-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async">
+      </div></div>
+      <div class="wall__c" data-dir="1" data-sp="0.55"><div class="wall__r">
+        <img src="assets/img/w/portrait-hero-640.webp" srcset="assets/img/w/portrait-hero-320.webp 320w, assets/img/w/portrait-hero-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async"><img fetchpriority="high" src="assets/img/w/bts-03-640.webp" srcset="assets/img/w/bts-03-320.webp 320w, assets/img/w/bts-03-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async"><img loading="lazy" src="assets/img/w/work-moonview-640.webp" srcset="assets/img/w/work-moonview-320.webp 320w, assets/img/w/work-moonview-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async"><img loading="lazy" src="assets/img/w/bts-14-640.webp" srcset="assets/img/w/bts-14-320.webp 320w, assets/img/w/bts-14-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async"><img loading="lazy" src="assets/img/w/bts-09-640.webp" srcset="assets/img/w/bts-09-320.webp 320w, assets/img/w/bts-09-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async"><img loading="lazy" src="assets/img/w/work-busk-640.webp" srcset="assets/img/w/work-busk-320.webp 320w, assets/img/w/work-busk-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async">
+      </div></div>
+      <div class="wall__c" data-dir="-1" data-sp="0.68"><div class="wall__r">
+        <img src="assets/img/w/bts-06-640.webp" srcset="assets/img/w/bts-06-320.webp 320w, assets/img/w/bts-06-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async"><img src="assets/img/w/work-hope-640.webp" srcset="assets/img/w/work-hope-320.webp 320w, assets/img/w/work-hope-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async"><img loading="lazy" src="assets/img/w/portrait-gimbal-640.webp" srcset="assets/img/w/portrait-gimbal-320.webp 320w, assets/img/w/portrait-gimbal-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async"><img loading="lazy" src="assets/img/w/bts-17-640.webp" srcset="assets/img/w/bts-17-320.webp 320w, assets/img/w/bts-17-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async"><img loading="lazy" src="assets/img/w/bts-01-640.webp" srcset="assets/img/w/bts-01-320.webp 320w, assets/img/w/bts-01-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async"><img loading="lazy" src="assets/img/w/work-lookbook-640.webp" srcset="assets/img/w/work-lookbook-320.webp 320w, assets/img/w/work-lookbook-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async">
+      </div></div>
+      <div class="wall__c" data-dir="1" data-sp="0.36"><div class="wall__r">
+        <img loading="lazy" src="assets/img/w/work-rayban-640.webp" srcset="assets/img/w/work-rayban-320.webp 320w, assets/img/w/work-rayban-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async"><img loading="lazy" src="assets/img/w/bts-12-640.webp" srcset="assets/img/w/bts-12-320.webp 320w, assets/img/w/bts-12-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async"><img loading="lazy" src="assets/img/w/bts-04-640.webp" srcset="assets/img/w/bts-04-320.webp 320w, assets/img/w/bts-04-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async"><img loading="lazy" src="assets/img/w/portrait-face-640.webp" srcset="assets/img/w/portrait-face-320.webp 320w, assets/img/w/portrait-face-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async"><img loading="lazy" src="assets/img/w/work-awlab-640.webp" srcset="assets/img/w/work-awlab-320.webp 320w, assets/img/w/work-awlab-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async"><img loading="lazy" src="assets/img/w/bts-16-640.webp" srcset="assets/img/w/bts-16-320.webp 320w, assets/img/w/bts-16-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async">
+      </div></div>
+      <div class="wall__c wall__c--x" data-dir="-1" data-sp="0.5"><div class="wall__r">
+        <img loading="lazy" src="assets/img/w/bts-07-640.webp" srcset="assets/img/w/bts-07-320.webp 320w, assets/img/w/bts-07-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async"><img loading="lazy" src="assets/img/w/bts-19-640.webp" srcset="assets/img/w/bts-19-320.webp 320w, assets/img/w/bts-19-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async"><img loading="lazy" src="assets/img/w/work-studio-640.webp" srcset="assets/img/w/work-studio-320.webp 320w, assets/img/w/work-studio-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async"><img loading="lazy" src="assets/img/w/bts-10-640.webp" srcset="assets/img/w/bts-10-320.webp 320w, assets/img/w/bts-10-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async"><img loading="lazy" src="assets/img/w/bts-13-640.webp" srcset="assets/img/w/bts-13-320.webp 320w, assets/img/w/bts-13-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async"><img loading="lazy" src="assets/img/w/bts-18-640.webp" srcset="assets/img/w/bts-18-320.webp 320w, assets/img/w/bts-18-640.webp 640w" sizes="(max-width:760px) 34vw, (max-width:1100px) 25vw, 20vw" alt="" decoding="async">
+      </div></div>
+    </div>
+  </div>
+  <div class="hero__veil" aria-hidden="true"></div>
+  <div class="hero__type">
+    <h1 class="hero__n" data-fit-box>
+      <span class="ln"><span class="wd" data-fit data-chars>ABDELLAH</span></span>
+      <span class="ln"><span class="wd" data-fit data-chars>KHANANI</span></span>
+    </h1>
+    <p class="hero__s">Filmmaker and video editor in Bolzano</p>
+  </div>
+  <div class="hero__bot hero__fade">
+    <span class="cap">Reel 001 / since 2018</span>
+    <a href="#reel" class="hero__cue cap" data-smooth>Enter the reel<i></i></a>
+    <span class="cap">47 Mln+ views</span>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="mf sec" aria-label="Manifesto">
+  <span class="kick">01 / Manifesto</span>
+  <p class="mf__t">An Italy-based independent filmmaker <span class="pic"><img src="assets/img/w/bts-02-320.webp" alt="" loading="lazy"></span> and visual creator, specialising in helping brands, artists <span class="pic"><img src="assets/img/w/work-moonview-320.webp" alt="" loading="lazy"></span> and events turn their ideas into impactful visual stories <span class="pic"><img src="assets/img/w/bts-11-320.webp" alt="" loading="lazy"></span> and cinematic experiences.</p>
+</section>
+
+<!-- CLIENTS — DOUBLE REACTIVE TAPE -->
+<section class="cl" aria-label="Clients">
+  <div class="cl__head"><span class="kick">02 / Clients</span><span class="cap">12 clients</span></div>
+  <div class="cl__row"><div class="cl__sk" data-mq data-sp="0.9"><div class="cl__track"><span class="cl__set">
+    <img class="lg-bb" src="assets/logo/billboard.webp" alt="Billboard Italia"><img class="lg-ad" src="assets/logo/adidas.webp" alt="adidas"><img class="lg-rb" src="assets/logo/rayban.webp" alt="Ray-Ban"><img class="lg-mt" src="assets/logo/meta.svg" alt="Meta"><img class="lg-aw" src="assets/logo/awlab-full.webp" alt="AW LAB"><img class="lg-mg" src="assets/logo/mgw.webp" alt="Milan Games Week"><img class="lg-tk" src="assets/logo/teknoyd.webp" alt="Teknoyd"><img class="lg-in" src="assets/logo/indiependence.webp" alt="Indiependence Festival 3D"><img class="lg-gg" src="assets/logo/gameground.webp" alt="Game Ground"><img class="lg-mv" src="assets/logo/moonview.webp" alt="Moonview"><img class="lg-bz" src="assets/logo/buskinbozen.webp" alt="Busk in Bozen"><img class="lg-td" src="assets/logo/tinydrin.webp" alt="Tiny Drin">
+  </span></div></div></div>
+  <div class="cl__row" aria-hidden="true"><div class="cl__sk" data-mq data-sp="-0.7"><div class="cl__track"><span class="cl__set">
+    <img class="lg-rb" src="assets/logo/rayban.webp" alt=""><img class="lg-bb" src="assets/logo/billboard.webp" alt=""><img class="lg-mt" src="assets/logo/meta.svg" alt=""><img class="lg-ad" src="assets/logo/adidas.webp" alt=""><img class="lg-aw" src="assets/logo/awlab-full.webp" alt=""><img class="lg-gg" src="assets/logo/gameground.webp" alt=""><img class="lg-tk" src="assets/logo/teknoyd.webp" alt=""><img class="lg-in" src="assets/logo/indiependence.webp" alt=""><img class="lg-mg" src="assets/logo/mgw.webp" alt=""><img class="lg-td" src="assets/logo/tinydrin.webp" alt=""><img class="lg-mv" src="assets/logo/moonview.webp" alt=""><img class="lg-bz" src="assets/logo/buskinbozen.webp" alt="">
+  </span></div></div></div>
+</section>
+
+<!-- SHOWREEL — APERTURE -->
+<section class="ap" id="reel" aria-label="Showreel">
+  <div class="ap__win"><img src="assets/img/w/bts-03-800.webp" alt="Film crew on a frozen lake beside a bell tower" loading="lazy"></div>
+  <div class="ap__words" aria-hidden="true"><span class="ap__l">Show</span><span class="ap__r">reel</span></div>
+  <a class="ap__play cap" href="https://instagram.com/abdellah_khanani" target="_blank" rel="noopener">Watch reels on Instagram</a>
+</section>
+
+<!-- LATEST PORTFOLIO — MOSAIC -->
+<section class="mz" id="work">
+  <div class="mz__stage">
+    <div class="mz__head"><span class="kick">03 / Selected work</span><h2 class="h2">Latest portfolio</h2></div>
+    <div class="mz__field">
+      <a class="mz__t mz__t--hero" href="project.html?p=moonview" data-slug="moonview" data-cur="open" style="--c:2;--r:1;--cs:2;--rs:2">
+        <span class="mz__img"><img src="assets/img/work-moonview.webp" srcset="assets/img/w/work-moonview-520.webp 520w, assets/img/work-moonview.webp 1100w" sizes="(max-width:760px) 50vw, 34vw" alt="Moonview" loading="lazy"></span>
+        <span class="mz__num cap">01</span><span class="mz__cap"><b>Moonview</b><em>Videos, ads &amp; photos</em></span></a>
+      <a class="mz__t" href="project.html?p=lost" data-slug="lost" data-cur="open" data-d="1.2" style="--c:1;--r:1">
+        <span class="mz__img"><img src="assets/img/work-lost.webp" srcset="assets/img/w/work-lost-520.webp 520w, assets/img/work-lost.webp 1100w" sizes="(max-width:760px) 50vw, 34vw" alt="Lost" loading="lazy"></span>
+        <span class="mz__num cap">02</span><span class="mz__cap"><b>Lost</b><em>Short film</em></span></a>
+      <a class="mz__t" href="project.html?p=hope" data-slug="hope" data-cur="open" data-d="0.6" style="--c:1;--r:2">
+        <span class="mz__img"><img src="assets/img/work-hope.webp" srcset="assets/img/w/work-hope-520.webp 520w, assets/img/work-hope.webp 1100w" sizes="(max-width:760px) 50vw, 34vw" alt="Hope" loading="lazy"></span>
+        <span class="mz__num cap">03</span><span class="mz__cap"><b>Hope</b><em>Short film</em></span></a>
+      <a class="mz__t" href="project.html?p=rayban-meta" data-slug="rayban-meta" data-cur="open" data-d="0.9" style="--c:4;--r:1">
+        <span class="mz__img"><img src="assets/img/work-rayban.webp" srcset="assets/img/w/work-rayban-520.webp 520w, assets/img/work-rayban.webp 1100w" sizes="(max-width:760px) 50vw, 34vw" alt="Ray-Ban Meta" loading="lazy"></span>
+        <span class="mz__num cap">04</span><span class="mz__cap"><b>Ray-Ban Meta</b><em>Instagram stories ad</em></span></a>
+      <a class="mz__t" href="project.html?p=aw-lab" data-slug="aw-lab" data-cur="open" data-d="0.7" style="--c:4;--r:2">
+        <span class="mz__img"><img src="assets/img/work-awlab.webp" srcset="assets/img/w/work-awlab-520.webp 520w, assets/img/work-awlab.webp 1100w" sizes="(max-width:760px) 50vw, 34vw" alt="AW Lab" loading="lazy"></span>
+        <span class="mz__num cap">05</span><span class="mz__cap"><b>AW Lab</b><em>Brand content</em></span></a>
+      <a class="mz__t" href="project.html?p=busk-in-bozen" data-slug="busk-in-bozen" data-cur="open" data-d="1.4" style="--c:1;--r:3">
+        <span class="mz__img"><img src="assets/img/work-busk.webp" srcset="assets/img/w/work-busk-520.webp 520w, assets/img/work-busk.webp 1100w" sizes="(max-width:760px) 50vw, 34vw" alt="Busk in Bozen" loading="lazy"></span>
+        <span class="mz__num cap">06</span><span class="mz__cap"><b>Busk in Bozen</b><em>Event shooting</em></span></a>
+      <a class="mz__t" href="project.html?p=game-ground" data-slug="game-ground" data-cur="open" data-d="1" style="--c:2;--r:3">
+        <span class="mz__img"><img src="assets/img/work-gameground.webp" srcset="assets/img/w/work-gameground-520.webp 520w, assets/img/work-gameground.webp 1100w" sizes="(max-width:760px) 50vw, 34vw" alt="Game Ground" loading="lazy"></span>
+        <span class="mz__num cap">07</span><span class="mz__cap"><b>Game Ground</b><em>Event shooting</em></span></a>
+      <a class="mz__t" href="project.html?p=adidas-terrex" data-slug="adidas-terrex" data-cur="open" data-d="0.5" style="--c:3;--r:3">
+        <span class="mz__img"><img src="assets/img/adidas-01.webp" srcset="assets/img/w/adidas-01-520.webp 520w, assets/img/adidas-01.webp 1100w" sizes="(max-width:760px) 50vw, 34vw" alt="adidas Terrex" loading="lazy"></span>
+        <span class="mz__num cap">08</span><span class="mz__cap"><b>adidas Terrex</b><em>Brand experience</em></span></a>
+      <a class="mz__t mz__t--all" href="work.html" data-pt="All work" style="--c:4;--r:3">
+        <span class="mz__allT"><b>All work</b><em>every project, one page</em><i aria-hidden="true"></i></span></a>
+    </div>
+    <div class="mz__cover" aria-hidden="true"><img src="assets/img/work-moonview.webp" alt="" loading="lazy" decoding="async"></div>
+    <div class="mz__intro" aria-hidden="true"><span class="cap">01 / 08</span><span class="mz__introT">Moonview</span><em>Videos, ads &amp; photos</em></div>
+  </div>
+  <a class="pill mz__all" href="work.html" data-pt="All work"><span>See all work</span></a>
+</section>
+
+<!-- ON STAGE — CONCERT PHOTOGRAPHY -->
+<section class="lv" id="live" aria-label="Concert photography">
+  <div class="lv__stage">
+    <div class="lv__top">
+      <div class="lv__title"><span class="kick">04 / On stage</span><h2 class="lv__h">Concert photography</h2></div>
+      <span class="lv__bb"><img src="assets/logo/billboard.webp" alt="Billboard Italia"><span class="cap">× Abde</span></span>
+    </div>
+    <div class="lv__shots">
+      <figure class="lv__shot" data-a="0" data-l="25 55 70 50" style="--ar:1.5"><img src="assets/live/marracash-01-2400.webp" srcset="assets/live/marracash-01-800.webp 800w, assets/live/marracash-01-1200.webp 1200w, assets/live/marracash-01-2400.webp 2400w" sizes="100vw" alt="Marracash live, silhouettes on the curtain" loading="lazy" decoding="async"></figure>
+      <figure class="lv__shot" data-a="0" data-l="30 40 55 45" style="--ar:1.511"><img src="assets/live/marracash-02-2400.webp" srcset="assets/live/marracash-02-800.webp 800w, assets/live/marracash-02-1200.webp 1200w, assets/live/marracash-02-2400.webp 2400w" sizes="100vw" alt="Marracash live, close-up at the microphone" loading="lazy" decoding="async"></figure>
+      <figure class="lv__shot" data-a="0" data-l="62 45 42 50" style="--ar:1.5"><img src="assets/live/marracash-03-2400.webp" srcset="assets/live/marracash-03-800.webp 800w, assets/live/marracash-03-1200.webp 1200w, assets/live/marracash-03-2400.webp 2400w" sizes="100vw" alt="Marracash live on a pink lit stage" loading="lazy" decoding="async"></figure>
+      <figure class="lv__shot" data-a="0" data-l="30 40 45 60" style="--ar:1.5"><img src="assets/live/marracash-04-2400.webp" srcset="assets/live/marracash-04-800.webp 800w, assets/live/marracash-04-1200.webp 1200w, assets/live/marracash-04-2400.webp 2400w" sizes="100vw" alt="Marracash live, seen from behind in a studded jacket" loading="lazy" decoding="async"></figure>
+      <figure class="lv__shot" data-a="0" data-l="40 45 60 55" style="--ar:1.5"><img src="assets/live/marracash-05-2400.webp" srcset="assets/live/marracash-05-800.webp 800w, assets/live/marracash-05-1200.webp 1200w, assets/live/marracash-05-2400.webp 2400w" sizes="100vw" alt="Marracash live on a pink sci-fi stage" loading="lazy" decoding="async"></figure>
+      <figure class="lv__shot" data-a="1" data-l="40 60 55 65" style="--ar:1.459"><img src="assets/live/ernia-02-2400.webp" srcset="assets/live/ernia-02-800.webp 800w, assets/live/ernia-02-1200.webp 1200w, assets/live/ernia-02-2400.webp 2400w" sizes="100vw" alt="Ernia live, a single figure in a lit doorway" loading="lazy" decoding="async"></figure>
+      <figure class="lv__shot" data-a="1" data-l="50 40 50 72" style="--ar:1.407"><img src="assets/live/ernia-01-2400.webp" srcset="assets/live/ernia-01-800.webp 800w, assets/live/ernia-01-1200.webp 1200w, assets/live/ernia-01-2400.webp 2400w" sizes="100vw" alt="Ernia live, alone under a spotlight" loading="lazy" decoding="async"></figure>
+      <figure class="lv__shot" data-a="1" data-l="30 45 60 45" style="--ar:1.5"><img src="assets/live/ernia-03-2400.webp" srcset="assets/live/ernia-03-800.webp 800w, assets/live/ernia-03-1200.webp 1200w, assets/live/ernia-03-2400.webp 2400w" sizes="100vw" alt="Ernia live, arms open in the lights" loading="lazy" decoding="async"></figure>
+      <figure class="lv__shot" data-a="1" data-l="20 50 80 50" style="--ar:1.5"><img src="assets/live/ernia-04-2400.webp" srcset="assets/live/ernia-04-800.webp 800w, assets/live/ernia-04-1200.webp 1200w, assets/live/ernia-04-2400.webp 2400w" sizes="100vw" alt="Ernia live, the full stage" loading="lazy" decoding="async"></figure>
+      <figure class="lv__shot" data-a="1" data-l="60 40 70 50" style="--ar:1.5"><img src="assets/live/ernia-05-2400.webp" srcset="assets/live/ernia-05-800.webp 800w, assets/live/ernia-05-1200.webp 1200w, assets/live/ernia-05-2400.webp 2400w" sizes="100vw" alt="Ernia live under red lights at the microphone" loading="lazy" decoding="async"></figure>
+      <figure class="lv__shot" data-a="2" data-l="60 35 45 65" style="--ar:1.5"><img src="assets/live/mace-01-2400.webp" srcset="assets/live/mace-01-800.webp 800w, assets/live/mace-01-1200.webp 1200w, assets/live/mace-01-2400.webp 2400w" sizes="100vw" alt="Mace live at the console in a light beam" loading="lazy" decoding="async"></figure>
+      <figure class="lv__shot" data-a="2" data-l="30 45 55 50" style="--ar:1.5"><img src="assets/live/mace-03-2400.webp" srcset="assets/live/mace-03-800.webp 800w, assets/live/mace-03-1200.webp 1200w, assets/live/mace-03-2400.webp 2400w" sizes="100vw" alt="Mace on the big screen" loading="lazy" decoding="async"></figure>
+      <figure class="lv__shot" data-a="2" data-l="30 40 70 40" style="--ar:1.5"><img src="assets/live/mace-02-2400.webp" srcset="assets/live/mace-02-800.webp 800w, assets/live/mace-02-1200.webp 1200w, assets/live/mace-02-2400.webp 2400w" sizes="100vw" alt="Mace concert, geometric projections" loading="lazy" decoding="async"></figure>
+      <figure class="lv__shot" data-a="2" data-l="60 40 45 65" style="--ar:1.5"><img src="assets/live/mace-04-2400.webp" srcset="assets/live/mace-04-800.webp 800w, assets/live/mace-04-1200.webp 1200w, assets/live/mace-04-2400.webp 2400w" sizes="100vw" alt="Mace live under warm stage lights" loading="lazy" decoding="async"></figure>
+      <figure class="lv__shot" data-a="2" data-l="25 45 55 55" style="--ar:1.5"><img src="assets/live/mace-05-2400.webp" srcset="assets/live/mace-05-800.webp 800w, assets/live/mace-05-1200.webp 1200w, assets/live/mace-05-2400.webp 2400w" sizes="100vw" alt="Mace concert, a giant mask on screen" loading="lazy" decoding="async"></figure>
+    </div>
+    <i class="lv__beam" aria-hidden="true"><i class="lv__cone"></i></i>
+    <div class="lv__foot" aria-hidden="true">
+      <div class="lv__names"><span class="lv__name on"><span>Marracash</span></span><span class="lv__name"><span>Ernia</span></span><span class="lv__name"><span>Mace</span></span></div>
+      <div class="lv__hud cap"><span><b class="lv__i">01</b> / 15</span><span class="lv__hint"><span class="lv__hint--m">Move the light</span><span class="lv__hint--t">Swipe</span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- POV — BEHIND THE SCENES -->
+<section class="pv" data-pov aria-label="Behind the scenes, point of view">
+  <h2 class="pv__back"><span>Behind the</span><span>scenes</span></h2>
+  <div class="pv__hold"><div class="pv__phone">
+    <div class="pv__screen">
+      <video class="pv__v" src="assets/video/pov-home.mp4" poster="assets/video/pov-home-poster.webp" muted loop playsinline preload="none"></video>
+    </div>
+    <img class="pv__frame" src="assets/img/device-fold.webp" alt="" aria-hidden="true">
+  </div></div>
+  <div class="pv__cap"><span class="kick">POV</span>
+    <p>Shot on the phone while the camera was already working, at the Forum in Assago and the arena in Jesolo.</p></div>
+</section>
+
+<!-- SERVICES -->
+<section class="sv sec" id="services">
+  <div class="sh"><span class="kick">05 / Services</span><h2 class="h2 sv__h" data-lines>What I do</h2></div>
+  <ul class="sv__l" id="svList">
+    <li class="sv__i" data-k="brand"><span class="sv__n cap">01</span><span class="sv__t"><span class="roll"><span data-t="Brand content">Brand content</span></span></span><p class="sv__d">Producing visual content that strengthens your identity.</p></li>
+    <li class="sv__i" data-k="edit"><span class="sv__n cap">02</span><span class="sv__t"><span class="roll"><span data-t="Video editing">Video editing</span></span></span><p class="sv__d">Transforming footage into dynamic, emotional visuals.</p></li>
+    <li class="sv__i" data-k="event"><span class="sv__n cap">03</span><span class="sv__t"><span class="roll"><span data-t="Event shooting">Event shooting</span></span></span><p class="sv__d">Capturing energy, emotion and atmosphere live.</p></li>
+    <li class="sv__i" data-k="film"><span class="sv__n cap">04</span><span class="sv__t"><span class="roll"><span data-t="Short films">Short films</span></span></span><p class="sv__d">Crafting cinematic stories from concept to screen.</p></li>
+    <li class="sv__i" data-k="over"><span class="sv__n cap">05</span><span class="sv__t"><span class="roll"><span data-t="Webcam overlays">Webcam overlays</span></span></span><p class="sv__d">Designing unique animated webcam scenes for creators.</p></li>
+  </ul>
+</section>
+
+<!-- NUMBERS -->
+<section class="nb" id="numbers">
+  <div class="nb__pin">
+    <span class="kick">06 / In numbers</span>
+    <div class="nb__big">
+      <span class="odo" data-to="47">47</span>
+      <span class="nb__unit">Mln+<em>total views</em></span>
+    </div>
+    <p class="nb__note">Across personal content and collaborations I contributed to through editing, direction or creative input.</p>
+    <div class="nb__fl">
+      <div class="fl fl--1" data-d="0.8"><b data-to="25" data-u="M+">25<small>M+</small></b><span>YouTube Shorts</span></div>
+      <div class="fl fl--2" data-d="1.3"><b data-to="14" data-u="M+">14<small>M+</small></b><span>TikTok</span></div>
+      <div class="fl fl--3" data-d="1.0"><b data-to="4"  data-u="M+">4<small>M+</small></b><span>Instagram Reels</span></div>
+      <div class="fl fl--4" data-d="0.6"><b data-to="6"  data-u="+">6<small>+</small></b><span>years of experience</span></div>
+      <div class="fl fl--5" data-d="1.4"><b data-to="25" data-u="+">25<small>+</small></b><span>projects and collaborations</span></div>
+      <div class="fl fl--6" data-d="0.9"><b data-to="20" data-u="+">20<small>+</small></b><span>creators and brands</span></div>
+      <div class="fl fl--7" data-d="1.2"><b data-to="5"  data-u="+">5<small>+</small></b><span>creative fields</span></div>
+      <div class="fl fl--8" data-d="0.7"><b data-to="99" data-u="%">99<small>%</small></b><span>commitment to quality</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRESS — MEDIA & COVERAGE -->
+<section class="pr" id="press" aria-label="Press, media and coverage">
+  <div class="pr__head">
+    <span class="kick">07 / Press</span>
+    <h2 class="h2 pr__h" data-lines>Press, media &amp; coverage</h2>
+    <p class="pr__lead">Hope received significant media attention and multiple festival acknowledgments, both in Italy and abroad. The project stood out for its emotional depth and visual identity, earning visibility across major regional outlets and international competitions.</p>
+  </div>
+
+  <ol class="pr__wall">
+    <li class="pr__o"><span class="pr__mk pr__mk--img"><img src="assets/logo/press/rai.webp" alt="Rai" width="395" height="216" loading="lazy"></span><span class="pr__d">On-site interview and feature segment on RAI 3</span></li>
+    <li class="pr__o"><span class="pr__mk pr__mk--aa">Alto&nbsp;Adige</span><span class="pr__d">Full-page article dedicated to the film</span></li>
+    <li class="pr__o"><span class="pr__mk pr__mk--nbc"><b>NBC</b><i>Radio</i></span><span class="pr__d">Interview as winner of the Student Film Festival</span></li>
+    <li class="pr__o"><span class="pr__mk pr__mk--aai">Alto&nbsp;Adige<em>Innovazione</em></span><span class="pr__d">Coverage, alongside further regional outlets</span></li>
+  </ol>
+
+  <div class="pr__aw">
+    <span class="kick">Awards &amp; festival highlights</span>
+    <ol class="pr__laurels">
+      <li><b>Festival Studentesco di Cinematografia</b><span class="cap">Official winner &middot; 2023</span></li>
+      <li><b>Fuoricampo FilmFest</b><span class="cap">Official finalist &middot; 2023</span></li>
+      <li><b>Lift-Off Filmmaker Sessions</b><span class="cap">Official finalist &middot; 2023</span></li>
+      <li><b>Student World Impact Film Festival</b><span class="cap">Official finalist &middot; 2023</span></li>
+      <li><b>United Kingdom and United States</b><span class="cap">Super finalist</span></li>
+      <li><b>Rome</b><span class="cap">Final selection at major screenings</span></li>
+    </ol>
+    <p class="pr__imp">These recognitions strengthened the film&rsquo;s reach and marked a key milestone in my growth as a young filmmaker, opening the door to further creative and festival opportunities.</p>
+    <a class="pr__go uh" href="project.html?p=hope" data-pt="Hope">See the film</a>
+  </div>
+</section>
+
+<!-- LIGHT ZONE -->
+<div class="zone">
+
+<section class="ab sec" id="about">
+  <div class="sh"><span class="kick">08 / About</span><h2 class="h2 ab__h" data-lines>I'm Abdellah Khanani. I&nbsp;merge engineering logic with creative direction.</h2></div>
+  <div class="ab__g">
+    <div class="ab__m">
+      <figure class="ab__f ab__f--a"><img src="assets/img/portrait-set.webp" alt="Abdellah Khanani filming on set" loading="lazy"></figure>
+      <figure class="ab__f ab__f--b"><img src="assets/img/portrait-gimbal.webp" alt="Abdellah Khanani shooting on a gimbal" loading="lazy"></figure>
+    </div>
+    <div class="ab__x">
+      <p data-lines>An independent filmmaker and video editor based in Bolzano, Italy.</p>
+      <p class="sm">I use responsive storytelling and visual design to keep consistency and impact across every format and platform. I experiment with unconventional camera work and narrative pacing, always looking for new ways to connect with an audience, from brand collaborations to live events.</p>
+      <div class="tools">
+        <span class="kick">Software</span>
+        <div class="tool"><div class="tool__h"><h4>DaVinci Resolve Studio</h4><b class="tool__p tc" data-to="99">99%</b></div><span class="tool__s">Colour grading and cinematic look</span><div class="tool__line"><i style="width:99%"></i></div></div>
+        <div class="tool"><div class="tool__h"><h4>After Effects</h4><b class="tool__p tc" data-to="98">98%</b></div><span class="tool__s">Motion design and visual effects</span><div class="tool__line"><i style="width:98%"></i></div></div>
+        <div class="tool"><div class="tool__h"><h4>Photoshop</h4><b class="tool__p tc" data-to="92">92%</b></div><span class="tool__s">Visual design and image crafting</span><div class="tool__line"><i style="width:92%"></i></div></div>
+        <div class="tool"><div class="tool__h"><h4>Premiere Pro, CapCut and Figma</h4><b class="tool__p tc" data-to="80">80%</b></div><span class="tool__s">Editing and creative workflow</span><div class="tool__line"><i style="width:80%"></i></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="xp sec" id="exp">
+  <span class="kick">09 / Experience</span>
+  <div class="xp__wrap">
+    <div class="xp__side" aria-hidden="true">
+      <div class="xp__yr"><div class="xp__yrs"><span>2018</span><span>2023</span><span>2024</span><span>2026</span><span>∞</span></div></div>
+    </div>
+    <ol class="xp__list">
+      <li class="xp__i"><span class="xp__y cap">2018 / present</span><h3>Freelance filmmaker and video editor</h3><p class="xp__o">Independent, self-employed</p><p class="xp__d">Producing, directing and editing visual content for brands, artists and creators. Managing the entire workflow from concept and shooting to final delivery across multiple platforms.</p></li>
+      <li class="xp__i"><span class="xp__y cap">2023 / present</span><h3>Content creator and creative collaborator</h3><p class="xp__o">Social media and brand projects</p><p class="xp__d">Involved in the ideation, filming and editing of viral content exceeding 47 million views alongside teams of creators.</p></li>
+      <li class="xp__i"><span class="xp__y cap">2024 / present</span><h3>Computer engineering student</h3><p class="xp__o">Free University of Bolzano</p><p class="xp__d">Developing analytical and technical skills through a modern, international programme, combining engineering principles with creativity to approach filmmaking with precision and structure.</p></li>
+      <li class="xp__i"><span class="xp__y cap">June 2026</span><h3>Invited talent for adidas Terrex</h3><p class="xp__o">With The Pill at Lavaredo Ultra Trail</p><p class="xp__d">Invited by adidas to try the Terrex Agravic trail shoes on the shakeout run with The Pill, and to share the experience on Instagram.</p></li>
+      <li class="xp__i"><span class="xp__y cap">Ongoing</span><h3>Technical and visual innovator</h3><p class="xp__o">Personal projects and experiments</p><p class="xp__d">Exploring new techniques in visual design, VFX and digital storytelling, merging engineering logic with creative direction to craft unique visual experiences.</p></li>
+    </ol>
+  </div>
+</section>
+
+</div>
+
+<!-- BEHIND THE FRAME — FLY-THROUGH -->
+<section class="fly" id="onset">
+  <div class="fly__stage">
+    <div class="fly__c">
+      <span class="kick">10 / Behind the scenes</span>
+      <h2 class="fly__t">Behind the frame</h2>
+      <a class="pill fly__cta" href="bts.html" data-pt="Behind the scenes"><span>See all stills</span></a>
+    </div>
+    <figure class="fly__ph fly__ph--l"><img src="assets/img/bts-01.webp" alt="On set" loading="lazy"></figure>
+    <figure class="fly__ph"><img src="assets/img/bts-02.webp" alt="On set" loading="lazy"></figure>
+    <figure class="fly__ph"><img src="assets/img/bts-06.webp" alt="On set" loading="lazy"></figure>
+    <figure class="fly__ph fly__ph--l"><img src="assets/img/bts-04.webp" alt="On set" loading="lazy"></figure>
+    <figure class="fly__ph"><img src="assets/img/bts-08.webp" alt="On set" loading="lazy"></figure>
+    <figure class="fly__ph"><img src="assets/img/bts-10.webp" alt="On set" loading="lazy"></figure>
+    <figure class="fly__ph fly__ph--l"><img src="assets/img/bts-07.webp" alt="On set" loading="lazy"></figure>
+    <figure class="fly__ph"><img src="assets/img/bts-12.webp" alt="On set" loading="lazy"></figure>
+    <figure class="fly__ph"><img src="assets/img/bts-17.webp" alt="On set" loading="lazy"></figure>
+    <figure class="fly__ph fly__ph--l"><img src="assets/img/bts-14.webp" alt="On set" loading="lazy"></figure>
+    <figure class="fly__ph"><img src="assets/img/bts-19.webp" alt="On set" loading="lazy"></figure>
+    <figure class="fly__ph"><img src="assets/img/bts-05.webp" alt="On set" loading="lazy"></figure>
+    <figure class="fly__ph fly__ph--l"><img src="assets/img/bts-15.webp" alt="On set" loading="lazy"></figure>
+    <figure class="fly__ph"><img src="assets/img/bts-09.webp" alt="On set" loading="lazy"></figure>
+    <figure class="fly__ph"><img src="assets/img/portrait-lean.webp" alt="On set" loading="lazy"></figure>
+    <figure class="fly__ph fly__ph--l"><img src="assets/img/bts-16.webp" alt="On set" loading="lazy"></figure>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section class="ig sec" id="instagram">
+  <div class="sh ig__head">
+    <div><span class="kick">11 / Instagram</span><h2 class="h2">@abdellah_khanani</h2></div>
+    <a class="pill ig__follow" href="https://instagram.com/abdellah_khanani" target="_blank" rel="noopener"><span>Follow</span></a>
+  </div>
+  <div class="ig__grid" data-ig></div>
+</section>
+
+<!-- VOICES -->
+<section class="vc sec">
+  <span class="kick">12 / Voices</span>
+  <figure class="vc__f">
+    <blockquote>“Working with Abde is always smooth. He understands exactly what I want, adds his own touch, and turns simple ideas into something that stands out.”</blockquote>
+    <figcaption><img src="assets/logo/teknoyd.webp" alt="" loading="lazy"><span><b>Teknoyd</b><em class="cap">Content creator</em></span></figcaption>
+  </figure>
+</section>
+
+</main>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="ft" id="contact">
+  <div class="ft__in">
+    <span class="kick">Contact</span>
+    <h2 class="ft__big">
+      <span class="ln ft__l1"><span class="lin">Let's work</span></span>
+      <span class="ln ft__l2"><span class="lin">together</span></span>
+    </h2>
+    <div class="ft__act">
+      <span class="ft__mails"><a class="ft__mail" href="mailto:mail@ak-design.it" data-cur="mail">mail@ak-design.it</a><a class="ft__mail2" href="mailto:abdellah.khanani.1@gmail.com" data-cur="mail">abdellah.khanani.1@gmail.com</a></span>
+      <a class="pill pill--lg" href="contact.html" data-pt="Start a project" data-mag><span>Start a project</span></a>
+    </div>
+    <div class="ft__g">
+      <div class="ft__c"><span class="cap">Social</span><a href="https://instagram.com/abdellah_khanani" target="_blank" rel="noopener" class="uh">Instagram</a></div>
+      <div class="ft__c"><span class="cap">Based in</span><p>Bolzano, Italy<br><em>available worldwide</em></p></div>
+      <div class="ft__c"><span class="cap">Status</span><p class="ft__st"><i></i>Open for 2026 projects</p></div>
+      <div class="ft__c"><span class="cap">Local time</span><p><span class="tc" data-clock>--:--</span> in Bolzano</p></div>
+    </div>
+    <div class="ft__bar cap">
+      <span>© <span id="yr">2026</span> Abdellah Khanani</span>
+      <img class="ft__logo" src="assets/logo/ak-design.webp" alt="AK Design" width="368" height="81" loading="lazy">
+      <a href="#top">Back to top</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════ SCRIPTS ══════════ -->
+<script src="js/lib/lenis.min.js?v=80"></script>
+<script src="js/lib/gsap.min.js?v=80"></script>
+<script src="js/lib/ScrollTrigger.min.js?v=80"></script>
+<script src="js/instagram.js?v=80"></script>
+<script src="js/pages.js?v=80"></script>
+<script src="js/app.js?v=80"></script>
+<!-- GoatCounter: privacy-first, no cookies, no consent banner needed.
+     Swap YOURCODE below for the code you pick when you create the site. -->
+<script>
+  // local and preview runs must not pollute the real numbers
+  window.goatcounter = { no_onload: location.hostname === 'localhost' || location.hostname === '127.0.0.1' };
+</script>
+<script data-goatcounter="https://YOURCODE.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

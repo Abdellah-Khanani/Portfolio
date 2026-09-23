@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js has-gsap" data-pending>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>All work, Abdellah Khanani</title>
+<link rel="icon" type="image/png" href="assets/logo/ak-icon-48.png">
+<link rel="apple-touch-icon" href="assets/logo/ak-icon-180.png">
+<meta name="description" content="Every project by Abdellah Khanani: brand content, short films, event shooting, fashion and web.">
+<meta name="theme-color" content="#000000">
+<meta property="og:type" content="website">
+<meta property="og:title" content="All work, Abdellah Khanani">
+<meta property="og:description" content="Every project by Abdellah Khanani: brand content, short films, event shooting, fashion and web.">
+<meta property="og:image" content="assets/img/portrait-hero.jpg">
+<link rel="preload" href="assets/font/archivo-300_900.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/font/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/app.css?v=80">
+<script>(function(){var c='js';try{if(sessionStorage.getItem('ak:pt')!==null)c+=' pt-in';if(sessionStorage.getItem('ak:cover'))c+=' pt-cover'}catch(e){}document.documentElement.className=c})();</script>
+</head>
+<body>
+
+<!-- ══════════ OVERLAYS ══════════ -->
+<div class="grain" aria-hidden="true"></div>
+<div class="scan" aria-hidden="true"></div>
+<div class="gate" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+<!-- ══════════ CURSOR ══════════ -->
+<div class="cur" id="cur" aria-hidden="true">
+  <div class="cur__ring"><span class="cur__txt"></span></div>
+  <div class="cur__dot"></div>
+</div>
+
+<!-- ══════════ RAIL ══════════ -->
+<div class="rail" aria-hidden="true">
+  <div class="rail__l"><i id="railF"></i></div>
+  <span class="rail__p tc" id="railP">00</span>
+  <span class="rail__s cap" id="railS">Scroll<i></i></span>
+</div>
+
+<!-- ══════════ HEADER ══════════ -->
+<header class="hdr" id="hdr">
+  <a href="index.html" class="hdr__b" aria-label="Abdellah Khanani, home" data-pt="Home"><img class="hdr__m" src="assets/logo/ak-mark.webp" alt="AK" width="162" height="81"><span class="hdr__r cap"><i></i>Rec</span></a>
+  <span class="hdr__tc tc" id="tc" aria-hidden="true">00:00:00:00</span>
+  <div class="hdr__e">
+    <span class="hdr__c cap">Bolzano <b class="tc" id="clk">00:00:00</b></span>
+    <a href="contact.html" class="pill" data-mag data-pt="Start a project"><span>Start a project</span></a>
+    <button class="brg" id="brg" aria-label="Menu" aria-expanded="false"><i></i><i></i></button>
+  </div>
+</header>
+
+<!-- ══════════ NAV ══════════ -->
+<nav class="nav" id="nav" aria-hidden="true">
+  <div class="nav__bg"></div>
+  <ul class="nav__l">
+    <li><a href="work.html" data-pt="All work">Work</a></li>
+    <li><a href="index.html#live" data-pt="On stage">On stage</a></li>
+    <li><a href="index.html#services" data-pt="Services">Services</a></li>
+    <li><a href="bts.html" data-pt="Behind the scenes">Behind the scenes</a></li>
+    <li><a href="index.html#about" data-pt="About">About</a></li>
+    <li><a href="contact.html" data-pt="Start a project">Start a project</a></li>
+  </ul>
+  <div class="nav__f cap">
+    <span>Bolzano, Italy / available worldwide</span>
+    <a href="https://instagram.com/abdellah_khanani" target="_blank" rel="noopener">@abdellah_khanani</a>
+  </div>
+</nav>
+
+<!-- ══════════ DOCK ══════════ -->
+<nav class="dock glass" id="dock" aria-label="Sections">
+  <span class="dock__lens glass" aria-hidden="true"></span>
+  <a class="dock__a" href="work.html" data-k="work" data-pt="All work">Work</a>
+  <a class="dock__a" href="index.html#live" data-k="live" data-pt="On stage">Stage</a>
+  <a class="dock__a dock__a--x" href="index.html#services" data-k="services" data-pt="Services">Services</a>
+  <a class="dock__a" href="index.html#about" data-k="about" data-pt="About">About</a>
+  <a class="dock__a" href="contact.html" data-k="contact" data-pt="Start a project">Contact</a>
+</nav>
+
+<!-- ══════════ /CHROME ══════════ -->
+<main id="top" class="wk" data-work data-mode="grid">
+  <section class="wk__head">
+    <span class="kick">All work</span>
+    <h1 class="h1" data-lines>Every project</h1>
+    <div class="wk__bar">
+      <div class="wk__filters" data-work-filters role="group" aria-label="Filter by category"></div>
+      <div class="wk__tools">
+        <span class="cap" data-work-count aria-live="polite">00 projects</span>
+        <div class="wk__views" role="group" aria-label="View"><button type="button" data-view="grid" aria-pressed="true">Grid</button><button type="button" data-view="index" aria-pressed="false">Index</button></div>
+      </div>
+    </div>
+  </section>
+  <section class="wk__body" aria-label="Projects">
+    <div class="wk__grid" data-work-grid></div>
+    <div class="wk__index" data-work-index></div>
+  </section>
+</main>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="ft" id="contact">
+  <div class="ft__in">
+    <span class="kick">Contact</span>
+    <h2 class="ft__big">
+      <span class="ln ft__l1"><span class="lin">Let's work</span></span>
+      <span class="ln ft__l2"><span class="lin">together</span></span>
+    </h2>
+    <div class="ft__act">
+      <span class="ft__mails"><a class="ft__mail" href="mailto:mail@ak-design.it" data-cur="mail">mail@ak-design.it</a><a class="ft__mail2" href="mailto:abdellah.khanani.1@gmail.com" data-cur="mail">abdellah.khanani.1@gmail.com</a></span>
+      <a class="pill pill--lg" href="contact.html" data-pt="Start a project" data-mag><span>Start a project</span></a>
+    </div>
+    <div class="ft__g">
+      <div class="ft__c"><span class="cap">Social</span><a href="https://instagram.com/abdellah_khanani" target="_blank" rel="noopener" class="uh">Instagram</a></div>
+      <div class="ft__c"><span class="cap">Based in</span><p>Bolzano, Italy<br><em>available worldwide</em></p></div>
+      <div class="ft__c"><span class="cap">Status</span><p class="ft__st"><i></i>Open for 2026 projects</p></div>
+      <div class="ft__c"><span class="cap">Local time</span><p><span class="tc" data-clock>--:--</span> in Bolzano</p></div>
+    </div>
+    <div class="ft__bar cap">
+      <span>© <span id="yr">2026</span> Abdellah Khanani</span>
+      <img class="ft__logo" src="assets/logo/ak-design.webp" alt="AK Design" width="368" height="81" loading="lazy">
+      <a href="#top">Back to top</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════ SCRIPTS ══════════ -->
+<script src="js/lib/lenis.min.js?v=80"></script>
+<script src="js/lib/gsap.min.js?v=80"></script>
+<script src="js/lib/ScrollTrigger.min.js?v=80"></script>
+<script src="js/projects.js?v=80"></script>
+<script src="js/pages.js?v=80"></script>
+<script src="js/app.js?v=80"></script>
+<!-- GoatCounter: privacy-first, no cookies, no consent banner needed.
+     Swap YOURCODE below for the code you pick when you create the site. -->
+<script>
+  // local and preview runs must not pollute the real numbers
+  window.goatcounter = { no_onload: location.hostname === 'localhost' || location.hostname === '127.0.0.1' };
+</script>
+<script data-goatcounter="https://YOURCODE.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

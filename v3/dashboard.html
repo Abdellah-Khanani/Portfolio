@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Studio — Abdellah Khanani</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="assets/logo/ak-icon-48.png">
+<link rel="apple-touch-icon" href="assets/logo/ak-icon-180.png">
+<meta name="theme-color" content="#000000">
+<link rel="preload" href="assets/font/archivo-300_900.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/font/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/dash.css?v=80">
+</head>
+<body>
+
+<header class="dh">
+  <a class="dh__b" href="index.html"><img src="assets/logo/ak-mark.webp" alt="AK"><span>Studio</span></a>
+  <nav class="dh__tabs" id="tabs" aria-label="Sections">
+    <button type="button" data-tab="work" class="on">Work</button>
+    <button type="button" data-tab="stats">Stats</button>
+    <button type="button" data-tab="publish">Publish</button>
+  </nav>
+  <div class="dh__st cap" id="state"><i></i><span>Loading</span></div>
+</header>
+
+<main>
+
+<!-- ══════════ WORK ══════════ -->
+<section class="pane on" id="tab-work">
+  <div class="work" id="work">
+    <aside class="dl">
+      <div class="dl__top">
+        <div class="fld"><input type="search" id="q" placeholder="Search work" aria-label="Search work"></div>
+        <div class="fld"><select id="fcat" aria-label="Filter by category"><option value="">All categories</option></select></div>
+        <button type="button" class="btn btn--p" id="add">+ New</button>
+      </div>
+      <ol class="dl__l" id="list"></ol>
+    </aside>
+
+    <div class="de" id="editor">
+      <div class="de__empty" id="empty"><p>Pick a project to edit it,<br>or add a new one.</p></div>
+      <form id="form" hidden autocomplete="off">
+        <div class="de__top">
+          <button type="button" class="btn btn--x back" id="back">&larr;</button>
+          <h2 id="etitle">—</h2>
+          <a class="btn btn--x" id="view" href="#" target="_blank" rel="noopener">View</a>
+          <button type="button" class="btn btn--x" id="dup">Duplicate</button>
+          <button type="button" class="btn btn--x" id="del">Delete</button>
+        </div>
+        <div class="de__body">
+
+          <div class="grp">
+            <span class="cap">Identity</span>
+            <div class="row">
+              <label class="f"><span>Title</span><input type="text" id="f-title"></label>
+              <label class="f"><span>Slug (the web address)</span><input type="text" id="f-slug"><p class="err" id="e-slug" hidden></p></label>
+            </div>
+            <div class="row">
+              <label class="f"><span>Category</span><input type="text" id="f-category" list="cats"></label>
+              <label class="f"><span>Page layout</span>
+                <select id="f-layout">
+                  <option value="story">Story — plain flow</option>
+                  <option value="stage">Stage — photos between the text</option>
+                  <option value="carousel">Carousel — swipeable photo strip</option>
+                  <option value="film">Film — poster, facts, trailer</option>
+                  <option value="video">Video — film first</option>
+                  <option value="phone">Phone — Instagram story mockup</option>
+                </select>
+              </label>
+            </div>
+            <div class="row">
+              <label class="f"><span>Role</span><input type="text" id="f-role"></label>
+              <label class="f"><span>Year</span><input type="text" id="f-year"></label>
+              <label class="f"><span>Client</span><input type="text" id="f-client"></label>
+            </div>
+          </div>
+
+          <div class="grp">
+            <span class="cap">Words</span>
+            <label class="f" style="margin-bottom:12px"><span>Lead — the one line under the title</span><textarea id="f-lead" rows="2"></textarea></label>
+            <div class="rep__h"><span class="cap">Paragraphs</span><button type="button" class="btn btn--x" data-add="body">+ Add paragraph</button></div>
+            <div class="rep" id="r-body"></div>
+            <label class="f" style="margin-top:16px"><span>Credits</span><input type="text" id="f-credits"></label>
+          </div>
+
+          <div class="grp">
+            <span class="cap">Media</span>
+            <div class="row">
+              <label class="f"><span>Cover image</span><input type="text" id="f-cover" list="imgs"></label>
+              <label class="f"><span>Video file</span><input type="text" id="f-video" list="vids"></label>
+              <label class="f"><span>Video poster</span><input type="text" id="f-poster" list="imgs"></label>
+            </div>
+            <label class="f" style="margin:4px 0 14px"><input type="checkbox" id="f-portrait" style="width:auto;margin-right:8px"><span style="display:inline">Photos are vertical — show them two by two</span></label>
+            <div class="rep__h"><span class="cap">Photos</span>
+              <span style="display:flex;gap:6px;flex-wrap:wrap">
+                <label class="btn btn--x" for="up" style="cursor:pointer">+ Upload from device</label>
+                <button type="button" class="btn btn--x" data-add="images">+ Add path</button>
+              </span></div>
+            <input type="file" id="up" accept="image/*" multiple hidden>
+            <div class="rep" id="r-images"></div>
+            <div class="thumbs" id="thumbs"></div>
+            <div id="upq"></div>
+          </div>
+
+          <div class="grp">
+            <span class="cap">Facts &amp; links</span>
+            <div class="rep__h"><span class="cap">Facts</span><button type="button" class="btn btn--x" data-add="facts">+ Add fact</button></div>
+            <div class="rep" id="r-facts"></div>
+            <div class="rep__h" style="margin-top:16px"><span class="cap">Links</span><button type="button" class="btn btn--x" data-add="links">+ Add link</button></div>
+            <div class="rep" id="r-links"></div>
+          </div>
+
+          <div class="grp" id="grp-press">
+            <span class="cap">Press &amp; awards</span>
+            <p class="hint">Shown on the project page when the layout is Film, and on the home page press section.</p>
+            <div class="rep__h" style="margin-top:12px"><span class="cap">Press</span><button type="button" class="btn btn--x" data-add="press">+ Add outlet</button></div>
+            <div class="rep" id="r-press"></div>
+            <div class="rep__h" style="margin-top:16px"><span class="cap">Awards</span><button type="button" class="btn btn--x" data-add="awards">+ Add award</button></div>
+            <div class="rep" id="r-awards"></div>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ STATS ══════════ -->
+<section class="pane" id="tab-stats">
+  <div class="wrap">
+    <h1 class="h2">Your work, counted</h1>
+    <p class="hint" style="margin:-6px 0 22px;max-width:60ch">Every number here is read from your own projects, live. Nothing is estimated.</p>
+    <div class="kpis" id="kpis"></div>
+    <div class="cards">
+      <div class="card"><span class="cap">Work by category</span><div class="bars" id="c-cat"></div></div>
+      <div class="card"><span class="cap">Work by year</span><div id="c-year"></div></div>
+      <div class="card"><span class="cap">How the pages are built</span><div class="bars" id="c-layout"></div></div>
+      <div class="card"><span class="cap">Pages with photos or video</span><div class="ring" id="c-media"></div></div>
+      <div class="card"><span class="cap">Press &amp; awards</span><div id="c-press"></div></div>
+      <div class="card"><span class="cap">Clients</span><div id="c-clients"></div></div>
+    </div>
+
+    <h2 class="h2" style="margin-top:48px">Visitors</h2>
+    <div class="off" id="traffic">
+      <b>Not connected yet</b>
+      <p style="margin:0 0 4px">Visitor numbers need the site to be online with an analytics service attached.<br>
+      Until then this panel stays empty on purpose — better blank than invented.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ PUBLISH ══════════ -->
+<section class="pane" id="tab-publish">
+  <div class="wrap pub">
+    <h1 class="h2">Publish</h1>
+
+    <div class="step">
+      <h3>1. Download the file</h3>
+      <p>Your changes live in this browser until you publish them. This gives you the single file the site reads, ready to drop in.</p>
+      <div class="acts">
+        <button type="button" class="btn btn--p" id="dl">Download projects.js</button>
+        <button type="button" class="btn" id="copy">Copy to clipboard</button>
+        <button type="button" class="btn" id="revert">Undo all my changes</button>
+      </div>
+      <div class="note">Put the file in the site folder as <b>js/projects.js</b>, replacing the old one, then upload the folder to Netlify.</div>
+    </div>
+
+    <div class="step">
+      <h3>2. Or save straight to GitHub</h3>
+      <p>Once the site lives in a GitHub repository, this button writes the file there and your host republishes on its own — no files, no computer, works from your phone.</p>
+      <div class="row">
+        <label class="f"><span>Owner (your GitHub username)</span><input type="text" id="gh-owner" placeholder="abdellah"></label>
+        <label class="f"><span>Repository</span><input type="text" id="gh-repo" placeholder="portfolio"></label>
+      </div>
+      <div class="row">
+        <label class="f"><span>Branch</span><input type="text" id="gh-branch" placeholder="main"></label>
+        <label class="f"><span>Path to the file</span><input type="text" id="gh-path" placeholder="v3/js/projects.js"></label>
+      </div>
+      <label class="f" style="margin-bottom:12px"><span>Access token</span><input type="text" id="gh-token" placeholder="github_pat_..."></label>
+      <div class="acts">
+        <button type="button" class="btn" id="gh-save">Remember settings</button>
+        <button type="button" class="btn btn--p" id="gh-push">Publish to GitHub</button>
+        <button type="button" class="btn" id="gh-test">Test connection</button>
+      </div>
+      <div class="log" id="gh-log"></div>
+      <div class="note"><b>About the token:</b> create a fine-grained token limited to this one repository, with permission <b>Contents: read and write</b>. It is kept only in this browser. Anyone who unlocks your phone could use it, so do not add other permissions, and delete it on GitHub if you lose the device.</div>
+    </div>
+
+    <div class="step">
+      <h3>Where things stand</h3>
+      <div class="log" id="status"></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<datalist id="imgs"></datalist>
+<datalist id="vids"></datalist>
+<datalist id="cats"></datalist>
+<div class="toast" id="toast"></div>
+
+<script src="js/projects.js?v=80"></script>
+<script src="js/dash.js?v=80"></script>
+</body>
+</html>

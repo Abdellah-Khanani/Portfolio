@@ -1,0 +1,11 @@
+# photo and video masters the site no longer serves — kept locally, never published
+originals/
+
+# local tooling and build output
+node_modules/
+package-lock.json
+package.json
+*.zip
+
+.DS_Store
+**/.DS_Store

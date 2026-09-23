@@ -1,0 +1,32 @@
+<title>Shot harness</title>
+<style>html,body{margin:0;height:100%;background:#000;overflow:hidden}iframe{border:0;display:block;width:100vw;height:100vh}</style>
+<iframe id="f"></iframe>
+<script>
+// Dev-only: loads a page in an iframe, scrolls it to a pinned section's progress (?pin=lv&p=.3)
+// or to a selector (?sel=.cl&off=60), optionally steers the pointer (?mx=.7&my=.3).
+const q = new URLSearchParams(location.search), page = q.get('page') || 'index.html';
+const f = document.getElementById('f');
+if (q.get('w')) f.style.width = q.get('w') + 'px';   // emulate a narrow screen inside a wide window
+f.src = '../' + page + (page.includes('?') ? '&' : '?') + 'h=' + Date.now();
+f.onload = () => setTimeout(() => {
+  const w = f.contentWindow, ST = w.ScrollTrigger;
+  let y = 0;
+  if (q.get('pin') && ST) {
+    const t = ST.getAll().find(t => t.pin && t.trigger.classList.contains(q.get('pin')));
+    if (t) y = t.start + (t.end - t.start) * (+q.get('p') || 0);
+  } else if (q.get('sel')) {
+    const el = w.document.querySelector(q.get('sel'));
+    if (el) y = el.getBoundingClientRect().top + w.scrollY + (+q.get('off') || 0);
+  }
+  w.__lenis ? w.__lenis.scrollTo(y, { immediate: true }) : w.scrollTo(0, y);
+  if (ST) ST.update();
+  if (q.get('mx')) {
+    const el = w.document.querySelector('.lv') || w.document.body;
+    let n = 0;
+    const iv = setInterval(() => {
+      el.dispatchEvent(new w.PointerEvent('pointermove', { clientX: +q.get('mx') * w.innerWidth, clientY: +q.get('my') * w.innerHeight, bubbles: true }));
+      if (++n > 80) clearInterval(iv);
+    }, 30);
+  }
+}, +q.get('wait') || 6000);
+</script>

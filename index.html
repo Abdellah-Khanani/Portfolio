@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Abdellah Khanani — Videomaker &amp; Filmmaker, Bolzano</title>
+<meta name="description" content="Abdellah Khanani — independent filmmaker, videomaker and video editor based in Bolzano, Italy. Cinematic stories for brands, artists and events.">
+<meta name="theme-color" content="#000000">
+<meta property="og:title" content="Abdellah Khanani — Videomaker &amp; Filmmaker">
+<meta property="og:description" content="Independent filmmaker and visual creator based in Bolzano, Italy.">
+<meta property="og:image" content="assets/img/portrait-hero.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="is-loading">
+
+<!-- ══════════ PRELOADER ══════════ -->
+<div class="loader" id="loader">
+  <div class="loader__bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="loader__inner">
+    <div class="loader__leader">
+      <svg viewBox="0 0 200 200" class="leader">
+        <circle class="leader__ring" cx="100" cy="100" r="88"/>
+        <circle class="leader__ring leader__ring--in" cx="100" cy="100" r="62"/>
+        <line x1="100" y1="0"   x2="100" y2="200"/>
+        <line x1="0"   y1="100" x2="200" y2="100"/>
+        <circle class="leader__sweep" cx="100" cy="100" r="88"/>
+      </svg>
+      <span class="loader__count" id="loaderCount">0</span>
+    </div>
+    <div class="loader__meta">
+      <span data-scramble>LOADING REEL</span>
+      <span class="loader__name">ABDELLAH KHANANI</span>
+    </div>
+  </div>
+  <div class="loader__bar"><i id="loaderBar"></i></div>
+</div>
+
+<!-- ══════════ FILM OVERLAYS ══════════ -->
+<div class="grain" aria-hidden="true"></div>
+<div class="scanlines" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="gate" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+
+<!-- ══════════ CURSOR ══════════ -->
+<div class="cursor" id="cursor" aria-hidden="true">
+  <div class="cursor__ring"><span class="cursor__label"></span></div>
+  <div class="cursor__dot"></div>
+</div>
+
+<!-- ══════════ PROGRESS ══════════ -->
+<div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+
+<!-- ══════════ HEADER ══════════ -->
+<header class="head" id="head">
+  <a class="head__brand" href="#top" data-cursor="home">
+    <span class="head__mark">AK</span>
+    <span class="head__rec"><i></i>REC</span>
+  </a>
+  <div class="head__center mono">
+    <span class="head__tc" id="timecode">00:00:00:00</span>
+  </div>
+  <div class="head__right">
+    <span class="head__clock mono"><em>LOCAL/</em> <b id="clock">00:00:00</b></span>
+    <a href="#contact" class="btn btn--sm" data-magnetic data-cursor="hide"><span>CONTACT</span></a>
+    <button class="burger" id="burger" aria-label="Menu" data-cursor="hide"><i></i><i></i></button>
+  </div>
+</header>
+
+<!-- ══════════ MENU ══════════ -->
+<nav class="menu" id="menu" aria-hidden="true">
+  <div class="menu__bg"></div>
+  <ul class="menu__list">
+    <li><a href="#work"       data-num="01"><span>WORK</span></a></li>
+    <li><a href="#about"      data-num="02"><span>ABOUT</span></a></li>
+    <li><a href="#services"   data-num="03"><span>SERVICES</span></a></li>
+    <li><a href="#reel"       data-num="04"><span>ON SET</span></a></li>
+    <li><a href="#experience" data-num="05"><span>EXPERIENCE</span></a></li>
+    <li><a href="#contact"    data-num="06"><span>CONTACT</span></a></li>
+  </ul>
+  <div class="menu__foot mono">
+    <span>BOLZANO, IT</span>
+    <a href="https://instagram.com/abdellah_khanani" target="_blank" rel="noopener">INSTAGRAM ↗</a>
+  </div>
+</nav>
+
+<main id="top">
+
+<!-- ══════════ 01 · HERO ══════════ -->
+<section class="hero" id="hero">
+  <div class="hero__type" data-fit-box>
+    <h1 class="hero__title">
+      <span class="line"><span class="word" data-fit data-split>ABDELLAH</span></span>
+      <span class="line"><span class="word" data-fit data-split>KHANANI</span></span>
+    </h1>
+  </div>
+
+  <div class="hero__meta">
+    <div class="hero__meta-i" data-reveal>
+      <span class="mono lbl">BASED IN</span>
+      <p>BOLZANO,<br><em>ITALY</em></p>
+    </div>
+    <div class="hero__meta-i" data-reveal data-delay="80">
+      <span class="mono lbl">AVAILABLE</span>
+      <p>ALL AROUND<br><em>WORLDWIDE</em></p>
+    </div>
+    <div class="hero__meta-i" data-reveal data-delay="160">
+      <span class="mono lbl">ROLE</span>
+      <p>VIDEOMAKER &amp; FILMMAKER<br><em>+ VIDEO EDITOR</em></p>
+    </div>
+  </div>
+
+  <a href="#approach" class="hero__cue mono" data-cursor="hide">
+    <span>SCROLL</span>
+    <i></i>
+  </a>
+</section>
+
+<!-- ══════════ HERO SHOT ══════════ -->
+<section class="showcase">
+  <figure class="showcase__shot">
+    <div class="frame" data-reveal-img>
+      <img src="assets/img/portrait-hero.jpg" alt="Abdellah Khanani in Bolzano" data-scale>
+      <div class="frame__marks" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <span class="frame__tag mono">A001_C012 · 2.39:1</span>
+    </div>
+  </figure>
+  <aside class="showcase__side">
+    <span class="mono lbl">REEL 001</span>
+    <p>Independent filmmaker &amp; visual creator — building cinematic stories for brands, artists and events since 2018.</p>
+  </aside>
+</section>
+
+<!-- ══════════ MARQUEE ══════════ -->
+<div class="marquee marquee--big" data-marquee data-speed="0.9">
+  <div class="marquee__track">
+    <span>FILMMAKER<i>✳</i>VIDEO EDITOR<i>✳</i>COLOR GRADING<i>✳</i>BRAND CONTENT<i>✳</i>EVENT SHOOTING<i>✳</i>MOTION DESIGN<i>✳</i></span>
+    <span>FILMMAKER<i>✳</i>VIDEO EDITOR<i>✳</i>COLOR GRADING<i>✳</i>BRAND CONTENT<i>✳</i>EVENT SHOOTING<i>✳</i>MOTION DESIGN<i>✳</i></span>
+  </div>
+</div>
+
+<!-- ══════════ 02 · APPROACH ══════════ -->
+<section class="sec" id="approach">
+  <div class="sec__head">
+    <span class="sec__num mono">01</span>
+    <span class="sec__label mono" data-scramble>//APPROACH</span>
+    <span class="sec__aside mono">THREE PHASES</span>
+  </div>
+
+  <div class="intro">
+    <h2 class="h-lg" data-split-lines>I'm Abdellah Khanani, based in Bolzano, Italy.</h2>
+    <p class="intro__p" data-reveal>I employ responsive storytelling and visual design skills to maintain consistency and impact across all formats and platforms.</p>
+  </div>
+
+  <ol class="phases">
+    <li class="phase" data-reveal>
+      <span class="phase__n mono">01</span>
+      <h3>Discover<br>&amp; Analysis</h3>
+      <p>Every project starts with understanding your story, vision, and message. I dive into the context, the feeling, and what makes your idea unique.</p>
+    </li>
+    <li class="phase" data-reveal data-delay="120">
+      <span class="phase__n mono">02</span>
+      <h3>Design<br>&amp; Implement</h3>
+      <p>From concept to shoot, I design and execute creative solutions that turn ideas into cinematic visuals. Each frame is crafted to connect emotionally and visually.</p>
+    </li>
+    <li class="phase" data-reveal data-delay="240">
+      <span class="phase__n mono">03</span>
+      <h3>Deliver<br>&amp; Monitor</h3>
+      <p>I handle post-production, delivery, and performance review — ensuring every project maintains quality, consistency, and engagement across platforms.</p>
+    </li>
+  </ol>
+</section>
+
+<!-- ══════════ 03 · WORK ══════════ -->
+<section class="sec sec--work" id="work">
+  <div class="sec__head">
+    <span class="sec__num mono">02</span>
+    <span class="sec__label mono" data-scramble>//PORTFOLIO</span>
+    <span class="sec__aside mono">2013 — 2025</span>
+  </div>
+
+  <div class="work__title">
+    <h2 class="h-xl" data-split-lines>Latest portfolio</h2>
+    <p data-reveal>My creative spirit comes alive in the digital realm — from brand collaborations to live events and short films.</p>
+  </div>
+
+  <div class="work" id="workList">
+    <div class="work__hover" id="workHover" aria-hidden="true">
+      <img src="assets/img/work-moonview.jpg"   alt="" data-k="moonview">
+      <img src="assets/img/work-gameground.jpg" alt="" data-k="gameground">
+      <img src="assets/img/work-lost.jpg"       alt="" data-k="lost">
+      <img src="assets/img/work-hope.jpg"       alt="" data-k="hope">
+      <img src="assets/img/work-rayban.jpg"     alt="" data-k="rayban">
+      <img src="assets/img/work-awlab.jpg"      alt="" data-k="awlab">
+      <img src="assets/img/work-busk.jpg"       alt="" data-k="busk">
+      <img src="assets/img/work-lookbook.jpg"   alt="" data-k="lookbook">
+    </div>
+
+    <article class="work__row" data-k="moonview" data-cursor="view">
+      <span class="work__i mono">01</span>
+      <h3 class="work__name">Moonview</h3>
+      <span class="work__cat mono">VIDEOS · ADS · PHOTO</span>
+      <span class="work__yr mono">2025</span>
+      <i class="work__arrow">↗</i>
+    </article>
+    <article class="work__row" data-k="gameground" data-cursor="view">
+      <span class="work__i mono">02</span>
+      <h3 class="work__name">Game Ground</h3>
+      <span class="work__cat mono">EVENT COVERAGE</span>
+      <span class="work__yr mono">2025</span>
+      <i class="work__arrow">↗</i>
+    </article>
+    <article class="work__row" data-k="lost" data-cursor="view">
+      <span class="work__i mono">03</span>
+      <h3 class="work__name">Lost</h3>
+      <span class="work__cat mono">SHORT FILM</span>
+      <span class="work__yr mono">2024</span>
+      <i class="work__arrow">↗</i>
+    </article>
+    <article class="work__row" data-k="hope" data-cursor="view">
+      <span class="work__i mono">04</span>
+      <h3 class="work__name">Hope</h3>
+      <span class="work__cat mono">SHORT FILM</span>
+      <span class="work__yr mono">2024</span>
+      <i class="work__arrow">↗</i>
+    </article>
+    <article class="work__row" data-k="rayban" data-cursor="view">
+      <span class="work__i mono">05</span>
+      <h3 class="work__name">Ray-Ban Meta</h3>
+      <span class="work__cat mono">INSTAGRAM STORIES AD</span>
+      <span class="work__yr mono">2024</span>
+      <i class="work__arrow">↗</i>
+    </article>
+    <article class="work__row" data-k="awlab" data-cursor="view">
+      <span class="work__i mono">06</span>
+      <h3 class="work__name">AW Lab × Stream House</h3>
+      <span class="work__cat mono">BRAND CONTENT</span>
+      <span class="work__yr mono">2024</span>
+      <i class="work__arrow">↗</i>
+    </article>
+    <article class="work__row" data-k="busk" data-cursor="view">
+      <span class="work__i mono">07</span>
+      <h3 class="work__name">Busk in Bozen</h3>
+      <span class="work__cat mono">LIVE EVENT</span>
+      <span class="work__yr mono">2024</span>
+      <i class="work__arrow">↗</i>
+    </article>
+    <article class="work__row" data-k="lookbook" data-cursor="view">
+      <span class="work__i mono">08</span>
+      <h3 class="work__name">Lookbook</h3>
+      <span class="work__cat mono">FASHION / PHOTO</span>
+      <span class="work__yr mono">2024</span>
+      <i class="work__arrow">↗</i>
+    </article>
+  </div>
+
+  <!-- featured strip -->
+  <div class="strip">
+    <figure class="strip__i strip__i--w" data-parallax="0.08">
+      <div class="frame" data-reveal-img><img src="assets/img/work-moonview.jpg" alt="Moonview campaign" loading="lazy" data-scale></div>
+      <figcaption class="mono">MOONVIEW · CAMPAIGN</figcaption>
+    </figure>
+    <figure class="strip__i" data-parallax="0.18">
+      <div class="frame" data-reveal-img><img src="assets/img/work-busk.jpg" alt="Busk in Bozen" loading="lazy" data-scale></div>
+      <figcaption class="mono">BUSK IN BOZEN · LIVE</figcaption>
+    </figure>
+    <figure class="strip__i" data-parallax="0.05">
+      <div class="frame" data-reveal-img><img src="assets/img/work-lost.jpg" alt="Lost short film" loading="lazy" data-scale></div>
+      <figcaption class="mono">LOST · SHORT FILM</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ══════════ 04 · ABOUT (inverted) ══════════ -->
+<section class="sec sec--invert" id="about">
+  <div class="sec__head">
+    <span class="sec__num mono">03</span>
+    <span class="sec__label mono" data-scramble>//WHO AM I</span>
+    <span class="sec__aside mono">SINCE 2000</span>
+  </div>
+
+  <div class="about">
+    <div class="about__media">
+      <figure class="frame" data-reveal-img data-parallax="0.1">
+        <img src="assets/img/portrait-face.jpg" alt="Abdellah Khanani portrait" loading="lazy" data-scale>
+        <div class="frame__marks" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      </figure>
+      <figure class="frame frame--sm" data-reveal-img data-parallax="0.24">
+        <img src="assets/img/portrait-gimbal.jpg" alt="Abdellah on set with a gimbal" loading="lazy" data-scale>
+      </figure>
+    </div>
+
+    <div class="about__txt">
+      <h2 class="h-xl" data-split-lines>More about me</h2>
+      <p class="about__lead" data-reveal>An independent filmmaker and visual creator based in Bolzano, Italy — helping brands, artists and events turn their ideas into impactful visual stories.</p>
+      <p data-reveal data-delay="100">I experiment with unconventional camera work and narrative pacing, always seeking new ways to connect with the audience. Through every project — from brand collaborations to live events — I aim to create visuals that resonate and leave a lasting impression.</p>
+      <div class="about__sign" data-reveal data-delay="200">
+        <img src="assets/img/signature.png" alt="Abdellah Khanani signature">
+      </div>
+      <a class="btn btn--lg" href="https://drive.google.com/file/d/1Issw97gs-kreC7QWev66jO6YC2FdF0L0/view?usp=drive_link" target="_blank" rel="noopener" data-magnetic data-cursor="hide">
+        <span>DOWNLOAD RESUME</span><i>↓</i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 05 · STATS ══════════ -->
+<section class="sec sec--stats" id="stats">
+  <div class="sec__head">
+    <span class="sec__num mono">04</span>
+    <span class="sec__label mono" data-scramble>//STATS</span>
+    <span class="sec__aside mono sec__aside--wide">NUMBERS INCLUDE BOTH PERSONAL CONTENT AND COLLABORATIONS I'VE CONTRIBUTED TO THROUGH EDITING, DIRECTION, OR CREATIVE INPUT.</span>
+  </div>
+
+  <div class="stats">
+    <div class="stat" data-reveal><b class="counter" data-to="47" data-suffix="Mln+">0</b><span class="mono">TOTAL CONTENT VIEWS</span></div>
+    <div class="stat" data-reveal><b class="counter" data-to="6"  data-suffix="+">0</b><span class="mono">YEARS OF EXPERIENCE</span></div>
+    <div class="stat" data-reveal><b class="counter" data-to="25" data-suffix="+">0</b><span class="mono">PROJECTS &amp; COLLABORATIONS</span></div>
+    <div class="stat" data-reveal><b class="counter" data-to="99" data-suffix="%">0</b><span class="mono">COMMITMENT TO QUALITY</span></div>
+    <div class="stat" data-reveal><b class="counter" data-to="25" data-suffix="Mln+">0</b><span class="mono">VIEWS ON YOUTUBE SHORTS</span></div>
+    <div class="stat" data-reveal><b class="counter" data-to="14" data-suffix="Mln+">0</b><span class="mono">VIEWS ON TIKTOK</span></div>
+    <div class="stat" data-reveal><b class="counter" data-to="4"  data-suffix="Mln+">0</b><span class="mono">VIEWS ON INSTAGRAM REELS</span></div>
+    <div class="stat" data-reveal><b class="counter" data-to="20" data-suffix="+">0</b><span class="mono">CREATORS &amp; BRANDS</span></div>
+    <div class="stat" data-reveal><b class="counter" data-to="5"  data-suffix="+">0</b><span class="mono">CREATIVE FIELDS MASTERED</span></div>
+  </div>
+</section>
+
+<!-- ══════════ 06 · SERVICES ══════════ -->
+<section class="sec" id="services">
+  <div class="sec__head">
+    <span class="sec__num mono">05</span>
+    <span class="sec__label mono" data-scramble>//SERVICES</span>
+    <span class="sec__aside mono">FAST DELIVERY</span>
+  </div>
+
+  <div class="work__title">
+    <h2 class="h-xl" data-split-lines>Pro services</h2>
+    <p data-reveal>A range of services designed to take your brand, your project or your artist to the next level.</p>
+  </div>
+
+  <div class="acc" data-acc>
+    <div class="acc__i">
+      <button class="acc__h" data-cursor="hide">
+        <span class="acc__dots mono" aria-hidden="true">●●●●●</span>
+        <span class="acc__t">Ad &amp; Brand Content Creation</span>
+        <span class="acc__s mono">PRODUCING VISUAL CONTENT THAT STRENGTHENS YOUR IDENTITY</span>
+        <i class="acc__x" aria-hidden="true"></i>
+      </button>
+      <div class="acc__b"><div><p>Concept, shooting and post for campaigns, product launches and social-first assets — built to look like you and to perform where your audience actually is.</p></div></div>
+    </div>
+    <div class="acc__i">
+      <button class="acc__h" data-cursor="hide">
+        <span class="acc__dots mono" aria-hidden="true">●●●●●</span>
+        <span class="acc__t">Video Editing</span>
+        <span class="acc__s mono">TRANSFORMING FOOTAGE INTO DYNAMIC, EMOTIONAL VISUALS</span>
+        <i class="acc__x" aria-hidden="true"></i>
+      </button>
+      <div class="acc__b"><div><p>Long-form or short-form. Rhythm, sound design, color and motion — the edit is where the story is really written.</p></div></div>
+    </div>
+    <div class="acc__i">
+      <button class="acc__h" data-cursor="hide">
+        <span class="acc__dots mono" aria-hidden="true">●●●●○</span>
+        <span class="acc__t">Event Shooting</span>
+        <span class="acc__s mono">CAPTURING ENERGY, EMOTION, AND ATMOSPHERE LIVE</span>
+        <i class="acc__x" aria-hidden="true"></i>
+      </button>
+      <div class="acc__b"><div><p>Concerts, festivals, brand activations and street events — covered end to end, with fast turnaround recaps for social.</p></div></div>
+    </div>
+    <div class="acc__i">
+      <button class="acc__h" data-cursor="hide">
+        <span class="acc__dots mono" aria-hidden="true">●●●○○</span>
+        <span class="acc__t">Filmmaking &amp; Short Films</span>
+        <span class="acc__s mono">CRAFTING CINEMATIC STORIES FROM CONCEPT TO SCREEN</span>
+        <i class="acc__x" aria-hidden="true"></i>
+      </button>
+      <div class="acc__b"><div><p>Direction, cinematography and post on narrative projects — from the first treatment to the final grade.</p></div></div>
+    </div>
+    <div class="acc__i">
+      <button class="acc__h" data-cursor="hide">
+        <span class="acc__dots mono" aria-hidden="true">●●●●○</span>
+        <span class="acc__t">Custom Animated Webcam Overlays</span>
+        <span class="acc__s mono">DESIGNING UNIQUE ANIMATED WEBCAM SCENES FOR CREATORS</span>
+        <i class="acc__x" aria-hidden="true"></i>
+      </button>
+      <div class="acc__b"><div><p>Animated scenes, transitions and stream packages built in After Effects — a full visual identity for creators on Twitch and YouTube.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 07 · ON SET ══════════ -->
+<section class="sec sec--reel" id="reel">
+  <div class="sec__head">
+    <span class="sec__num mono">06</span>
+    <span class="sec__label mono" data-scramble>//ON SET</span>
+    <span class="sec__aside mono">BEHIND THE SCENES</span>
+  </div>
+
+  <blockquote class="statement">
+    <p data-split-lines>An Italy-based independent filmmaker and visual creator, turning ideas into impactful visual stories and cinematic experiences.</p>
+  </blockquote>
+
+  <div class="reel" data-reel>
+    <div class="reel__track">
+      <figure class="reel__i"><img src="assets/img/bts-02.jpg" alt="On set" loading="lazy"><span class="mono">01</span></figure>
+      <figure class="reel__i"><img src="assets/img/bts-08.jpg" alt="On set" loading="lazy"><span class="mono">02</span></figure>
+      <figure class="reel__i"><img src="assets/img/bts-13.jpg" alt="On set" loading="lazy"><span class="mono">03</span></figure>
+      <figure class="reel__i"><img src="assets/img/bts-05.jpg" alt="On set" loading="lazy"><span class="mono">04</span></figure>
+      <figure class="reel__i"><img src="assets/img/bts-19.jpg" alt="On set" loading="lazy"><span class="mono">05</span></figure>
+      <figure class="reel__i"><img src="assets/img/bts-11.jpg" alt="On set" loading="lazy"><span class="mono">06</span></figure>
+      <figure class="reel__i"><img src="assets/img/bts-16.jpg" alt="On set" loading="lazy"><span class="mono">07</span></figure>
+      <figure class="reel__i"><img src="assets/img/bts-01.jpg" alt="On set" loading="lazy"><span class="mono">08</span></figure>
+    </div>
+  </div>
+
+  <div class="grid-bts">
+    <figure class="frame" data-reveal-img data-parallax="0.06"><img src="assets/img/bts-03.jpg" alt="On location" loading="lazy" data-scale></figure>
+    <figure class="frame" data-reveal-img data-parallax="0.16"><img src="assets/img/bts-14.jpg" alt="Monitor on set" loading="lazy" data-scale></figure>
+    <figure class="frame" data-reveal-img data-parallax="0.1"><img src="assets/img/bts-09.jpg" alt="Camera rig" loading="lazy" data-scale></figure>
+    <figure class="frame" data-reveal-img data-parallax="0.2"><img src="assets/img/bts-06.jpg" alt="Lighting setup" loading="lazy" data-scale></figure>
+    <figure class="frame" data-reveal-img data-parallax="0.04"><img src="assets/img/bts-17.jpg" alt="Gear case" loading="lazy" data-scale></figure>
+    <figure class="frame" data-reveal-img data-parallax="0.14"><img src="assets/img/bts-12.jpg" alt="Crew on set" loading="lazy" data-scale></figure>
+  </div>
+</section>
+
+<!-- ══════════ 08 · EXPERIENCE ══════════ -->
+<section class="sec" id="experience">
+  <div class="sec__head">
+    <span class="sec__num mono">07</span>
+    <span class="sec__label mono" data-scramble>//EXPERIENCE</span>
+    <span class="sec__aside mono">2013 — PRESENT</span>
+  </div>
+
+  <h2 class="h-xl exp__title" data-split-lines>Experience</h2>
+
+  <ol class="exp">
+    <li class="exp__i" data-reveal>
+      <div class="exp__l">
+        <h3>Computer Engineering Student</h3>
+        <span class="mono">FREE UNIVERSITY OF BOLZANO</span>
+      </div>
+      <span class="exp__y mono">2026 — PRESENT</span>
+      <p>Developing strong analytical and technical skills through a modern, international program — combining engineering principles with creativity to approach filmmaking and production with precision and structure.</p>
+    </li>
+    <li class="exp__i" data-reveal>
+      <div class="exp__l">
+        <h3>Freelance Filmmaker &amp; Video Editor</h3>
+        <span class="mono">INDEPENDENT / SELF-EMPLOYED</span>
+      </div>
+      <span class="exp__y mono">2018 — PRESENT</span>
+      <p>Producing, directing and editing visual content for brands, artists and creators. Managing the entire workflow from concept and shooting to final delivery across multiple platforms.</p>
+    </li>
+    <li class="exp__i" data-reveal>
+      <div class="exp__l">
+        <h3>Content Creator &amp; Creative Collaborator</h3>
+        <span class="mono">SOCIAL MEDIA &amp; BRAND PROJECTS</span>
+      </div>
+      <span class="exp__y mono">2023 — PRESENT</span>
+      <p>Involved in the ideation, filming and editing of viral content exceeding 47 million views alongside teams of creators.</p>
+    </li>
+    <li class="exp__i" data-reveal>
+      <div class="exp__l">
+        <h3>Technical &amp; Visual Innovator</h3>
+        <span class="mono">PERSONAL PROJECTS AND EXPERIMENTS</span>
+      </div>
+      <span class="exp__y mono">ONGOING</span>
+      <p>Exploring new techniques in visual design, VFX and digital storytelling — merging engineering logic with creative direction to craft unique visual experiences.</p>
+    </li>
+  </ol>
+</section>
+
+<!-- ══════════ 09 · TOOLS ══════════ -->
+<section class="sec sec--invert" id="tools">
+  <div class="sec__head">
+    <span class="sec__num mono">08</span>
+    <span class="sec__label mono" data-scramble>//TOOLBOX</span>
+    <span class="sec__aside mono">SOFTWARE</span>
+  </div>
+
+  <h2 class="h-xl" data-split-lines>Tools &amp; software</h2>
+
+  <div class="tools">
+    <div class="tool" data-reveal>
+      <div class="tool__top"><h3>DaVinci Resolve Studio</h3><b class="mono">99%</b></div>
+      <span class="tool__sub mono">COLOR GRADING &amp; CINEMATIC LOOK</span>
+      <div class="tool__bar"><i data-bar="99"></i></div>
+      <p>Advanced grading, tone balancing and visual refinement to give each frame a true cinematic feel.</p>
+    </div>
+    <div class="tool" data-reveal>
+      <div class="tool__top"><h3>Adobe After Effects</h3><b class="mono">98%</b></div>
+      <span class="tool__sub mono">MOTION DESIGN &amp; VISUAL EFFECTS</span>
+      <div class="tool__bar"><i data-bar="98"></i></div>
+      <p>Dynamic animations, compositing and VFX to elevate storytelling through movement.</p>
+    </div>
+    <div class="tool" data-reveal>
+      <div class="tool__top"><h3>Adobe Photoshop</h3><b class="mono">92%</b></div>
+      <span class="tool__sub mono">VISUAL DESIGN &amp; IMAGE CRAFTING</span>
+      <div class="tool__bar"><i data-bar="92"></i></div>
+      <p>Retouching, layout design and color precision for promotional and creative work.</p>
+    </div>
+    <div class="tool" data-reveal>
+      <div class="tool__top"><h3>Premiere Pro · CapCut · Figma</h3><b class="mono">80%</b></div>
+      <span class="tool__sub mono">EDITING &amp; CREATIVE WORKFLOW</span>
+      <div class="tool__bar"><i data-bar="80"></i></div>
+      <p>From short-form to cinematic projects — seamless editing, efficient cuts and design-driven storytelling.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 10 · TRUSTED BY ══════════ -->
+<section class="sec sec--trust" id="trusted">
+  <div class="sec__head">
+    <span class="sec__num mono">09</span>
+    <span class="sec__label mono" data-scramble>//VOICES</span>
+    <span class="sec__aside mono">CREATORS &amp; BRANDS</span>
+  </div>
+
+  <div class="marquee marquee--logos" data-marquee data-speed="0.5">
+    <div class="marquee__track">
+      <span>
+        <img src="assets/logo/awlab.png" alt="AW Lab">
+        <img src="assets/logo/rayban.png" alt="Ray-Ban">
+        <img src="assets/logo/indiependence.png" alt="Indiependence Festival">
+        <img src="assets/logo/kn.png" alt="KN">
+        <img src="assets/logo/teknoyd.png" alt="Teknoyd">
+      </span>
+      <span>
+        <img src="assets/logo/awlab.png" alt="">
+        <img src="assets/logo/rayban.png" alt="">
+        <img src="assets/logo/indiependence.png" alt="">
+        <img src="assets/logo/kn.png" alt="">
+        <img src="assets/logo/teknoyd.png" alt="">
+      </span>
+    </div>
+  </div>
+
+  <figure class="quote" data-reveal>
+    <blockquote data-split-lines>“Working with Abde is always smooth. He understands exactly what I want, adds his own touch, and turns simple ideas into something that stands out.”</blockquote>
+    <figcaption>
+      <img src="assets/logo/teknoyd.png" alt="">
+      <span><b>Teknoyd</b><em class="mono">CONTENT CREATOR</em></span>
+    </figcaption>
+  </figure>
+</section>
+
+<!-- ══════════ 11 · FAQ ══════════ -->
+<section class="sec" id="faq">
+  <div class="sec__head">
+    <span class="sec__num mono">10</span>
+    <span class="sec__label mono" data-scramble>//FAQ</span>
+    <span class="sec__aside mono">GOOD TO KNOW</span>
+  </div>
+
+  <div class="faq">
+    <h2 class="h-xl" data-split-lines>Frequently asked questions</h2>
+    <div class="acc acc--faq" data-acc>
+      <div class="acc__i">
+        <button class="acc__h" data-cursor="hide"><span class="acc__n mono">01</span><span class="acc__t">What do I need to get started?</span><i class="acc__x" aria-hidden="true"></i></button>
+        <div class="acc__b"><div><p>A rough idea, a date and a reference or two. From there I build the concept, the shot list and the schedule — you don't need anything technical on your side.</p></div></div>
+      </div>
+      <div class="acc__i">
+        <button class="acc__h" data-cursor="hide"><span class="acc__n mono">02</span><span class="acc__t">How long does a project take?</span><i class="acc__x" aria-hidden="true"></i></button>
+        <div class="acc__b"><div><p>A social edit or event recap usually lands in 2–5 days. Branded campaigns and short films run from two weeks to a couple of months, depending on shooting days and post.</p></div></div>
+      </div>
+      <div class="acc__i">
+        <button class="acc__h" data-cursor="hide"><span class="acc__n mono">03</span><span class="acc__t">Do you travel outside Bolzano?</span><i class="acc__x" aria-hidden="true"></i></button>
+        <div class="acc__b"><div><p>Yes — I'm based in Bolzano, Italy, and available worldwide. Travel and logistics are quoted per project.</p></div></div>
+      </div>
+      <div class="acc__i">
+        <button class="acc__h" data-cursor="hide"><span class="acc__n mono">04</span><span class="acc__t">Can you edit footage I already have?</span><i class="acc__x" aria-hidden="true"></i></button>
+        <div class="acc__b"><div><p>Absolutely. Send the rushes and the brief — editing, sound design and color grading can be handled as a standalone service.</p></div></div>
+      </div>
+      <div class="acc__i">
+        <button class="acc__h" data-cursor="hide"><span class="acc__n mono">05</span><span class="acc__t">How many revisions are included?</span><i class="acc__x" aria-hidden="true"></i></button>
+        <div class="acc__b"><div><p>Two full rounds of revisions are included in every project. Anything beyond that is simply quoted transparently before we continue.</p></div></div>
+      </div>
+      <div class="acc__i">
+        <button class="acc__h" data-cursor="hide"><span class="acc__n mono">06</span><span class="acc__t">What do I get at delivery?</span><i class="acc__x" aria-hidden="true"></i></button>
+        <div class="acc__b"><div><p>Master files in the formats you need — 16:9, 9:16, 1:1 — plus graded stills and, on request, the project files.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ══════════ FOOTER / CONTACT ══════════ -->
+<footer class="foot" id="contact">
+  <div class="foot__cta">
+    <div class="foot__bigwrap" data-fit-box>
+      <h2 class="foot__big">
+        <span class="line"><span class="word" data-fit data-split>LET'S WORK</span></span>
+        <span class="line"><span class="word" data-fit data-split>TOGETHER</span></span>
+      </h2>
+    </div>
+    <a class="orb" href="mailto:abdellah.khanani.1@gmail.com" data-magnetic data-cursor="hide">
+      <span>CONTACT<br>NOW</span>
+    </a>
+  </div>
+
+  <div class="foot__grid">
+    <div class="foot__col">
+      <span class="mono lbl">BASED IN</span>
+      <p>Bolzano,<br>Italy</p>
+    </div>
+    <div class="foot__col">
+      <span class="mono lbl">EMAIL</span>
+      <p><a href="mailto:abdellah.khanani.1@gmail.com">abdellah.khanani.1@<br>gmail.com</a></p>
+    </div>
+    <div class="foot__col">
+      <span class="mono lbl">SOCIAL</span>
+      <p>
+        <a href="https://instagram.com/abdellah_khanani" target="_blank" rel="noopener">Instagram ↗</a><br>
+        <a href="https://drive.google.com/file/d/1Issw97gs-kreC7QWev66jO6YC2FdF0L0/view?usp=drive_link" target="_blank" rel="noopener">Resume ↗</a>
+      </p>
+    </div>
+    <div class="foot__col">
+      <span class="mono lbl">STATUS</span>
+      <p class="foot__status"><i></i>Available for<br>new projects</p>
+    </div>
+  </div>
+
+  <div class="foot__bar mono">
+    <span>© <b id="year">2025</b> ABDELLAH KHANANI</span>
+    <span class="foot__mid">FREELANCE VIDEOMAKER · BOLZANO (IT)</span>
+    <a href="#top" data-cursor="hide">BACK TO TOP ↑</a>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

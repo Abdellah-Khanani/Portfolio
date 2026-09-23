@@ -1,0 +1,26 @@
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Beam test</title>
+<style>
+ body{margin:0;background:#000;color:#888;font:11px monospace}
+ .row{display:flex}
+ .cell{position:relative;width:50vw;height:92vh;overflow:hidden}
+ .cell img{width:100%;height:100%;object-fit:cover}
+ h6{position:absolute;z-index:9;left:12px;top:8px;margin:0;color:#fff;font:11px monospace;letter-spacing:.14em}
+ /* OLD — blurred first, then clipped: the clip slices the blur and leaves a hard edge */
+ .old{position:absolute;left:0;top:0;width:445px;height:700px;transform-origin:50% 0;pointer-events:none;
+   transform:translate3d(152px,-72px,0) rotate(-0.5442rad);opacity:.28;mix-blend-mode:screen;
+   background:linear-gradient(to bottom,rgba(255,255,255,.28),rgba(255,255,255,.06) 75%,rgba(255,255,255,0));
+   clip-path:polygon(46% 0,54% 0,100% 100%,0 100%);filter:blur(14px)}
+ /* NEW — the cone is clipped, the wrapper blurs the result and fades its far end */
+ .new{position:absolute;left:0;top:0;width:445px;height:700px;transform-origin:50% 0;pointer-events:none;
+   transform:translate3d(152px,-72px,0) rotate(-0.5442rad);opacity:.28;mix-blend-mode:screen;filter:blur(26px);
+   -webkit-mask-image:radial-gradient(120% 100% at 50% 0%,#000 55%,transparent 100%);
+   mask-image:radial-gradient(120% 100% at 50% 0%,#000 55%,transparent 100%)}
+ .new i{position:absolute;inset:0;
+   background:linear-gradient(to bottom,rgba(255,255,255,.22),rgba(255,255,255,.05) 70%,rgba(255,255,255,0));
+   clip-path:polygon(46% 0,54% 0,100% 100%,0 100%)}
+</style>
+<div class="row">
+  <div class="cell"><h6>PRIMA</h6><img src="../assets/live/ernia-01-1200.jpg"><i class="old"></i></div>
+  <div class="cell"><h6>DOPO</h6><img src="../assets/live/ernia-01-1200.jpg"><i class="new"><i></i></i></div>
+</div>
