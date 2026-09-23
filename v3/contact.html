@@ -14,7 +14,7 @@
 <meta property="og:image" content="assets/img/portrait-hero.jpg">
 <link rel="preload" href="assets/font/archivo-300_900.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/font/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/app.css?v=81">
+<link rel="stylesheet" href="css/app.css?v=82">
 <script>(function(){var c='js';try{if(sessionStorage.getItem('ak:pt')!==null)c+=' pt-in';if(sessionStorage.getItem('ak:cover'))c+=' pt-cover'}catch(e){}document.documentElement.className=c})();</script>
 </head>
 <body>
@@ -84,9 +84,10 @@
       <p class="ct__lead">Fill in what you know. I read every message and reply within two working days.</p>
     </div>
     <div class="ct__grid">
-      <!-- data-key: paste the Web3Forms access key here. While it reads PASTE_KEY_HERE
-     the form falls back to opening the visitor's mail app, so it always works. -->
-      <form class="fm" id="quote" data-to="mail@ak-design.it" data-key="PASTE_KEY_HERE" novalidate>
+      <!-- data-key is the Web3Forms access key. It is public by design: it only lets a
+     form post to the inbox that owns it. Replacing it with PASTE_KEY_HERE turns the
+     form back into a plain mailto, which is also the fallback when a send fails. -->
+      <form class="fm" id="quote" data-to="mail@ak-design.it" data-key="5e78e550-0da5-4917-a0fa-5364217663c2" novalidate>
         <input type="checkbox" name="botcheck" class="fm__hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="fm__f"><label class="fm__l cap" for="q-name">Name</label><input id="q-name" name="name" type="text" autocomplete="name" required aria-describedby="q-name-err"><span class="fm__err" id="q-name-err"></span></div>
         <div class="fm__f"><label class="fm__l cap" for="q-email">Email</label><input id="q-email" name="email" type="email" autocomplete="email" required aria-describedby="q-email-err"><span class="fm__err" id="q-email-err"></span></div>
@@ -136,13 +137,13 @@
 </footer>
 
 <!-- ══════════ SCRIPTS ══════════ -->
-<script src="js/lib/lenis.min.js?v=81"></script>
-<script src="js/lib/gsap.min.js?v=81"></script>
-<script src="js/lib/ScrollTrigger.min.js?v=81"></script>
-<script src="js/pages.js?v=81"></script>
-<script src="js/app.js?v=81"></script>
+<script src="js/lib/lenis.min.js?v=82"></script>
+<script src="js/lib/gsap.min.js?v=82"></script>
+<script src="js/lib/ScrollTrigger.min.js?v=82"></script>
+<script src="js/pages.js?v=82"></script>
+<script src="js/app.js?v=82"></script>
 <!-- GoatCounter: privacy-first, no cookies, so no consent banner is needed.
-     Swap YOURCODE below for the code you pick when you create the site. -->
+     Counts nothing on localhost, so local work never reaches the numbers. -->
 <script>
   window.goatcounter = {
     // local and preview runs must not pollute the real numbers
@@ -154,7 +155,7 @@
     }
   };
 </script>
-<script data-goatcounter="https://YOURCODE.goatcounter.com/count"
+<script data-goatcounter="https://abdellah.goatcounter.com/count"
         async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>
