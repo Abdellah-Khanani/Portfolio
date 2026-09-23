@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(ls ~/Desktop ~/Downloads ~/Documents 2>/dev/null | head -80)",
-      "Bash(find ~/Desktop ~/Documents ~/Downloads -maxdepth 3 -iname \"index.html\" -not -path \"*/node_modules/*\" 2>/dev/null | head -30; echo \"---PKG---\"; find ~/Desktop ~/Documents ~/Downloads -maxdepth 3 -iname \"package.json\" -not -path \"*/node_modules/*\" 2>/dev/null | head -30)",
-      "Bash(find ~/Desktop ~/Documents -maxdepth 2 -type d -iname \"*portfolio*\" -o -maxdepth 2 -type d -iname \"*sito*\" -o -maxdepth 2 -type d -iname \"*web*\" -o -maxdepth 2 -type d -iname \"*site*\" 2>/dev/null | head -20)"
-    ]
-  }
-}

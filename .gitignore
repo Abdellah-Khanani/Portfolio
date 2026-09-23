@@ -9,3 +9,15 @@ package.json
 
 .DS_Store
 **/.DS_Store
+
+# earlier versions of the site, kept on the Mac but never published
+/index.html
+/css/
+/js/
+/assets/
+/v2/
+*.xlsx
+~$*
+
+# local agent configuration
+.claude/
