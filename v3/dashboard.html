@@ -10,7 +10,7 @@
 <meta name="theme-color" content="#000000">
 <link rel="preload" href="assets/font/archivo-300_900.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/font/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/dash.css?v=85">
+<link rel="stylesheet" href="css/dash.css?v=86">
 </head>
 <body>
 
@@ -163,6 +163,19 @@
         </label>
       </div>
       <div class="log" id="gc-log"></div>
+
+      <div class="acts" style="border-top:1px solid var(--hair);margin-top:18px;padding-top:16px">
+        <label class="f" style="margin:0;max-width:none;flex-direction:row;align-items:center">
+          <input type="checkbox" id="gc-skip" style="width:auto;margin-right:9px">
+          <span style="display:inline">Stop counting my own visits on this device</span>
+        </label>
+        <a class="btn" id="gc-purge" href="https://abdellah.goatcounter.com/settings/purge"
+           target="_blank" rel="noopener">Reset the numbers &rarr;</a>
+      </div>
+      <div class="note"><b>Resetting:</b> GoatCounter's API has no way to delete anything, so this button
+        opens their own purge page rather than pretending to do it from here. There you pick what to clear
+        &mdash; leave the path empty to wipe everything. It cannot be undone.</div>
+
       <div class="note"><b>About the token:</b> make it on your GoatCounter site under
         <b>Settings &rarr; API tokens</b>, ticking only <b>Read statistics</b>. It is kept in this browser alone,
         never in the site files, so publishing never carries it anywhere.</div>
@@ -232,7 +245,7 @@
 <datalist id="cats"></datalist>
 <div class="toast" id="toast"></div>
 
-<script src="js/projects.js?v=85"></script>
-<script src="js/dash.js?v=85"></script>
+<script src="js/projects.js?v=86"></script>
+<script src="js/dash.js?v=86"></script>
 </body>
 </html>

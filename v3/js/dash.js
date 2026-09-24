@@ -652,6 +652,29 @@ $('#gc-save').addEventListener('click', () => {
   try { localStorage.setItem(GC_KEY, JSON.stringify(c)); toast('Saved in this browser'); }
   catch (e) { toast('This browser refused to store it'); }
 });
+/* GoatCounter's own script skips a visit when this key is set, and the dashboard
+   shares the site's origin, so the switch reaches the live site directly. */
+const gcSkip = $('#gc-skip');
+try { gcSkip.checked = localStorage.getItem('skipgc') === 't'; } catch (e) { /* storage blocked */ }
+gcSkip.addEventListener('change', () => {
+  try {
+    if (gcSkip.checked) localStorage.setItem('skipgc', 't');
+    else localStorage.removeItem('skipgc');
+    toast(gcSkip.checked ? 'Your visits stop counting on this device' : 'Your visits count again');
+  } catch (e) {
+    gcSkip.checked = !gcSkip.checked;
+    toast('This browser refused to store the choice');
+  }
+});
+
+/* the purge page belongs to whichever site code is filled in */
+const gcPurge = () => {
+  const code = $('#gc-code').value.trim().replace(/\..*$/, '') || 'abdellah';
+  $('#gc-purge').href = `https://${code}.goatcounter.com/settings/purge`;
+};
+gcPurge();
+$('#gc-code').addEventListener('input', gcPurge);
+
 $('#gc-load').addEventListener('click', gcShow);
 $('#gc-range').addEventListener('change', () => { if (!$('#gc-out').hidden) gcShow(); });
 

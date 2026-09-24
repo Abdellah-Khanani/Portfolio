@@ -343,7 +343,10 @@ body.lock .brg i:nth-child(2){transform:translateY(-3.5px) rotate(-45deg);width:
   .mz__field::-webkit-scrollbar{display:none}
   .mz__field::after{content:'';flex:0 0 1px}
   .mz__t{position:relative;left:auto;top:auto;width:auto;height:auto;flex:0 0 78%;scroll-snap-align:start}
-  .mz__img{position:relative;aspect-ratio:4/5}
+  /* a span is inline by default, and aspect-ratio does not apply to inline boxes:
+     without display:block the tile took its size from the photo and jumped about
+     whenever the image or the viewport changed. */
+  .mz__img{display:block;position:relative;aspect-ratio:4/5}
   .mz__cap{position:static;opacity:1;transform:none;margin-top:10px}
   .mz__img::after{display:none}
 }
