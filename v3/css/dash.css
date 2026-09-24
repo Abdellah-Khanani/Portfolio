@@ -144,7 +144,10 @@ label.f > span{display:block;margin-bottom:5px;font-family:var(--mono);font-size
 .upq b{font-weight:500}
 .upq ul{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:5px}
 .upq li{display:flex;justify-content:space-between;gap:10px;font-family:var(--mono);font-size:11px;color:var(--mut)}
-.upq .acts{margin-top:12px}
+.upq /* a refused token or a dead network must read as a problem, not as data */
+.log.is-bad{color:#fff;border-color:#4a4a4a}
+.log.is-bad::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;margin-right:8px;vertical-align:.1em}
+.acts{margin-top:12px}
 
 /* ── stats ──────────────────────────────────────────────── */
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--hair);

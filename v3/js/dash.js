@@ -518,6 +518,143 @@ document.addEventListener('click', async e => {
   }
 });
 
+/* ── visitors: read straight from the GoatCounter API ──────
+   Its API sends CORS headers, so the browser can ask it directly and this
+   dashboard needs no server of its own. The token stays in this browser. */
+const GC_KEY = 'ak.goatcounter';
+const gcCfg = () => { try { return JSON.parse(localStorage.getItem(GC_KEY) || '{}'); } catch (e) { return {}; } };
+
+function gcLog(msg, bad) {
+  const el = $('#gc-log');
+  el.textContent = msg || '';
+  el.classList.toggle('is-bad', !!bad);
+}
+
+async function gcGet(cfg, path, params = {}) {
+  const url = new URL(`https://${cfg.code}.goatcounter.com/api/v0${path}`);
+  Object.entries(params).forEach(([k, v]) => v != null && url.searchParams.set(k, v));
+  let r;
+  try {
+    r = await fetch(url, { headers: { Authorization: `Bearer ${cfg.token}` } });
+  } catch (e) {
+    throw new Error(`could not reach ${cfg.code}.goatcounter.com — check the code and your connection`);
+  }
+  if (r.status === 401 || r.status === 403) throw new Error('the token was refused — check it allows "Read statistics"');
+  if (r.status === 404) throw new Error(`no GoatCounter site called "${cfg.code}"`);
+  if (r.status === 429) throw new Error('GoatCounter is rate limiting — wait a moment and press again');
+  if (!r.ok) throw new Error(`GoatCounter answered ${r.status}`);
+  return r.json();
+}
+
+/* a dense daily line: one point per day, no per-point labels */
+function trend(host, rows) {
+  if (rows.length < 2) { host.innerHTML = '<p class="hint">Not enough days yet.</p>'; return; }
+  const W = 640, H = 170, P = 26, B = 26;
+  const max = Math.max(1, ...rows.map(r => r[1]));
+  const x = i => P + i * (W - P * 2) / (rows.length - 1);
+  const y = v => H - B - (v / max) * (H - B - 18);
+  const pts = rows.map((r, i) => [x(i), y(r[1])]);
+  const d = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+  const area = `${d} L${x(rows.length - 1).toFixed(1)} ${H - B} L${P} ${H - B} Z`;
+  const len = pts.reduce((n, p, i) => i ? n + Math.hypot(p[0] - pts[i - 1][0], p[1] - pts[i - 1][1]) : 0, 0);
+  const day = s => s.slice(8) + '/' + s.slice(5, 7);
+  const peak = rows.reduce((b, r, i) => r[1] > rows[b][1] ? i : b, 0);
+  host.innerHTML = `<svg class="spark" style="height:170px" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img"
+      aria-label="Views per day, peak ${max}">
+    <defs><linearGradient id="gcfade" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient></defs>
+    <line class="gl" x1="${P}" x2="${W - P}" y1="${H - B}" y2="${H - B}"/>
+    <path class="ar" d="${area}"/><path class="ln" style="--len:${len.toFixed(1)}" d="${d}"/>
+    <circle class="dt" cx="${pts[peak][0].toFixed(1)}" cy="${pts[peak][1].toFixed(1)}" r="3.5"/>
+    <text x="${pts[peak][0].toFixed(1)}" y="${(pts[peak][1] - 9).toFixed(1)}" text-anchor="middle" fill="#fff">${rows[peak][1]}</text>
+    <text x="${P}" y="${H - 8}" text-anchor="start">${day(rows[0][0])}</text>
+    <text x="${W - P}" y="${H - 8}" text-anchor="end">${day(rows[rows.length - 1][0])}</text>
+  </svg>`;
+}
+
+/* /work.html and ?p=slug mean more to him as titles than as paths */
+function gcLabel(path) {
+  const clean = String(path || '/').split('#')[0];
+  const slug = (clean.match(/[?&]p=([^&]+)/) || [])[1];
+  if (slug) {
+    const w = works.find(p => p.slug === slug);
+    return w ? w.title : slug;
+  }
+  const file = clean.replace(/^\//, '').replace(/\.html$/, '');
+  return ({ '': 'Home', 'index': 'Home', 'work': 'All work', 'bts': 'Behind the scenes',
+            'contact': 'Start a project', '404': 'Not found' })[file] || clean;
+}
+
+async function gcShow() {
+  const cfg = { code: $('#gc-code').value.trim().replace(/\..*$/, ''), token: $('#gc-token').value.trim() };
+  if (!cfg.code || !cfg.token) { gcLog('Fill in the code and the token first.', true); return; }
+  const days = +$('#gc-range').value || 30;
+  const end = new Date();
+  const start = new Date(end.getTime() - days * 864e5);
+  const iso = d => d.toISOString().slice(0, 19) + 'Z';
+  const range = { start: iso(start), end: iso(end) };
+  const btn = $('#gc-load');
+
+  btn.disabled = true;
+  gcLog('Asking GoatCounter…');
+  try {
+    // one at a time: five at once trips GoatCounter's rate limit
+    const total = await gcGet(cfg, '/stats/total', range);
+    const hits  = await gcGet(cfg, '/stats/hits', { ...range, group: 'day', limit: 10 });
+    // the breakdowns are a bonus: if one is refused the headline numbers still show
+    const side = async p => { try { return await gcGet(cfg, p, { ...range, limit: 6 }); } catch (e) { return null; } };
+    const refs = await side('/stats/toprefs');
+    const loc  = await side('/stats/locations');
+    const br   = await side('/stats/browsers');
+
+    // the daily series comes per path, so add the days up across all of them
+    const perDay = new Map();
+    (hits.hits || []).forEach(h => (h.stats || []).forEach(s => {
+      perDay.set(s.day, (perDay.get(s.day) || 0) + (s.daily || 0));
+    }));
+    const series = [...perDay.entries()].sort((a, b) => a[0] < b[0] ? -1 : 1);
+    const views = total.total || 0;
+    const busiest = series.reduce((b, r) => r[1] > b[1] ? r : b, ['—', 0]);
+    const perDayAvg = series.length ? Math.round(views / series.length) : 0;
+
+    $('#gc-kpis').innerHTML = [
+      ['Views', views],
+      ['Pages seen', (hits.hits || []).length],
+      ['Busiest day', busiest[1]],
+      ['Average a day', perDayAvg]
+    ].map(([k, v]) => `<div class="kpi"><b>${v}</b><span class="cap">${esc(k)}</span></div>`).join('');
+
+    trend($('#gc-trend'), series);
+    bars($('#gc-pages'), (hits.hits || []).map(h => [gcLabel(h.path), h.count]));
+    bars($('#gc-refs'), ((refs && refs.stats) || []).map(s => [s.name || 'Typed or bookmarked', s.count]));
+    bars($('#gc-loc'), ((loc && loc.stats) || []).map(s => [s.name || 'Unknown', s.count]));
+    bars($('#gc-br'), ((br && br.stats) || []).map(s => [s.name || 'Unknown', s.count]));
+
+    $('#gc-out').hidden = false;
+    gcLog(views ? `${views} views in the last ${days} days.` : 'Connected, but nobody has visited in this period yet.');
+  } catch (err) {
+    $('#gc-out').hidden = true;
+    gcLog(err.message, true);
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+(() => {
+  const c = gcCfg();
+  if (c.code) $('#gc-code').value = c.code;
+  if (c.token) $('#gc-token').value = c.token;
+})();
+
+$('#gc-save').addEventListener('click', () => {
+  const c = { code: $('#gc-code').value.trim().replace(/\..*$/, ''), token: $('#gc-token').value.trim() };
+  try { localStorage.setItem(GC_KEY, JSON.stringify(c)); toast('Saved in this browser'); }
+  catch (e) { toast('This browser refused to store it'); }
+});
+$('#gc-load').addEventListener('click', gcShow);
+$('#gc-range').addEventListener('change', () => { if (!$('#gc-out').hidden) gcShow(); });
+
 /* a small hook so the generated file can be checked without downloading it */
 window.__studio = { serialize, get works() { return works; } };
 

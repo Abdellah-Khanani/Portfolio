@@ -10,7 +10,7 @@
 <meta name="theme-color" content="#000000">
 <link rel="preload" href="assets/font/archivo-300_900.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/font/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/dash.css?v=84">
+<link rel="stylesheet" href="css/dash.css?v=85">
 </head>
 <body>
 
@@ -142,10 +142,41 @@
     </div>
 
     <h2 class="h2" style="margin-top:48px">Visitors</h2>
-    <div class="off" id="traffic">
-      <b>Not connected yet</b>
-      <p style="margin:0 0 4px">Visitor numbers need the site to be online with an analytics service attached.<br>
-      Until then this panel stays empty on purpose — better blank than invented.</p>
+    <p class="hint" style="margin:-6px 0 18px;max-width:64ch">Read live from GoatCounter. Nothing is stored or
+    estimated here — if a number is missing it is because nobody visited, not because it failed quietly.</p>
+
+    <div class="grp" id="gc-setup">
+      <div class="row">
+        <label class="f"><span>GoatCounter code</span><input type="text" id="gc-code" value="abdellah" placeholder="abdellah"></label>
+        <label class="f"><span>API token</span><input type="text" id="gc-token" placeholder="Create one with &quot;Read statistics&quot;"></label>
+      </div>
+      <div class="acts">
+        <button type="button" class="btn btn--p" id="gc-load">Show visitors</button>
+        <button type="button" class="btn" id="gc-save">Remember settings</button>
+        <label class="f" style="max-width:160px;margin:0"><span>Period</span>
+          <select id="gc-range">
+            <option value="7">Last 7 days</option>
+            <option value="30" selected>Last 30 days</option>
+            <option value="90">Last 90 days</option>
+            <option value="365">Last year</option>
+          </select>
+        </label>
+      </div>
+      <div class="log" id="gc-log"></div>
+      <div class="note"><b>About the token:</b> make it on your GoatCounter site under
+        <b>Settings &rarr; API tokens</b>, ticking only <b>Read statistics</b>. It is kept in this browser alone,
+        never in the site files, so publishing never carries it anywhere.</div>
+    </div>
+
+    <div id="gc-out" hidden>
+      <div class="kpis" id="gc-kpis"></div>
+      <div class="card" style="margin-bottom:16px"><span class="cap">Views per day</span><div id="gc-trend"></div></div>
+      <div class="cards">
+        <div class="card"><span class="cap">Most visited</span><div class="bars" id="gc-pages"></div></div>
+        <div class="card"><span class="cap">Where they came from</span><div class="bars" id="gc-refs"></div></div>
+        <div class="card"><span class="cap">Countries</span><div class="bars" id="gc-loc"></div></div>
+        <div class="card"><span class="cap">Browsers</span><div class="bars" id="gc-br"></div></div>
+      </div>
     </div>
   </div>
 </section>
@@ -201,7 +232,7 @@
 <datalist id="cats"></datalist>
 <div class="toast" id="toast"></div>
 
-<script src="js/projects.js?v=84"></script>
-<script src="js/dash.js?v=84"></script>
+<script src="js/projects.js?v=85"></script>
+<script src="js/dash.js?v=85"></script>
 </body>
 </html>
