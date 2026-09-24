@@ -1467,27 +1467,27 @@ function boot() {
   // hide the hero glyphs before the curtain lifts so the intro starts clean
   if (HAS_G && !RM && $('.hero')) G.set('.hero__n .ch', { yPercent: 118 });
 
-  let built = false;
-  const build = () => {
-    if (built) return;
-    built = true;
-    $$('.ft__big .lin').forEach(splitChars);
-    cursor();
-    peek();
-    magnetic();
-    ambient();
-    liquidType();
-    transitions();
-    choreography();
-    dock();
-    swipeAxis();
-    setFooterSpace();
-    if (HAS_G) ST.refresh();
+  /* Built in stages with a frame between them: done in one go this was a single
+     ~340ms task, and every millisecond past 50 counts against responsiveness. */
+  const stages = [
+    () => { $$('.ft__big .lin').forEach(splitChars); cursor(); peek(); magnetic(); },
+    () => { ambient(); },
+    () => { liquidType(); transitions(); },
+    () => { choreography(); },
+    () => { dock(); swipeAxis(); setFooterSpace(); if (HAS_G) ST.refresh(); }
+  ];
+  let at = 0;
+  const build = now => {
+    while (at < stages.length) {
+      const step = stages[at++];
+      step();
+      if (!now) { requestAnimationFrame(() => build(false)); return; }
+    }
   };
-  requestAnimationFrame(() => requestAnimationFrame(build));
+  requestAnimationFrame(() => requestAnimationFrame(() => build(false)));
 
   loader(() => {
-    build();                                  // never reveal an unbuilt page
+    build(true);                              // never reveal an unbuilt page
     if (HAS_G && !RM && $('.hero')) { G.set('.hero__n .ch', { clearProps: 'transform' }); intro(); }
     if (!location.hash) scrollTo(0, 0);
     if (HAS_G) ST.refresh();
