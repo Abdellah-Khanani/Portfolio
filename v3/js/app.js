@@ -213,75 +213,57 @@ const mk = (tag, cls, html) => {
 
 function editBay(el) {
   el.classList.add('ld--edit');
-  const STEPS = ['Importing footage', 'Syncing audio', 'Colour grading', 'Rendering'];
-  const HOLD = 850;   // every title stays on screen at least this long
+  // one second of footage, counted in 24 frames, then the cut to the bars
+  const FPS = 24, MIN = 700;
   const top = mk('div', 'ldt__bar ldt__bar--t'), bot = mk('div', 'ldt__bar ldt__bar--b'), seam = mk('i', 'ldt__seam');
   const cue = mk('div', 'lde__cue cap', '<span>Scroll to enter the reel</span><i></i>');
   bot.appendChild(cue);
-  const ui = mk('div', 'lde', '<div class="lde__t"><span></span></div><div class="lde__prog"><i></i></div>');
+  const ui = mk('div', 'lde', '<span class="lde__rec cap"><i></i>Rec</span><span class="lde__tc">00:00:00:00</span>');
   el.append(top, bot, seam, ui);
-  const word = $('.lde__t span', ui), bar = $('.lde__prog i', ui);
+  const tc = $('.lde__tc', ui);
   G.set(seam, { scaleX: 0, opacity: 0 });
-
-  // one title at a time: the current one leaves before the next arrives
-  let shown = -1, busy = false, alive = true;
-  const t0 = performance.now();
-  const next = () => {
-    busy = true;
-    shown++;
-    const tl = G.timeline({ onComplete: () => { busy = false; } });
-    if (shown > 0) tl.to(word, { yPercent: -110, duration: .32, ease: 'power3.in' });
-    tl.add(() => { word.textContent = STEPS[shown]; })
-      .fromTo(word, { yPercent: 110 }, { yPercent: 0, duration: .6, ease: 'expo.out' });
-  };
-  const loop = () => {
-    if (!alive) return;
-    const due = Math.min(STEPS.length - 1, Math.floor((performance.now() - t0) / HOLD));
-    if (!busy && shown < due) next();
-    requestAnimationFrame(loop);
-  };
-  requestAnimationFrame(loop);
+  let frame = -1;
 
   return {
-    min: STEPS.length * HOLD,
-    tick(p) { bar.style.width = (p * 100).toFixed(1) + '%'; },
+    min: MIN,
+    rate: .3,             // the count keeps pace with loading instead of trailing behind it
+    tick(p) {
+      const f = Math.round(p * FPS);
+      if (f === frame) return;
+      frame = f;
+      tc.textContent = f >= FPS ? '00:00:01:00' : '00:00:00:' + pad2(f);
+    },
     exit(reveal, finish) {
-      const run = () => {
-        alive = false;
-        const portrait = innerHeight > innerWidth;
-        const box = portrait ? innerHeight * .56 : Math.min(innerHeight * .8, innerWidth / 2.39);
-        cue.style.top = ((innerHeight - box) / 4) + 'px';
-        // the bars open with the scroll rather than on a timer, so the first wheel never triggers
-        // a sudden snap: they part as far as the page has moved, and close again if it goes back up
-        const OPEN = innerHeight * .45, far = innerHeight / 2 + 4 - box / 2;
-        let qt = null, opened = false;
-        const onScroll = () => {
-          if (opened) return;
-          const p = Math.min(1, Math.max(0, scrollY / OPEN));
-          if (!qt) {
-            if (p <= 0) return;
-            G.killTweensOf([top, bot, cue]);
-            qt = [G.quickTo(top, 'y', { duration: .45, ease: 'power2.out' }), G.quickTo(bot, 'y', { duration: .45, ease: 'power2.out' })];
-          }
-          const e = p * p * (3 - 2 * p);
-          qt[0](-box / 2 - far * e);
-          qt[1](box / 2 + far * e);
-          G.set(cue, { opacity: 1 - Math.min(1, p * 3) });
-          if (p >= 1) { opened = true; removeEventListener('scroll', onScroll); G.delayedCall(.5, finish); }
-        };
-        G.timeline()
-          .to(word, { yPercent: -110, duration: .4, ease: 'power3.in' }, .45)
-          .to(bar.parentNode, { opacity: 0, duration: .3 }, .45)
-          .to(seam, { scaleX: 1, opacity: 1, duration: .5, ease: 'expo.inOut' }, .75)
-          .to(seam, { scaleY: 6, opacity: 0, duration: .55, ease: 'power2.out' }, 1.25)
-          .to(top, { y: -box / 2, duration: 1.2, ease: 'expo.inOut' }, 1.2)
-          .to(bot, { y: box / 2, duration: 1.2, ease: 'expo.inOut' }, 1.2)
-          .add(() => { el.classList.add('ld--bars'); reveal(); addEventListener('scroll', onScroll, { passive: true }); onScroll(); }, 1.7)
-          .fromTo(cue, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .9, ease: 'expo.out' }, 2.3);
+      const portrait = innerHeight > innerWidth;
+      const box = portrait ? innerHeight * .56 : Math.min(innerHeight * .8, innerWidth / 2.39);
+      cue.style.top = ((innerHeight - box) / 4) + 'px';
+      // the bars open with the scroll rather than on a timer, so the first wheel never triggers
+      // a sudden snap: they part as far as the page has moved, and close again if it goes back up
+      const OPEN = innerHeight * .45, far = innerHeight / 2 + 4 - box / 2;
+      let qt = null, opened = false;
+      const onScroll = () => {
+        if (opened) return;
+        const p = Math.min(1, Math.max(0, scrollY / OPEN));
+        if (!qt) {
+          if (p <= 0) return;
+          G.killTweensOf([top, bot, cue]);
+          qt = [G.quickTo(top, 'y', { duration: .45, ease: 'power2.out' }), G.quickTo(bot, 'y', { duration: .45, ease: 'power2.out' })];
+        }
+        const e = p * p * (3 - 2 * p);
+        qt[0](-box / 2 - far * e);
+        qt[1](box / 2 + far * e);
+        G.set(cue, { opacity: 1 - Math.min(1, p * 3) });
+        if (p >= 1) { opened = true; removeEventListener('scroll', onScroll); G.delayedCall(.5, finish); }
       };
-      // let the last title land before the curtain moves
-      const wait = () => (shown < STEPS.length - 1 || busy) ? setTimeout(wait, 60) : run();
-      wait();
+      // the bars move exactly as before; only the wait in front of them is gone
+      G.timeline()
+        .to(ui, { opacity: 0, duration: .25, ease: 'power2.in' }, .15)
+        .to(seam, { scaleX: 1, opacity: 1, duration: .45, ease: 'expo.inOut' }, .2)
+        .to(seam, { scaleY: 6, opacity: 0, duration: .55, ease: 'power2.out' }, .65)
+        .to(top, { y: -box / 2, duration: 1.2, ease: 'expo.inOut' }, .6)
+        .to(bot, { y: box / 2, duration: 1.2, ease: 'expo.inOut' }, .6)
+        .add(() => { el.classList.add('ld--bars'); reveal(); addEventListener('scroll', onScroll, { passive: true }); onScroll(); }, 1.1)
+        .fromTo(cue, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .9, ease: 'expo.out' }, 1.7);
     }
   };
 }
@@ -322,7 +304,7 @@ function loader(done) {
     const e = performance.now() - t0;
     const settled = ready && (!imgs.length || got >= imgs.length);
     const ceil = (settled || e > MAX) ? 100 : 94;
-    shown = Math.min(ceil, lerp(shown, Math.min(e / seq.min * 100, ceil), .12) + .25);
+    shown = Math.min(ceil, lerp(shown, Math.min(e / seq.min * 100, ceil), seq.rate || .12) + .25);
     const v = Math.min(100, shown) / 100;
     seq.tick(v);
     if (v >= 1 && e >= seq.min) { exit(); return; }
@@ -331,6 +313,28 @@ function loader(done) {
   requestAnimationFrame(tick);
   setTimeout(exit, MAX + 1400);                                   // rAF is paused in background tabs
   setTimeout(() => { if (!revealed) finish(); }, MAX + 7000);     // and so is GSAP: never leave the page covered
+}
+
+/* ─────────────────────── PHOTOS ON APPROACH ───────────────────────
+   Sections below the first screens keep their photos in data-src until the section is
+   near. Chrome's own lazy loading judged most of this page "close" on phones and fetched
+   it all ahead of the hero, which is what PageSpeed counts against the page. A section is
+   loaded whole, so horizontal strips never show a tile arriving mid-swipe. */
+function photosOnApproach() {
+  const load = sec => $$('[data-src], [data-srcset], [data-poster]', sec).forEach(el => {
+    if (el.dataset.srcset) { el.srcset = el.dataset.srcset; delete el.dataset.srcset; }   // srcset first: no double fetch
+    if (el.dataset.src) { el.src = el.dataset.src; delete el.dataset.src; }
+    if (el.dataset.poster) { el.poster = el.dataset.poster; delete el.dataset.poster; }
+  });
+  const secs = [...new Set($$('[data-src], [data-poster]').map(el => el.closest('section') || document.body))];
+  if (!secs.length) return;
+  if (!('IntersectionObserver' in window)) { secs.forEach(load); return; }
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    io.unobserve(e.target);
+    load(e.target);
+  }), { rootMargin: '80% 0px' });
+  secs.forEach(sec => io.observe(sec));
 }
 
 /* ───────────────────────── CURSOR ───────────────────────── */
@@ -1294,7 +1298,7 @@ function intro() {
   if (!HAS_G || RM || !$('.hero')) return;
   G.timeline({ defaults: { ease: 'expo.out' } })
     .from('.hero__n .ch', { yPercent: 118, duration: 1.4, stagger: .035 }, 0)
-    .from('.wall', { scale: 1.2, duration: 2.4, ease: 'power3.out' }, 0)
+    .fromTo('.wall', { scale: 1.2 }, { scale: 1, duration: 2.4, ease: 'power3.out' }, 0)
     .from('.hero__s', { opacity: 0, y: 16, duration: 1.1 }, .55)
     .from('.hero__bot > *', { opacity: 0, y: 22, duration: 1, stagger: .08 }, .7)
     .fromTo('.hdr', { yPercent: -120 }, { yPercent: 0, duration: 1.1, clearProps: 'transform' }, .45);
@@ -1458,6 +1462,7 @@ function boot() {
   /* Only what the first screen needs runs now. Everything else is built two
      frames later, behind the curtain, so the hero paints without waiting for
      ScrollTrigger to measure the whole page. */
+  photosOnApproach();
   grain();
   $$('[data-chars]').forEach(splitChars);
   fitText();

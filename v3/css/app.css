@@ -106,10 +106,12 @@ body.lock .ld--bars{opacity:0}
 .ldt__bar--b{bottom:0}
 .ldt__seam{position:absolute;left:0;right:0;top:50%;height:1px;margin-top:-.5px;z-index:3;background:#f1f1f1;box-shadow:0 0 22px rgba(255,255,255,.6)}
 .lde{position:absolute;left:0;right:0;top:50%;z-index:2;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:clamp(16px,2vw,26px)}
-.lde__t{position:relative;height:1.25em;overflow:hidden;font-size:clamp(40px,6.2vw,100px);font-weight:500;line-height:1.25;letter-spacing:-.045em;text-align:center}
-.lde__t span{display:block;white-space:nowrap}
-.lde__prog{position:relative;width:min(320px,50vw);height:1px;background:rgba(255,255,255,.16)}
-.lde__prog i{position:absolute;left:0;top:0;bottom:0;width:0;background:#f1f1f1}
+.lde__rec{display:inline-flex;align-items:center;gap:9px;color:#bdbdbd}
+.lde__rec i{width:7px;height:7px;border-radius:50%;background:#fff;animation:bl 1s steps(1) infinite}
+/* Archivo, light and a touch wide: the headline face of the site, and the only one
+   with tabular figures, so the count never wobbles as the digits change */
+.lde__tc{font-family:var(--sans);font-size:clamp(22px,2.4vw,36px);font-weight:300;line-height:1;
+  font-variation-settings:'wdth' 112;letter-spacing:.06em;font-variant-numeric:tabular-nums;color:#f1f1f1}
 .lde__cue{position:absolute;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:12px;color:#bdbdbd;transform:translateY(-50%);opacity:0}
 .lde__cue i{position:relative;width:34px;height:1px;overflow:hidden;background:currentColor}
 .lde__cue i::after{content:'';position:absolute;inset:0;background:#000;animation:cue 1.9s var(--e2) infinite}
@@ -260,6 +262,10 @@ body.lock .brg i:nth-child(2){transform:translateY(-3.5px) rotate(-45deg);width:
 .hero{position:relative;height:100svh;min-height:560px;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;justify-content:center;background:#000}
 .hero__zoom{position:absolute;inset:0;z-index:1;will-change:transform}
 .wall{position:absolute;inset:-8% -2%;display:flex;gap:clamp(6px,.8vw,14px);padding:0 clamp(6px,.8vw,14px)}
+/* The intro eases the wall down from 1.2. It starts there from the first paint, under the
+   curtain: jumping up to 1.2 at the reveal made the photos larger and Chrome logged a new,
+   late largest paint. Shrinking never does. */
+.has-gsap .hero .wall{transform:scale(1.2)}
 .wall__c{flex:1;position:relative;overflow:hidden}
 .wall__r{position:absolute;left:0;right:0;top:0;display:flex;flex-direction:column;gap:clamp(6px,.8vw,14px);will-change:transform}
 .wall__r img{width:100%;height:clamp(180px,23vw,330px);object-fit:cover;filter:grayscale(1) contrast(1.15) brightness(.95)}
@@ -729,6 +735,8 @@ body.lock .brg i:nth-child(2){transform:translateY(-3.5px) rotate(-45deg);width:
    filling them moved everything below, so the shell stays invisible until the
    markup is in — the loader is over it anyway. A failsafe clears it on load. */
 [data-pending] main,[data-pending] .ft{visibility:hidden}
+/* a photo still waiting for its section shows the box colour, never alt text */
+img[data-src]{visibility:hidden}
 .pj__grid{display:grid;grid-template-columns:5fr 7fr;gap:clamp(24px,4vw,70px);padding:clamp(24px,4vw,56px) var(--pad) var(--sec)}
 .pj__side{position:sticky;top:calc(var(--hdr) + 20px);align-self:start;height:calc(100svh - var(--hdr) - 44px);display:flex;flex-direction:column;justify-content:space-between;gap:24px}
 .pj__back{display:inline-flex;align-items:center;gap:13px;align-self:flex-start;color:var(--fg);
