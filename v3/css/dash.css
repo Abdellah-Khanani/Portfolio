@@ -67,7 +67,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .dl__top{position:sticky;top:var(--hdr);z-index:5;background:var(--bg);padding:12px var(--pad);
   border-bottom:1px solid var(--hair);display:flex;gap:8px;flex-wrap:wrap}
 .fld{flex:1 1 130px;min-width:0}
-input[type=text],input[type=url],input[type=search],select,textarea{width:100%;background:#101010;
+input[type=text],input[type=url],input[type=search],input[type=password],select,textarea{width:100%;background:#101010;
   border:1px solid var(--hair);border-radius:8px;padding:9px 11px;outline:0;
   transition:border-color .2s,background .2s}
 input:focus,select:focus,textarea:focus{border-color:var(--fg);background:#151515}
@@ -210,3 +210,13 @@ label.f > span{display:block;margin-bottom:5px;font-family:var(--mono);font-size
   transition:opacity .3s,transform .4s var(--e)}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ── lock ── */
+.is-locked .dh,.is-locked main{display:none}
+.lock{display:none}
+.is-locked .lock{display:grid;min-height:100dvh;place-items:center;padding:24px}
+.lock__in{width:min(420px,100%);display:flex;flex-direction:column;gap:14px}
+.lock__m{height:22px;width:auto;margin-bottom:10px;align-self:flex-start}
+.lock__h{margin:0;font-family:var(--sans);font-size:clamp(28px,6vw,40px);font-weight:500;letter-spacing:-.03em;line-height:1.05}
+.lock__p{margin:0 0 6px;color:var(--mut);font-size:14px;line-height:1.55}
+.lock .btn--p{align-self:flex-start}

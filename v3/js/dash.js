@@ -16,6 +16,56 @@ const store = {
   del: k => { try { localStorage.removeItem(k); } catch (e) { /* private mode */ } }
 };
 
+/* ── lock ──────────────────────────────────────────────
+   GitHub Pages cannot check a password, and one written here would sit in a public
+   repository. The key is Abdellah's own GitHub token instead: GitHub says whose it is,
+   and only a token of the repository's owner opens Studio. It stays in this browser.
+   The lock is the front door, not the safe: publishing and visitor numbers need tokens
+   that exist only on his devices, so getting past the door by editing this file in the
+   browser gives nobody anything. */
+const OK = 'ak:dash:ok', OWNER = 'Abdellah-Khanani';
+const unlock = () => document.body.classList.remove('is-locked');
+if (store.get(OK) === '1') unlock();
+
+$('#lock-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const token = $('#lock-token').value.trim(), out = $('#lock-log'), go = $('#lock-go');
+  if (!token) { out.textContent = 'Paste the token first.'; return; }
+  go.disabled = true;
+  out.textContent = 'Checking with GitHub…';
+  try {
+    let r;
+    try {
+      r = await fetch('https://api.github.com/user', { headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' } });
+    } catch (err) { throw new Error('GitHub could not be reached. Check your connection.'); }
+    if (r.status === 401) throw new Error('GitHub does not recognise this token.');
+    if (!r.ok) throw new Error(`GitHub answered ${r.status}.`);
+    const me = await r.json();
+    if (String(me.login).toLowerCase() !== OWNER.toLowerCase()) throw new Error('This token belongs to another account.');
+    // the same token publishes, so the GitHub settings are filled in ready to use
+    let saved = {};
+    try { saved = JSON.parse(store.get(GH) || '{}'); } catch (err) { /* nothing saved yet */ }
+    const next = { owner: saved.owner || OWNER, repo: saved.repo || 'Portfolio', branch: saved.branch || 'main',
+                   path: saved.path || 'v3/js/projects.js', token };
+    store.set(GH, JSON.stringify(next));
+    ['owner', 'repo', 'branch', 'path', 'token'].forEach(k => { const el = $('#gh-' + k); if (el) el.value = next[k]; });
+    store.set(OK, '1');
+    $('#lock-token').value = '';
+    out.textContent = '';
+    unlock();
+  } catch (err) {
+    out.textContent = err.message;
+  } finally {
+    go.disabled = false;
+  }
+});
+
+$('#relock').addEventListener('click', () => {
+  if (!confirm('Lock Studio on this device? Both tokens are forgotten here.')) return;
+  store.del(OK); store.del(GH); store.del('ak.goatcounter');
+  location.reload();
+});
+
 /* the shape of a project, in the order it is written back to the file */
 const ORDER = ['slug', 'title', 'category', 'layout', 'cover', 'role', 'year', 'client',
   'lead', 'body', 'facts', 'press', 'awards', 'links', 'portrait', 'images', 'video', 'poster', 'credits'];

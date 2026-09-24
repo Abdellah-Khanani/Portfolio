@@ -10,9 +10,23 @@
 <meta name="theme-color" content="#000000">
 <link rel="preload" href="assets/font/archivo-300_900.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/font/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/dash.css?v=88">
+<link rel="stylesheet" href="css/dash.css?v=89">
 </head>
-<body>
+<body class="is-locked">
+<!-- The lock. There is no password in these files: the key is Abdellah's own GitHub
+     token, which GitHub confirms belongs to the account that owns the repository. -->
+<div class="lock" id="lock">
+  <form class="lock__in" id="lock-form" autocomplete="off">
+    <img class="lock__m" src="assets/logo/ak-mark.webp" alt="AK" width="162" height="81">
+    <h1 class="lock__h">Studio is locked</h1>
+    <p class="lock__p">Paste your GitHub access token to open it on this device. GitHub checks it belongs
+      to your account; it stays in this browser and is never written into the site.</p>
+    <label class="f"><span>GitHub token</span><input type="password" id="lock-token" autocomplete="off" required></label>
+    <button type="submit" class="btn btn--p" id="lock-go">Unlock</button>
+    <p class="log" id="lock-log" role="status"></p>
+  </form>
+</div>
+
 
 <header class="dh">
   <a class="dh__b" href="index.html"><img src="assets/logo/ak-mark.webp" alt="AK"><span>Studio</span></a>
@@ -22,6 +36,7 @@
     <button type="button" data-tab="publish">Publish</button>
   </nav>
   <div class="dh__st cap" id="state"><i></i><span>Loading</span></div>
+  <button type="button" class="btn btn--x" id="relock" aria-label="Lock Studio on this device">Lock</button>
 </header>
 
 <main>
@@ -148,7 +163,7 @@
     <div class="grp" id="gc-setup">
       <div class="row">
         <label class="f"><span>GoatCounter code</span><input type="text" id="gc-code" value="abdellah" placeholder="abdellah"></label>
-        <label class="f"><span>API token</span><input type="text" id="gc-token" placeholder="Create one with &quot;Read statistics&quot;"></label>
+        <label class="f"><span>API token</span><input type="password" autocomplete="off" id="gc-token" placeholder="Create one with &quot;Read statistics&quot;"></label>
       </div>
       <div class="acts">
         <button type="button" class="btn btn--p" id="gc-load">Show visitors</button>
@@ -221,7 +236,7 @@
         <label class="f"><span>Branch</span><input type="text" id="gh-branch" placeholder="main"></label>
         <label class="f"><span>Path to the file</span><input type="text" id="gh-path" placeholder="v3/js/projects.js"></label>
       </div>
-      <label class="f" style="margin-bottom:12px"><span>Access token</span><input type="text" id="gh-token" placeholder="github_pat_..."></label>
+      <label class="f" style="margin-bottom:12px"><span>Access token</span><input type="password" autocomplete="off" id="gh-token" placeholder="github_pat_..."></label>
       <div class="acts">
         <button type="button" class="btn" id="gh-save">Remember settings</button>
         <button type="button" class="btn btn--p" id="gh-push">Publish to GitHub</button>
@@ -245,7 +260,7 @@
 <datalist id="cats"></datalist>
 <div class="toast" id="toast"></div>
 
-<script src="js/projects.js?v=88"></script>
-<script src="js/dash.js?v=88"></script>
+<script src="js/projects.js?v=89"></script>
+<script src="js/dash.js?v=89"></script>
 </body>
 </html>
