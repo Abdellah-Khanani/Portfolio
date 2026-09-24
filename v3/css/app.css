@@ -200,7 +200,8 @@ body.lock .dock{transform:translate(-50%,calc(100% + 40px));opacity:0;pointer-ev
   padding:0 var(--pad);mix-blend-mode:difference;color:#fff;transition:transform .5s var(--e)}
 .hdr.up{transform:translateY(-100%)}
 .hdr.hdr--solid{mix-blend-mode:normal;text-shadow:0 1px 14px rgba(0,0,0,.45)}
-.hdr__b{display:flex;align-items:center;gap:12px}
+.hdr__l{display:flex;align-items:center;gap:12px}
+.hdr__b{display:flex;align-items:center}
 .hdr__m{display:block;height:20px;width:auto}
 .hdr__r{display:inline-flex;align-items:center;gap:6px;color:#8e8e8e}
 .hdr__r i{width:6px;height:6px;border-radius:50%;background:#fff;animation:bl 1.4s steps(1) infinite}
