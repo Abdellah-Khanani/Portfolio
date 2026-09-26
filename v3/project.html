@@ -14,7 +14,7 @@
 <meta property="og:image" content="assets/img/portrait-hero.jpg">
 <link rel="preload" href="assets/font/archivo-300_900.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/font/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/app.css?v=92">
+<link rel="stylesheet" href="css/app.css?v=93">
 <script>(function(){var r=document.documentElement.classList;r.remove('no-js');r.add('js');try{if(sessionStorage.getItem('ak:pt')!==null)r.add('pt-in');if(sessionStorage.getItem('ak:cover'))r.add('pt-cover')}catch(e){}})();</script>
 </head>
 <body>
@@ -121,22 +121,24 @@
 </footer>
 
 <!-- ══════════ SCRIPTS ══════════ -->
-<script src="js/lib/lenis.min.js?v=92"></script>
-<script src="js/lib/gsap.min.js?v=92"></script>
-<script src="js/lib/ScrollTrigger.min.js?v=92"></script>
+<script src="js/lib/lenis.min.js?v=93"></script>
+<script src="js/lib/gsap.min.js?v=93"></script>
+<script src="js/lib/ScrollTrigger.min.js?v=93"></script>
 <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Artwork viewer">
   <img class="lb__img" alt="">
   <div class="lb__bar cap">
     <button class="lb__prev" type="button">Previous</button>
     <span class="lb__count">01 / 01</span>
+    <span class="lb__q" aria-live="polite"></span>
+    <button class="lb__zoom" type="button" aria-pressed="false" hidden><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.6"/><path d="M10.4 10.4L14 14M5 7h4"/><path class="lb__plus" d="M7 5v4"/></svg><span>Zoom in</span></button>
     <button class="lb__next" type="button">Next</button>
     <button class="lb__close" type="button">Close</button>
   </div>
 </div>
 
-<script src="js/projects.js?v=92"></script>
-<script src="js/pages.js?v=92"></script>
-<script src="js/app.js?v=92"></script>
+<script src="js/projects.js?v=93"></script>
+<script src="js/pages.js?v=93"></script>
+<script src="js/app.js?v=93"></script>
 <!-- GoatCounter: privacy-first, no cookies, so no consent banner is needed.
      Counts nothing on localhost, so local work never reaches the numbers. -->
 <script>

@@ -47,13 +47,18 @@ function project() {
     `<a href="project.html?p=${esc(next.slug)}" data-pt="${esc(next.title)}">Next</a>`;
 
   // ── pieces the compositions are built from
+  // every photograph has a full-quality twin in assets/hd/ (same name, .webp) that loads only
+  // when asked for, from the HD button or the viewer; the page itself keeps its light files
+  const hd = src => 'assets/hd/' + String(src).split('/').pop().replace(/\.\w+$/, '.webp');
+  const hdb = what => `<button class="hdb" type="button" aria-label="View ${esc(what)} in full quality">` +
+    `<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4"/></svg><span>HD</span></button>`;
   const cover = () => p.cover
-    ? `<figure class="pj__fig pj__cover${p.fit === 'contain' ? ' pj__cover--fit pj__shot' : ''}"><img src="${esc(p.cover)}" alt="${esc(p.title)}"></figure>`
+    ? `<figure class="pj__fig pj__cover${p.fit === 'contain' ? ' pj__cover--fit' : ''} pj__shot" data-hd="${esc(hd(p.cover))}"><img src="${esc(p.cover)}" srcset="${esc(p.cover)} 1100w, ${esc(hd(p.cover))} 2400w" sizes="100vw" alt="${esc(p.title)}">${hdb(p.title + ', cover')}</figure>`
     : `<div class="pj__fig pj__cover pj__ph"><span class="cap">Photos coming</span></div>`;
   // designed artwork (a stream pack, a poster) must be seen whole, never cropped to a box
   const FIT = p.fit === 'contain';
-  const fig = src => `<figure class="pj__fig${FIT ? ' pj__fig--fit' : ''} pj__shot" tabindex="0" role="button" aria-label="Open ${esc(p.title)} larger">` +
-    `<img src="${esc(src)}" alt="${esc(p.title)}, still" loading="lazy" onload="this.classList.add('is-on')"></figure>`;
+  const fig = src => `<figure class="pj__fig${FIT ? ' pj__fig--fit' : ''} pj__shot" data-hd="${esc(hd(src))}">` +
+    `<img src="${esc(src)}" alt="${esc(p.title)}, still" loading="lazy" onload="this.classList.add('is-on')">${hdb(p.title + ', photo ' + (imgs.indexOf(src) + 1))}</figure>`;
   const ph = (cls, label) => `<div class="pj__fig pj__ph ${cls}"><span class="cap">${label}</span></div>`;
   const video = () => {
     if (!p.video) return ph('pj__ph--wide', 'Video');
@@ -111,8 +116,8 @@ function project() {
   };
   const swipe = () => imgs.length
     ? `<section class="pj__swipe" aria-label="${esc(p.title)}, photo set"><div class="pj__strip">` +
-      imgs.map((s, n) => `<figure class="pj__slide"><img src="${esc(s)}" alt="${esc(p.title)}, photo ${n + 1}" loading="lazy">` +
-        `<figcaption class="cap">${pad2(n + 1)} / ${pad2(imgs.length)}</figcaption></figure>`).join('') +
+      imgs.map((s, n) => `<figure class="pj__slide" data-hd="${esc(hd(s))}"><img src="${esc(s)}" alt="${esc(p.title)}, photo ${n + 1}" loading="lazy">` +
+        `<figcaption class="cap">${pad2(n + 1)} / ${pad2(imgs.length)}</figcaption>${hdb(p.title + ', photo ' + (n + 1))}</figure>`).join('') +
       `</div><p class="cap pj__hint"><span class="pj__hint--m">Drag to browse</span><span class="pj__hint--t">Swipe</span></p></section>`
     : '';
 
@@ -153,9 +158,10 @@ function project() {
       const beats = (p.body || []).slice(1);
       // only three photographs carry the telling — the rest belong to the wall below,
       // otherwise a set of fifty turns this section into an endless scroll
+      // storyShots (photo numbers, from 1) picks them by hand; otherwise they are spread evenly
       const SHOW = 3;
-      const spread = [];
-      for (let k = 0; k < Math.min(SHOW, imgs.length); k++)
+      const spread = (p.storyShots || []).map(n => imgs[n - 1]).filter(Boolean);
+      if (!spread.length) for (let k = 0; k < Math.min(SHOW, imgs.length); k++)
         spread.push(imgs[Math.round(k * (imgs.length - 1) / Math.max(1, Math.min(SHOW, imgs.length) - 1))]);
       const share = beats.map((_, i) => Math.floor(spread.length / beats.length) + (i < spread.length % beats.length ? 1 : 0));
       const gl = document.createElement('section');
@@ -173,18 +179,17 @@ function project() {
             const set = spread.slice(from, from + share[i]);
             return `<div class="gl__step" data-step="${i}">` + (set.length ? set : [spread[0] || imgs[0]]).map(src => {
               const r = (p.ratios || [])[imgs.indexOf(src)];
-              return `<figure class="gl__f pj__shot" tabindex="0" role="button"${r ? ` style="aspect-ratio:${r}"` : ''}` +
-                ` aria-label="Open larger"><img src="${esc(src)}" alt="${esc(p.title)}" loading="lazy"></figure>`;
+              return `<figure class="gl__f pj__shot" data-hd="${esc(hd(src))}"${r ? ` style="aspect-ratio:${r}"` : ''}>` +
+                `<img src="${esc(src)}" alt="${esc(p.title)}" loading="lazy">${hdb(p.title + ', photo ' + (imgs.indexOf(src) + 1))}</figure>`;
             }).join('') + `</div>`;
           }).join('') + `</div></div>` : '') +
         `<div class="gl__wallHead"><span class="kick">Every frame</span>` +
         `<span class="cap">${pad2(imgs.length)} photographs</span></div>` +
         `<div class="gl__wall">` + imgs.map((src, n) => {
           const r = (p.ratios || [])[n];
-          return `<figure class="gl__t pj__shot" tabindex="0" role="button"${r ? ` style="aspect-ratio:${r}"` : ''}` +
-            ` aria-label="Open photograph ${n + 1} larger">` +
+          return `<figure class="gl__t pj__shot" data-hd="${esc(hd(src))}"${r ? ` style="aspect-ratio:${r}"` : ''}>` +
             `<img src="${esc(src)}" alt="${esc(p.title)}, ${n + 1}" loading="lazy">` +
-            `<figcaption class="cap">${pad2(n + 1)}</figcaption></figure>`;
+            `<figcaption class="cap">${pad2(n + 1)}</figcaption>${hdb(p.title + ', photo ' + (n + 1))}</figure>`;
         }).join('') + `</div>`;
       host.insertBefore(gl, grid.nextSibling);
     }
@@ -352,17 +357,38 @@ function instagram() {
 
 /* ───────────────────────── STILLS LIGHTBOX ───────────────────────── */
 function lightbox() {
-  const lb = $('#lb'), items = $$('.bt__ph').length ? $$('.bt__ph') : $$('.pj__shot');
+  const lb = $('#lb'), items = $$('.bt__ph').length ? $$('.bt__ph') : $$('[data-hd]');
   if (!lb || !items.length) return;
   const img = $('.lb__img', lb), count = $('.lb__count', lb);
-  let i = 0, lastFocus = null;
+  const q = $('.lb__q', lb), zoomBtn = $('.lb__zoom', lb);
+  let i = 0, lastFocus = null, want = '';
 
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const show = k => {
     i = (k + items.length) % items.length;
-    const src = $('img', items[i]);
-    img.src = src.dataset.full || src.currentSrc || src.src;
+    const it = items[i], src = $('img', it);
+    const full = it.dataset.hd || src.dataset.full;
+    resetZoom();
+    lb.classList.remove('is-hd');
+    // the photo on the page shows at once; the full-quality file replaces it the moment it lands
+    img.src = src.currentSrc || src.src;
     img.alt = src.alt;
     count.textContent = `${pad2(i + 1)} / ${pad2(items.length)}`;
+    if (q) q.textContent = full ? 'Loading full quality…' : '';
+    if (zoomBtn) zoomBtn.hidden = true;
+    want = full || '';
+    if (!full) return;
+    const hi = new Image();
+    hi.decoding = 'async';
+    hi.onload = () => {
+      if (want !== full) return;          // the visitor already moved on
+      img.src = full;
+      lb.classList.add('is-hd');
+      if (q) q.textContent = `HD · ${hi.naturalWidth} × ${hi.naturalHeight}`;
+      if (zoomBtn) zoomBtn.hidden = false;
+    };
+    hi.onerror = () => { if (want === full && q) q.textContent = ''; };
+    hi.src = full;
   };
   const open = k => {
     lastFocus = document.activeElement;
@@ -376,15 +402,98 @@ function lightbox() {
   };
   const close = () => {
     lb.classList.remove('is-on');
+    resetZoom();
     lb.hidden = true;
     document.body.classList.remove('lock');
     window.__lenis?.start();
     lastFocus?.focus();
   };
 
+  // zoom: the photo grows to its real detail and follows the pointer, so moving across it explores
+  // the frame (a finger drags it instead); everything runs on one transform, eased every frame
+  const Z = { k: 1, x: 0, y: 0, tk: 1, tx: 0, ty: 0, raf: 0, base: null, px: .5, py: .5 };
+  const zoomLevel = () => {
+    const r = Z.base, dpr = Math.min(devicePixelRatio || 1, 2);
+    return Math.min(Math.max(img.naturalWidth / dpr / r.width, 2), 5);
+  };
+  const aim = () => {
+    // where the enlarged photo sits for the pointer at (px, py), a fraction of the viewer
+    const r = Z.base, vw = lb.clientWidth, vh = lb.clientHeight, W = r.width * Z.tk, H = r.height * Z.tk;
+    const left = W > vw ? -Z.px * (W - vw) : (vw - W) / 2;
+    const top = H > vh ? -Z.py * (H - vh) : (vh - H) / 2;
+    Z.tx = left - r.left; Z.ty = top - r.top;
+  };
+  const tick = () => {
+    const f = RM ? 1 : .16;
+    Z.k += (Z.tk - Z.k) * f; Z.x += (Z.tx - Z.x) * f; Z.y += (Z.ty - Z.y) * f;
+    img.style.transform = `translate(${Z.x}px, ${Z.y}px) scale(${Z.k})`;
+    const still = Math.abs(Z.tk - Z.k) < .002 && Math.abs(Z.tx - Z.x) < .3 && Math.abs(Z.ty - Z.y) < .3;
+    if (!still) { Z.raf = requestAnimationFrame(tick); return; }
+    Z.raf = 0;
+    if (Z.tk === 1) { img.style.transform = ''; lb.classList.remove('is-zoom', 'is-zooming'); }
+  };
+  const run = () => { if (!Z.raf) Z.raf = requestAnimationFrame(tick); };
+  const zoomIn = (clientX, clientY) => {
+    if (!lb.classList.contains('is-hd') || lb.classList.contains('is-zoom')) return;
+    img.style.transform = '';
+    Z.base = img.getBoundingClientRect();
+    Z.k = 1; Z.x = 0; Z.y = 0; Z.tk = zoomLevel();
+    Z.px = clientX == null ? .5 : clientX / lb.clientWidth;
+    Z.py = clientY == null ? .5 : clientY / lb.clientHeight;
+    lb.classList.add('is-zoom', 'is-zooming');
+    aim(); run(); syncZoomBtn();
+  };
+  const zoomOut = () => {
+    if (!lb.classList.contains('is-zoom')) return;
+    Z.tk = 1; Z.tx = 0; Z.ty = 0;
+    lb.classList.remove('is-zooming');
+    run(); syncZoomBtn();
+  };
+  function resetZoom() {
+    cancelAnimationFrame(Z.raf); Z.raf = 0; Z.k = Z.tk = 1;
+    img.style.transform = ''; lb.classList.remove('is-zoom', 'is-zooming'); syncZoomBtn();
+  }
+  function syncZoomBtn() {
+    if (!zoomBtn) return;
+    const on = lb.classList.contains('is-zooming');
+    zoomBtn.classList.toggle('is-on', on);
+    zoomBtn.setAttribute('aria-pressed', on);
+    $('span', zoomBtn).textContent = on ? 'Zoom out' : 'Zoom in';
+  }
+  let drag = null;
+  lb.addEventListener('pointermove', e => {
+    if (!lb.classList.contains('is-zooming')) return;
+    if (e.pointerType === 'touch') {
+      if (!drag) return;
+      // a finger pushes the photo: the aim point moves against the drag
+      const W = Z.base.width * Z.tk, H = Z.base.height * Z.tk;
+      Z.px = Math.min(1, Math.max(0, drag.px - (e.clientX - drag.x) / Math.max(1, W - lb.clientWidth)));
+      Z.py = Math.min(1, Math.max(0, drag.py - (e.clientY - drag.y) / Math.max(1, H - lb.clientHeight)));
+      if (Math.abs(e.clientX - drag.x) + Math.abs(e.clientY - drag.y) > 6) drag.moved = true;
+    } else {
+      Z.px = e.clientX / lb.clientWidth; Z.py = e.clientY / lb.clientHeight;
+    }
+    aim(); run();
+  }, { passive: true });
+  lb.addEventListener('pointerdown', e => {
+    if (e.pointerType === 'touch' && lb.classList.contains('is-zooming'))
+      drag = { x: e.clientX, y: e.clientY, px: Z.px, py: Z.py, moved: false };
+  });
+  addEventListener('pointerup', () => { setTimeout(() => { drag = null; }, 0); }, { passive: true });
+  img.addEventListener('click', e => {
+    e.stopPropagation();
+    if (lb.classList.contains('is-zooming')) { if (!drag || !drag.moved) zoomOut(); return; }
+    zoomIn(e.clientX, e.clientY);
+  });
+  zoomBtn?.addEventListener('click', () => lb.classList.contains('is-zooming') ? zoomOut() : zoomIn());
+  addEventListener('resize', () => { if (lb.classList.contains('is-zoom')) resetZoom(); });
+
   items.forEach((b, k) => {
-    b.addEventListener('click', () => open(k));
-    b.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(k); } });
+    const hdBtn = $('.hdb', b);
+    hdBtn?.addEventListener('click', e => { e.stopPropagation(); open(k); });
+    // a strip that is dragged sideways must not open on release; its HD button still does
+    if (!b.classList.contains('pj__slide')) b.addEventListener('click', () => open(k));
+    if (!hdBtn) b.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(k); } });
   });
   $('.lb__prev', lb).addEventListener('click', () => show(i - 1));
   $('.lb__next', lb).addEventListener('click', () => show(i + 1));
@@ -392,7 +501,8 @@ function lightbox() {
   lb.addEventListener('click', e => { if (e.target === lb) close(); });
   addEventListener('keydown', e => {
     if (lb.hidden) return;
-    if (e.key === 'Escape') close();
+    if (e.key === 'Escape') lb.classList.contains('is-zooming') ? zoomOut() : close();
+    else if (e.key === 'z' || e.key === 'Z') lb.classList.contains('is-zooming') ? zoomOut() : zoomIn();
     else if (e.key === 'ArrowLeft') show(i - 1);
     else if (e.key === 'ArrowRight') show(i + 1);
   });

@@ -21,3 +21,6 @@ package.json
 
 # local agent configuration
 .claude/
+
+# social media renders, kept on the Mac only
+instagram-stories/

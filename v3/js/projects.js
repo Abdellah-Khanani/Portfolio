@@ -79,14 +79,16 @@ window.PROJECTS = [
   },
   {
     slug: 'aw-lab', title: 'AW Lab', category: 'Brand content', layout: 'story',
-    cover: 'assets/img/work-awlab.webp', role: 'Filming, animated intro and editing', year: '2025', client: 'AW Lab, with StreamHouse',
+    cover: 'assets/img/work-awlab.webp', role: 'Filming, animated intro and editing', year: '2024', client: 'AW Lab, with StreamHouse',
     lead: 'A private AW Lab event in Milan, documented as a vlog.',
     body: [
       'I documented a private AW Lab event in Milan featuring the StreamHouse team and several well-known Italian creators. The work covered the on-site filming of the entire experience, a custom animated intro built for the vlog, the full edit — structure, pacing, transitions, colour, audio — and creative support to strengthen the storytelling and the flow of the event itself.',
       'Filming a room like that is about access rather than equipment: a camera moving with the group, close enough that the people in front of it forget the lens, and quiet enough that nobody starts performing for it.',
       'The final video captured the energy of the event, the interactions between creators and the exclusive atmosphere curated by AW Lab. It represents one of my first branded event collaborations, combining technical skills with modern social-focused storytelling.'],
-    images: ['assets/img/awlab-03.webp', 'assets/img/awlab-02.webp', 'assets/img/awlab-06.webp', 'assets/img/awlab-04.webp', 'assets/img/awlab-05.webp'],
-    video: '', poster: '', credits: 'Published on the StreamHouse channel, since renamed.'
+    images: ['assets/img/awlab-03.webp', 'assets/img/awlab-02.webp', 'assets/img/awlab-06.webp', 'assets/img/awlab-04.webp', 'assets/img/awlab-05.webp',
+             'assets/img/awlab-v1.webp', 'assets/img/awlab-v3.webp', 'assets/img/awlab-v4.webp', 'assets/img/awlab-v5.webp', 'assets/img/awlab-v2.webp'],
+    links: [['Watch the vlog on YouTube', 'https://youtu.be/MymVcKbulKY']],
+    video: 'https://www.youtube-nocookie.com/embed/MymVcKbulKY?rel=0', poster: '', credits: 'Published on the Teknoyd Reactions channel.'
   },
   {
     slug: 'busk-in-bozen', title: 'Busk in Bozen', category: 'Event shooting', layout: 'story',
@@ -125,14 +127,17 @@ window.PROJECTS = [
     images: ['assets/img/adidas-04.webp', 'assets/img/adidas-02.webp', 'assets/img/adidas-03.webp', 'assets/img/adidas-05.webp'], video: 'assets/video/adidas-lut.mp4', poster: 'assets/video/adidas-lut-poster.webp', credits: 'Photos: Numechi Studio for The Pill.'
   },
   {
-    slug: 'streamhouse', title: 'StreamHouse × MGW', category: 'Vlog shooting', layout: 'story', hidden: true,
-    cover: '', role: 'Filming and editing', year: '2025', client: 'StreamHouse',
+    slug: 'streamhouse', title: 'StreamHouse × MGW', category: 'Vlog shooting', layout: 'story',
+    cover: 'assets/img/work-streamhouse.webp', role: 'Filming and editing', year: '2024', client: 'StreamHouse',
     lead: 'A full vlog covering Milan Games Week, one of Italy\'s largest gaming events.',
     body: [
       'I created a full vlog covering the StreamHouse experience at Milan Games Week, one of Italy\'s largest gaming events. The vlog focused on capturing the real energy of the event rather than its programme.',
       'That meant on-site filming throughout the venue; recording the interactions between fans and creators — StreamHouse, Teknoyd, Mon3y, Ussa and others; covering the meet-and-greets, the photo moments and the spontaneous crowd reactions; the complete edit of the vlog, from structure and pacing to colour, audio and transitions; and selecting the key moments that show the community impact and the creator–fan connection.',
       'The finished video documents both the behind-the-scenes moments and the public atmosphere, showing how creators engage with their audience during major events.'],
-    images: [], video: '', poster: '', credits: 'Published on the StreamHouse channel, since renamed.'
+    images: ['assets/img/streamhouse-02.webp', 'assets/img/streamhouse-03.webp', 'assets/img/streamhouse-04.webp', 'assets/img/streamhouse-05.webp',
+             'assets/img/streamhouse-06.webp', 'assets/img/streamhouse-07.webp'],
+    links: [['Watch the vlog on YouTube', 'https://www.youtube.com/watch?v=KUDvx3vMTao']],
+    video: 'https://www.youtube-nocookie.com/embed/KUDvx3vMTao?rel=0', poster: '', credits: 'Published on the Teknoyd Reactions channel.'
   },
   {
     slug: 'tiny-drin', title: 'Tiny Drin', category: 'Concert shooting', layout: 'stage',
@@ -169,6 +174,7 @@ window.PROJECTS = [
       'Billboard Italia sent me to photograph Marracash at the Forum in Assago, in Milan. Working for a magazine at that size means you get the first three songs from the pit, no second chances, and the picture desk expects the whole night in a handful of frames.',
       'A Marracash show is built on light: hard beams, long blackouts, and a stage design that changes the rules every few minutes. I shoot for the silhouette and let the darkness do the framing, instead of fighting it.',
       'The photographs and the video were published the day after on the official Billboard Italia channels.'],
+    storyShots: [1, 26, 12],
     ratios: [1.501, 1.501, 0.666, 0.666, 0.666, 1.501, 1.501, 0.666, 1.501, 1.501, 0.695, 1.501, 1.501, 0.579, 0.666, 0.666, 1.501, 1.512, 0.666, 0.666, 1.501, 1.501, 1.434, 0.666, 1.501, 1.501, 1.501, 0.666, 0.666, 1.501, 0.666, 0.675, 0.666, 0.666, 0.666, 0.666, 0.644, 1.501, 1.501, 1.501, 0.666, 0.666, 0.666, 1.501, 1.501, 1.501, 0.75, 0.75, 0.75, 0.75],
     images: ['assets/live/marracash-w01.webp',
              'assets/live/marracash-w02.webp',

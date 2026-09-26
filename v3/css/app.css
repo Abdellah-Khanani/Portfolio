@@ -847,6 +847,7 @@ img[data-src]{visibility:hidden}
 @media (max-width:860px){.bt__cols{columns:2}}
 .lb{position:fixed;left:0;top:0;width:100%;height:100dvh;z-index:9400;background:rgba(0,0,0,.82);
   -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);display:grid;place-items:center;
+  grid-template:minmax(0,1fr)/minmax(0,1fr);
   padding:calc(var(--hdr) + 10px) var(--pad) calc(86px + env(safe-area-inset-bottom,0px));
   opacity:0;transition:opacity .45s var(--e)}
 .lb.is-on{opacity:1}
@@ -860,6 +861,40 @@ img[data-src]{visibility:hidden}
 .lb__bar{position:absolute;left:var(--pad);right:var(--pad);bottom:calc(26px + env(safe-area-inset-bottom,0px));display:flex;justify-content:space-between;align-items:center;gap:16px;color:#f1f1f1}
 .lb__bar button{color:#f1f1f1;padding:8px 0}
 .lb__bar button:hover{color:#8e8e8e}
+/* full quality: once the HD file is in, the photo holds still (the idle float resamples it and softens
+   the detail); actual size turns the viewer into a scroll surface that is dragged around */
+.lb.is-hd .lb__img{animation:none}
+.lb__q{flex:1;text-align:center;color:#8e8e8e;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lb__count{min-width:7ch}
+.lb.is-hd .lb__img{cursor:zoom-in}
+/* zoomed: the photo is steered by one transform from pages.js; the bar stays exactly where it was */
+.lb.is-zoom{overflow:hidden;touch-action:none}
+.lb.is-zoom .lb__img{position:relative;z-index:1;animation:none;translate:none;scale:none;transform-origin:0 0;
+  will-change:transform;transition:opacity .5s ease}
+.lb.is-zooming .lb__img{cursor:zoom-out}
+.lb__bar{z-index:2}
+.lb.is-zoom::after{content:"";position:absolute;left:0;right:0;bottom:0;height:120px;z-index:1;pointer-events:none;
+  background:linear-gradient(transparent,rgba(0,0,0,.7))}
+.lb__bar .lb__zoom{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid rgba(255,255,255,.3);
+  border-radius:999px;transition:background .25s,color .25s,border-color .25s}
+.lb__zoom[hidden]{display:none}
+.lb__zoom svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}
+.lb__bar .lb__zoom:hover,.lb__bar .lb__zoom.is-on{background:#f1f1f1;color:#000;border-color:#f1f1f1}
+.lb__zoom.is-on .lb__plus{display:none}
+@media (max-width:560px){.lb__q{display:none}}
+
+/* the HD button on every photograph of a project */
+.hdb{position:absolute;right:10px;bottom:10px;z-index:3;display:inline-flex;align-items:center;gap:6px;
+  padding:7px 10px 7px 8px;border:1px solid rgba(255,255,255,.22);border-radius:999px;background:rgba(0,0,0,.55);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:#fff;cursor:pointer;
+  font:400 10px/1 var(--mono);letter-spacing:.14em;opacity:0;translate:0 4px;
+  transition:opacity .35s var(--e),translate .35s var(--e),background .25s,color .25s}
+.hdb svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.6}
+.hdb:hover,.hdb:focus-visible{background:#fff;color:#000}
+.hdb:focus-visible{outline:1px solid #fff;outline-offset:2px}
+:is(.pj__shot,.pj__slide):hover .hdb,.hdb:focus-visible{opacity:1;translate:0 0}
+@media (hover:none){.hdb{opacity:1;translate:0 0;padding:6px 8px 6px 7px}}
+.pj__cover .hdb{bottom:14px;right:14px}
 
 /* ══════════════ REQUEST FORM ══════════════ */
 .ct{padding-top:var(--hdr)}
