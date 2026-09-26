@@ -9,7 +9,7 @@
 
 const $  = (s, c = document) => c.querySelector(s);
 const $$ = (s, c = document) => [...c.querySelectorAll(s)];
-const DRAFT = 'ak:dash:draft', GH = 'ak:dash:gh';
+const DRAFT = 'ak:dash:draft', BASE = 'ak:dash:base', GH = 'ak:dash:gh';
 const store = {
   get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } },
   set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) { /* private mode */ } },
@@ -75,11 +75,23 @@ const blank = () => ({ slug: '', title: '', category: '', layout: 'story', cover
 const FILE = Array.isArray(window.PROJECTS) ? window.PROJECTS : [];
 let works = [], sel = -1, dirty = false;
 
-/* ── load: a saved draft wins over the file, so nothing is lost on reload ── */
+/* ── load: a saved draft wins over the file, so nothing is lost on reload ──
+   A draft keeps the version it started from (its base). Publishing replays only what changed
+   between base and draft onto the file as it is on GitHub right then, so a draft started days
+   ago never rolls back work published since. A draft with no base predates this rule and cannot
+   be merged safely: it is set aside (kept under ak:dash:draft-old) and the file is loaded. */
+let base = null;
 try {
   const d = JSON.parse(store.get(DRAFT) || 'null');
-  works = Array.isArray(d) && d.length ? d : JSON.parse(JSON.stringify(FILE));
-  dirty = !!(Array.isArray(d) && d.length);
+  base = JSON.parse(store.get(BASE) || 'null');
+  if (Array.isArray(d) && d.length && !Array.isArray(base)) {
+    store.set(DRAFT + '-old', JSON.stringify(d)); store.del(DRAFT);
+    works = JSON.parse(JSON.stringify(FILE)); base = null;
+    setTimeout(() => toast('An old draft was set aside. You are on the published version.'), 600);
+  } else {
+    works = Array.isArray(d) && d.length ? d : JSON.parse(JSON.stringify(FILE));
+    dirty = !!(Array.isArray(d) && d.length);
+  }
 } catch (e) { works = JSON.parse(JSON.stringify(FILE)); }
 
 /* ── small helpers ─────────────────────────────────────── */
@@ -95,7 +107,50 @@ function mark(state) {
   const el = $('#state');
   el.classList.toggle('is-dirty', dirty);
   $('span', el).textContent = dirty ? 'Unpublished changes' : 'Up to date';
-  if (dirty) store.set(DRAFT, JSON.stringify(works)); else store.del(DRAFT);
+  if (dirty) {
+    if (!base) { base = JSON.parse(JSON.stringify(FILE)); store.set(BASE, JSON.stringify(base)); }
+    store.set(DRAFT, JSON.stringify(works));
+  } else { store.del(DRAFT); store.del(BASE); base = null; }
+}
+
+/* three-way merge: what I changed since my base wins, everything else comes from theirs */
+const J = v => JSON.stringify(v);
+function merge(from, mine, theirs) {
+  const B = new Map(from.map(p => [p.slug, p])), T = new Map(theirs.map(p => [p.slug, p]));
+  const M = new Map(mine.map(p => [p.slug, p]));
+  const one = (b, m, t) => {
+    const o = {};
+    new Set([...Object.keys(b), ...Object.keys(m), ...Object.keys(t)]).forEach(k => {
+      const v = J(m[k]) !== J(b[k]) ? m[k] : t[k];
+      if (v !== undefined) o[k] = v;
+    });
+    return o;
+  };
+  const pick = slug => {
+    const m = M.get(slug), b = B.get(slug), t = T.get(slug);
+    if (!b) return m;                                   // added here
+    if (!t) return J(m) !== J(b) ? m : null;            // deleted there, unless edited here
+    return one(b, m, t);
+  };
+  const baseOrder = from.map(p => p.slug).filter(x => M.has(x)).join();
+  const mineOrder = mine.map(p => p.slug).filter(x => B.has(x)).join();
+  let slugs;
+  if (baseOrder !== mineOrder) {
+    // the order was changed here: keep it, and append what was added there
+    slugs = mine.map(p => p.slug).concat(theirs.map(p => p.slug).filter(x => !B.has(x) && !M.has(x)));
+  } else {
+    slugs = theirs.map(p => p.slug).filter(x => M.has(x) || !B.has(x));
+    mine.forEach((p, i) => { if (!B.has(p.slug) && !T.has(p.slug)) slugs.splice(Math.min(i, slugs.length), 0, p.slug); });
+  }
+  return slugs.map(x => M.has(x) ? pick(x) : T.get(x)).filter(Boolean);
+}
+function readRemote(f) {
+  const bin = atob(String(f.content || '').replace(/\s/g, ''));
+  const txt = new TextDecoder().decode(Uint8Array.from(bin, ch => ch.charCodeAt(0)));
+  const w = {};
+  new Function('window', txt)(w);
+  if (!Array.isArray(w.PROJECTS)) throw new Error('the file on GitHub has no project list');
+  return w.PROJECTS;
 }
 
 /* ── the file the site reads ───────────────────────────── */
@@ -120,13 +175,13 @@ function clean(p) {
   return o;
 }
 
-function serialize() {
+function serialize(list = works) {
   const head = `/* Project content for project.html?p=<slug> and work.html.
    Written from the client's own material; nothing here is invented.
    Edited with the Studio dashboard — last written ${new Date().toISOString().slice(0, 10)}.
    layout: 'carousel' a swipeable strip, 'film' poster + facts + trailer, 'stage' photos between
    the text, 'video' the film first, 'phone' an Instagram story mockup, 'story' the plain flow. */\n`;
-  const body = works.map(p => JSON.stringify(clean(p), null, 2)
+  const body = list.map(p => JSON.stringify(clean(p), null, 2)
     .split('\n').map((l, i) => (i ? '  ' : '  ') + l).join('\n')).join(',\n');
   return `${head}window.PROJECTS = [\n${body}\n];\n`;
 }
@@ -406,7 +461,7 @@ $('#copy').addEventListener('click', async () => {
 $('#revert').addEventListener('click', () => {
   if (!confirm('Throw away every change you made here and go back to the published version?')) return;
   works = JSON.parse(JSON.stringify(FILE));
-  sel = -1; store.del(DRAFT);
+  sel = -1; store.del(DRAFT); store.del(BASE); base = null;
   $('#form').hidden = true; $('#empty').hidden = false;
   renderList(); fillLists(); mark(false); status();
   toast('Back to the published version');
@@ -452,7 +507,13 @@ $('#gh-push').addEventListener('click', async () => {
   log('Publishing…');
   try {
     const cur = await ghGet(c);
-    const bytes = new TextEncoder().encode(serialize());
+    let out = works, merged = false;
+    if (!cur.missing) {
+      const theirs = readRemote(cur);
+      const from = base || FILE;
+      if (J(theirs) !== J(from)) { out = merge(from, works, theirs); merged = true; }
+    }
+    const bytes = new TextEncoder().encode(serialize(out));
     let bin = ''; bytes.forEach(b => { bin += String.fromCharCode(b); });
     const r = await fetch(`https://api.github.com/repos/${c.owner}/${c.repo}/contents/${c.path}`, {
       method: 'PUT',
@@ -460,9 +521,13 @@ $('#gh-push').addEventListener('click', async () => {
       body: JSON.stringify({ message: `Studio: update ${works.length} projects`, content: btoa(bin), branch: c.branch, ...(cur.sha ? { sha: cur.sha } : {}) })
     });
     if (!r.ok) throw new Error(`${r.status} ${(await r.text()).slice(0, 180)}`);
-    const out = await r.json();
-    log(`Published. Commit ${out.commit.sha.slice(0, 7)} on ${c.branch}. Your host will rebuild in a minute.`);
-    mark(false); toast('Published to GitHub');
+    const res = await r.json();
+    log(`Published. Commit ${res.commit.sha.slice(0, 7)} on ${c.branch}. Your host will rebuild in a minute.` +
+        (merged ? '\nThe site had changed since this draft began: only your own edits were applied on top.' : ''));
+    works = JSON.parse(JSON.stringify(out));
+    FILE.splice(0, FILE.length, ...JSON.parse(JSON.stringify(out)));
+    if (merged) { sel = -1; $('#form').hidden = true; $('#empty').hidden = false; }
+    mark(false); renderList(); fillLists(); status(); toast('Published to GitHub');
   } catch (e) { log('Failed: ' + e.message); }
 });
 

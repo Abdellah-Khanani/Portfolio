@@ -73,7 +73,80 @@ window.PROJECTS = [
     ],
     "video": "",
     "poster": "",
-    "credits": "For Billboard Italia."
+    "credits": "For Billboard Italia.",
+    "beatTitles": [
+      "Built on light",
+      "The day after"
+    ],
+    "brand": {
+      "logo": "assets/logo/billboard.webp",
+      "name": "Billboard Italia"
+    },
+    "storyShots": [
+      1,
+      26,
+      12
+    ],
+    "ratios": [
+      1.501,
+      1.501,
+      0.666,
+      0.666,
+      0.666,
+      1.501,
+      1.501,
+      0.666,
+      1.501,
+      1.501,
+      0.695,
+      1.501,
+      1.501,
+      0.579,
+      0.666,
+      0.666,
+      1.501,
+      1.512,
+      0.666,
+      0.666,
+      1.501,
+      1.501,
+      1.434,
+      0.666,
+      1.501,
+      1.501,
+      1.501,
+      0.666,
+      0.666,
+      1.501,
+      0.666,
+      0.675,
+      0.666,
+      0.666,
+      0.666,
+      0.666,
+      0.644,
+      1.501,
+      1.501,
+      1.501,
+      0.666,
+      0.666,
+      0.666,
+      1.501,
+      1.501,
+      1.501,
+      0.75,
+      0.75,
+      0.75,
+      0.75
+    ],
+    "pov": {
+      "video": "assets/video/marracash-pov.mp4",
+      "poster": "assets/video/marracash-pov-poster.webp",
+      "title": "Behind the lens",
+      "note": "Three songs, no second chances. Filmed on the phone while the camera was already working.",
+      "place": "Forum, Assago",
+      "wall": "assets/img/marracash-pov-wall.webp"
+    }
   },
   {
     "slug": "hope",
@@ -356,7 +429,75 @@ window.PROJECTS = [
     ],
     "video": "",
     "poster": "",
-    "credits": "For Billboard Italia."
+    "credits": "For Billboard Italia.",
+    "beatTitles": [
+      "Between two songs",
+      "The day after"
+    ],
+    "brand": {
+      "logo": "assets/logo/billboard.webp",
+      "name": "Billboard Italia"
+    },
+    "ratios": [
+      1.501,
+      1.46,
+      0.666,
+      1.501,
+      0.666,
+      0.666,
+      0.666,
+      0.666,
+      0.62,
+      0.666,
+      1.501,
+      1.501,
+      0.666,
+      0.666,
+      1.501,
+      0.666,
+      1.501,
+      0.666,
+      1.501,
+      1.501,
+      1.501,
+      1.501,
+      0.666,
+      1.501,
+      1.501,
+      1.501,
+      1.501,
+      1.501,
+      1.501,
+      0.666,
+      1.501,
+      0.666,
+      1.501,
+      1.501,
+      1.501,
+      1.501,
+      0.666,
+      1.501,
+      1.501,
+      1.501,
+      1.501,
+      1.501,
+      1.501,
+      1.501,
+      1.501,
+      1.501,
+      0.666,
+      1.501,
+      1.501,
+      1.501
+    ],
+    "pov": {
+      "video": "assets/video/ernia-pov.mp4",
+      "poster": "assets/video/ernia-pov-poster.webp",
+      "title": "From the pit",
+      "note": "The same night from my own eye line: the walk to position, the lens going up, the first beam hitting the stage.",
+      "place": "Arena, Jesolo",
+      "wall": "assets/img/ernia-pov-wall.webp"
+    }
   },
   {
     "slug": "tek-house",
@@ -383,7 +524,15 @@ window.PROJECTS = [
     ],
     "video": "",
     "poster": "",
-    "credits": "Direction: Teknoyd."
+    "credits": "Direction: Teknoyd.",
+    "pov": {
+      "video": "assets/video/tek-house.mp4",
+      "poster": "assets/video/tek-house-poster.webp",
+      "title": "On set",
+      "note": "The trailer shoot from the inside: the cases opening, the rig going together, the light we waited for.",
+      "place": "On location",
+      "wall": "assets/img/tek-house-wall.webp"
+    }
   },
   {
     "slug": "game-ground",
@@ -433,7 +582,7 @@ window.PROJECTS = [
     "layout": "story",
     "cover": "assets/img/work-awlab.webp",
     "role": "Filming, animated intro and editing",
-    "year": "2025",
+    "year": "2024",
     "client": "AW Lab, with StreamHouse",
     "lead": "A private AW Lab event in Milan, documented as a vlog.",
     "body": [
@@ -441,16 +590,27 @@ window.PROJECTS = [
       "Filming a room like that is about access rather than equipment: a camera moving with the group, close enough that the people in front of it forget the lens, and quiet enough that nobody starts performing for it.",
       "The final video captured the energy of the event, the interactions between creators and the exclusive atmosphere curated by AW Lab. It represents one of my first branded event collaborations, combining technical skills with modern social-focused storytelling."
     ],
+    "links": [
+      [
+        "Watch the vlog on YouTube",
+        "https://youtu.be/MymVcKbulKY"
+      ]
+    ],
     "images": [
       "assets/img/awlab-03.webp",
       "assets/img/awlab-02.webp",
       "assets/img/awlab-06.webp",
       "assets/img/awlab-04.webp",
-      "assets/img/awlab-05.webp"
+      "assets/img/awlab-05.webp",
+      "assets/img/awlab-v1.webp",
+      "assets/img/awlab-v3.webp",
+      "assets/img/awlab-v4.webp",
+      "assets/img/awlab-v5.webp",
+      "assets/img/awlab-v2.webp"
     ],
-    "video": "",
+    "video": "https://www.youtube-nocookie.com/embed/MymVcKbulKY?rel=0",
     "poster": "",
-    "credits": "Published on the StreamHouse channel, since renamed."
+    "credits": "Published on the Teknoyd Reactions channel."
   },
   {
     "slug": "tiny-drin",
@@ -560,16 +720,76 @@ window.PROJECTS = [
     ],
     "video": "",
     "poster": "",
-    "credits": "For Billboard Italia."
+    "credits": "For Billboard Italia.",
+    "beatTitles": [
+      "The pit and the stage",
+      "The day after"
+    ],
+    "brand": {
+      "logo": "assets/logo/billboard.webp",
+      "name": "Billboard Italia"
+    },
+    "ratios": [
+      1.501,
+      1.501,
+      1.501,
+      1.501,
+      1.501,
+      1.501,
+      1.501,
+      1.501,
+      0.666,
+      0.666,
+      0.666,
+      0.666,
+      0.666,
+      0.666,
+      1.501,
+      1.501,
+      0.666,
+      0.666,
+      1.501,
+      0.666,
+      0.666,
+      1.501,
+      0.666,
+      0.666,
+      0.666,
+      1.501,
+      1.501,
+      1.501,
+      1.501,
+      1.501,
+      1.501,
+      1.501,
+      1.501,
+      1.501,
+      1.501,
+      1.501,
+      0.666,
+      0.677,
+      0.666,
+      0.666,
+      0.666,
+      1.501,
+      1.501,
+      1.501,
+      1.501,
+      0.667,
+      0.714,
+      1.501,
+      1.501,
+      1.501
+    ]
   },
   {
     "slug": "streamhouse",
     "title": "StreamHouse × MGW",
     "category": "Vlog shooting",
     "layout": "story",
-    "cover": "",
+    "cover": "assets/img/work-streamhouse.webp",
     "role": "Filming and editing",
-    "year": "2025",
+    "year": "2024",
     "client": "StreamHouse",
     "lead": "A full vlog covering Milan Games Week, one of Italy's largest gaming events.",
     "body": [
@@ -577,10 +797,23 @@ window.PROJECTS = [
       "That meant on-site filming throughout the venue; recording the interactions between fans and creators — StreamHouse, Teknoyd, Mon3y, Ussa and others; covering the meet-and-greets, the photo moments and the spontaneous crowd reactions; the complete edit of the vlog, from structure and pacing to colour, audio and transitions; and selecting the key moments that show the community impact and the creator–fan connection.",
       "The finished video documents both the behind-the-scenes moments and the public atmosphere, showing how creators engage with their audience during major events."
     ],
-    "images": [],
-    "video": "",
+    "links": [
+      [
+        "Watch the vlog on YouTube",
+        "https://www.youtube.com/watch?v=KUDvx3vMTao"
+      ]
+    ],
+    "images": [
+      "assets/img/streamhouse-02.webp",
+      "assets/img/streamhouse-03.webp",
+      "assets/img/streamhouse-04.webp",
+      "assets/img/streamhouse-05.webp",
+      "assets/img/streamhouse-06.webp",
+      "assets/img/streamhouse-07.webp"
+    ],
+    "video": "https://www.youtube-nocookie.com/embed/KUDvx3vMTao?rel=0",
     "poster": "",
-    "credits": "Published on the StreamHouse channel, since renamed."
+    "credits": "Published on the Teknoyd Reactions channel."
   },
   {
     "slug": "indiependence",
@@ -719,7 +952,8 @@ window.PROJECTS = [
     ],
     "video": "assets/video/teknoyd-napoli.mp4",
     "poster": "assets/video/teknoyd-napoli-poster.webp",
-    "credits": "With Breunor."
+    "credits": "With Breunor.",
+    "fit": "contain"
   },
   {
     "slug": "lost",
@@ -831,6 +1065,7 @@ window.PROJECTS = [
     ],
     "video": "",
     "poster": "",
-    "credits": "StreamHouse × AK Design. Character artwork by third parties."
+    "credits": "StreamHouse × AK Design. Character artwork by third parties.",
+    "fit": "contain"
   }
 ];
