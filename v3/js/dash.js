@@ -114,6 +114,9 @@ function clean(p) {
     if (typeof v === 'string') v = v.trim();
     o[k] = v;
   });
+  // Fields this editor has no control for (pov, brand, ratios, beatTitles, fit, hidden…) are
+  // carried through exactly as they came: saving must never lose what the form cannot show.
+  Object.keys(p).forEach(k => { if (!ORDER.includes(k) && p[k] != null) o[k] = p[k]; });
   return o;
 }
 
