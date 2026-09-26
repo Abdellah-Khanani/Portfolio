@@ -994,6 +994,8 @@ img[data-src]{visibility:hidden}
 .ft__g{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:clamp(40px,6vw,80px)}
 .ft__c .cap{display:block;margin-bottom:10px;color:var(--mut)}
 .ft__c p,.ft__c a{font-size:15px;line-height:1.5;font-weight:500}
+.ft__soc{display:flex;flex-wrap:wrap;align-content:flex-start;column-gap:14px}
+.ft__soc .cap{flex-basis:100%}
 .ft__c em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--mut);font-size:17px}
 .ft__st{display:flex;align-items:flex-start;gap:9px}
 .ft__st i{width:7px;height:7px;border-radius:50%;background:var(--fg);margin-top:7px;flex:none;animation:pl 2s ease-in-out infinite}

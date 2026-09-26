@@ -26,6 +26,22 @@ function project() {
   const next = list[(i + 1) % list.length];
   const prev = list[(i - 1 + list.length) % list.length];
   document.title = `${p.title}, a project by Abdellah Khanani`;
+  // what search engines and link previews read for this project, not the page's placeholders
+  const abs = u => new URL(u, 'https://ak-design.it/').href;
+  const head = (sel, attr, val) => {
+    let m = document.head.querySelector(sel);
+    if (!m) { m = document.createElement(sel.startsWith('link') ? 'link' : 'meta'); document.head.appendChild(m); }
+    Object.entries(attr).forEach(([k, v]) => m.setAttribute(k, v));
+    m.setAttribute(sel.startsWith('link') ? 'href' : 'content', val);
+  };
+  const url = `https://ak-design.it/project.html?p=${encodeURIComponent(p.slug)}`;
+  const about = p.lead || `${p.category} by Abdellah Khanani, filmmaker and video editor in Bolzano.`;
+  head('link[rel="canonical"]', { rel: 'canonical' }, url);
+  head('meta[name="description"]', { name: 'description' }, about);
+  head('meta[property="og:url"]', { property: 'og:url' }, url);
+  head('meta[property="og:title"]', { property: 'og:title' }, document.title);
+  head('meta[property="og:description"]', { property: 'og:description' }, about);
+  if (p.cover) head('meta[property="og:image"]', { property: 'og:image' }, abs(p.cover));
   main.dataset.layout = p.layout || 'story';
 
   const slot = k => $(`[data-pj="${k}"]`, main);

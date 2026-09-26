@@ -31,6 +31,7 @@ jobs:
           # everything in v3/ except the private design notes
           rsync -a --exclude '.design' v3/ _site/
           test -f _site/index.html   # fail loudly rather than publish an empty site
+          node .github/sitemap.js _site   # list every published project for search engines
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
