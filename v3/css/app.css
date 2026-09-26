@@ -587,6 +587,17 @@ body.lock .brg i:nth-child(2){transform:translateY(-3.5px) rotate(-45deg);width:
 .pv__screen{position:absolute;left:13.54%;top:6.85%;width:76.33%;height:86.3%;overflow:hidden;
   border-radius:20px;background:#0a0a0a;z-index:1}
 .pv__v{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* the whole phone is the play/pause control; the round button only shows while the film is stopped */
+.pv__play{position:absolute;inset:0;z-index:3;display:grid;place-items:center;background:none;border:0;cursor:pointer;
+  -webkit-tap-highlight-color:transparent}
+.pv__play svg{width:62px;height:62px;padding:18px;border-radius:50%;fill:#fff;background:rgba(0,0,0,.5);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.25);
+  opacity:0;scale:.85;transition:opacity .35s var(--e),scale .35s var(--e)}
+.pv__i-pause{display:none}
+.pv.is-paused .pv__i-play{opacity:1;scale:1}
+@media (hover:hover){.pv:not(.is-paused) .pv__play:hover .pv__i-pause{display:block;opacity:1;scale:1}
+  .pv:not(.is-paused) .pv__play:hover .pv__i-play{display:none}}
+.pv__play:focus-visible svg{opacity:1;outline:1px solid #fff;outline-offset:3px}
 .pv__cap{position:relative;z-index:2;margin-top:clamp(22px,3vw,44px);text-align:center;max-width:44ch}
 .pv__cap .kick{justify-content:center;margin-bottom:10px}
 .pv__cap p{font-family:var(--ui);color:var(--mut);font-size:clamp(13.5px,1vw,16.5px);line-height:1.65;margin:0}

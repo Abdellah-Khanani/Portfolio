@@ -1184,12 +1184,22 @@ function choreography() {
         scrollTrigger: { trigger: sec, start: 'top 80%', ...play } });
       if (back) G.from(back, { scale: 1.08, opacity: 0, duration: 1.4, ease: 'expo.out',
         scrollTrigger: { trigger: sec, start: 'top 80%', ...play } });
-      ST.create({
-        trigger: sec, start: 'top 75%', end: 'bottom 25%',
-        onToggle: self => {
-          if (self.isActive) vid.play().catch(() => { /* autoplay refused */ });
-          else if (!vid.paused) vid.pause();
-        }
+      // plays while the phone is on screen. Watched with an IntersectionObserver rather than a
+      // ScrollTrigger: on touch the normalized scroll can hold triggers back and the film never
+      // starts. When the browser refuses muted autoplay (Low Power Mode, the Instagram in-app
+      // browser) a play button appears on the screen, and a tap always plays or pauses it.
+      const btn = $('.pv__play', sec);
+      let seen = false, userPaused = false;
+      const state = () => sec.classList.toggle('is-paused', vid.paused);
+      const go = () => vid.play().then(state, () => { sec.classList.add('is-paused'); });
+      vid.addEventListener('play', state); vid.addEventListener('pause', state);
+      new IntersectionObserver(([e]) => {
+        seen = e.isIntersecting;
+        if (seen && !userPaused) go();
+        else if (!seen && !vid.paused) vid.pause();
+      }, { threshold: .35 }).observe(hold);
+      btn?.addEventListener('click', () => {
+        if (vid.paused) { userPaused = false; go(); } else { userPaused = true; vid.pause(); }
       });
     });
 

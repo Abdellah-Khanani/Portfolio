@@ -232,6 +232,9 @@ function project() {
             `<video class="pv__v" src="${esc(p.pov.video)}" poster="${esc(p.pov.poster || '')}" muted loop playsinline preload="metadata"></video>` +
           `</div>` +
           `<img class="pv__frame" src="assets/img/device-fold.webp" alt="" aria-hidden="true">` +
+          `<button class="pv__play" type="button" aria-label="Play or pause the behind the scenes film">` +
+            `<svg class="pv__i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>` +
+            `<svg class="pv__i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg></button>` +
         `</div></div>` +
         `<div class="pv__cap"><span class="kick">POV</span><p>${esc(p.pov.note || '')}</p></div>`;
       host.insertBefore(pv, grid.nextSibling);
