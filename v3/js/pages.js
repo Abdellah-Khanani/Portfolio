@@ -211,7 +211,7 @@ function project() {
     }
   }
 
-  // the POV chapter: the clip sits in the folded phone it was shot on, and the scroll walks into the screen
+  // the POV chapter: the clip (shot on Ray-Ban Meta glasses) plays inside a drawn folding phone, and the scroll walks into the screen
   if (p.pov && p.pov.video) {
     const grid = $('.pj__grid'), host = grid && grid.parentNode;
     if (host) {

@@ -143,7 +143,7 @@ window.PROJECTS = [
       "video": "assets/video/marracash-pov.mp4",
       "poster": "assets/video/marracash-pov-poster.webp",
       "title": "Behind the lens",
-      "note": "Three songs, no second chances. Filmed on the phone while the camera was already working.",
+      "note": "Three songs, no second chances. Filmed with Ray-Ban Meta glasses while the camera was already working.",
       "place": "Forum, Assago",
       "wall": "assets/img/marracash-pov-wall.webp"
     }
@@ -494,7 +494,7 @@ window.PROJECTS = [
       "video": "assets/video/ernia-pov.mp4",
       "poster": "assets/video/ernia-pov-poster.webp",
       "title": "From the pit",
-      "note": "The same night from my own eye line: the walk to position, the lens going up, the first beam hitting the stage.",
+      "note": "The same night from my own eye line, filmed with Ray-Ban Meta glasses: the walk to position, the lens going up, the first beam hitting the stage.",
       "place": "Arena, Jesolo",
       "wall": "assets/img/ernia-pov-wall.webp"
     }
@@ -529,7 +529,7 @@ window.PROJECTS = [
       "video": "assets/video/tek-house.mp4",
       "poster": "assets/video/tek-house-poster.webp",
       "title": "On set",
-      "note": "The trailer shoot from the inside: the cases opening, the rig going together, the light we waited for.",
+      "note": "The trailer shoot from the inside, filmed with Ray-Ban Meta glasses: the cases opening, the rig going together, the light we waited for.",
       "place": "On location",
       "wall": "assets/img/tek-house-wall.webp"
     }
