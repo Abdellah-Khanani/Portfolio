@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Marechiaro · Proposta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Hanken+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f3ef;--paper:#fbfbf9;--ink:#121518;--mute:#5b6168;--line:rgba(18,21,24,.13);--acc:#24456a;--ease:cubic-bezier(.16,1,.3,1)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:300 17px/1.6 "Hanken Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+main{max-width:1240px;margin:0 auto;padding:clamp(48px,8vw,110px) 16px 80px}
+.k{font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:14px;margin:0 0 26px}
+.k::before{content:"";width:34px;height:1px;background:currentColor}
+h1{font:400 clamp(44px,7vw,96px)/1.02 "Playfair Display",Georgia,serif;margin:0 0 26px;letter-spacing:-.015em}
+h1 em{color:var(--acc)}
+.lead{color:var(--mute);max-width:58ch;margin:0}
+section{margin-top:clamp(64px,9vw,120px)}
+.sh{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 30px;border-top:1px solid var(--line);padding-top:22px;margin-bottom:28px}
+.sh h2{font:400 clamp(28px,3.4vw,44px)/1.1 "Playfair Display",Georgia,serif;margin:0}
+.sh p{margin:0;color:var(--mute);max-width:52ch;font-size:16px}
+.g{display:grid;gap:20px}
+@media(min-width:860px){.g{grid-template-columns:repeat(2,minmax(0,1fr))}}
+a.c{color:inherit;text-decoration:none;display:block}
+.pic{overflow:hidden;background:#e4e4de}
+.pic img{display:block;width:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.site .pic img{aspect-ratio:4/5}
+.dash .pic{border:1px solid var(--line)}
+.dash .pic img{aspect-ratio:16/10;object-position:top left}
+a.c:hover .pic img{transform:scale(1.03)}
+.cap{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-top:16px}
+.cap h3{font:400 24px "Playfair Display",Georgia,serif;margin:0}
+.cap h3 i{color:var(--acc)}
+.cap b{font-weight:400;font-size:12px;letter-spacing:.22em;text-transform:uppercase;white-space:nowrap;border-bottom:1px solid currentColor;padding-bottom:2px}
+.c span{display:block;color:var(--mute);font-size:15px;margin-top:4px;max-width:46ch}
+ul.n{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:12px 32px;font-size:15px;color:var(--mute)}
+@media(min-width:860px){ul.n{grid-template-columns:repeat(3,minmax(0,1fr))}}
+ul.n li{border-top:1px solid var(--line);padding-top:12px}
+ul.n strong{display:block;color:var(--ink);font-weight:500}
+.tab{display:grid;gap:8px;margin-top:20px;padding:clamp(24px,4vw,44px);background:#14201f;color:#eceae5;text-decoration:none;position:relative;overflow:hidden;transition:background .5s}
+.tab:hover{background:#0e2528}
+.tab-k{font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:#e9805f}
+.tab-h{font:400 clamp(30px,3.6vw,48px)/1.1 "Playfair Display",Georgia,serif}
+.tab-h i{color:#e9805f}
+.tab-p{color:#a9b6b2;max-width:56ch}
+.tab b{justify-self:start;margin-top:10px;font-weight:400;font-size:12px;letter-spacing:.22em;text-transform:uppercase;border-bottom:1px solid currentColor;padding-bottom:2px}
+footer{margin-top:90px;padding-top:22px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-size:14px;color:var(--mute)}
+.rv{opacity:0;transform:translateY(24px);transition:opacity 1s var(--ease),transform 1.2s var(--ease)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<main>
+ <p class="k">Ristorante Marechiaro · Bolzano</p>
+ <h1>Il nuovo sito, <em>in anteprima.</em></h1>
+ <p class="lead">Due proposte grafiche per il sito, con la carta, la prenotazione online e le due lingue, italiano e tedesco. Accanto, il pannello con cui gestite prenotazioni, tavoli, piatti e orari. Tutto è navigabile: provate pure a prenotare o a cambiare un piatto.</p>
+
+ <section>
+  <div class="sh"><h2>Il sito</h2><p>Stessi contenuti, due stili. Si guardano meglio dal computer, ma funzionano anche dal telefono.</p></div>
+  <div class="g site">
+   <a class="c rv" href="b-bianco.html"><div class="pic"><img src="../web/16.jpg" alt=""></div><div class="cap"><h3>Versione <i>chiara</i></h3><b>Apri</b></div><span>Editoriale, come le tovaglie bianche. La carta è impaginata come quella stampata.</span></a>
+   <a class="c rv" href="c-mare.html"><div class="pic"><img src="../web/18.jpg" alt=""></div><div class="cap"><h3>Versione <i>scura</i></h3><b>Apri</b></div><span>Verde mare profondo e corallo, la sera a lume di candela.</span></a>
+  </div>
+ </section>
+
+ <section>
+  <div class="sh"><h2>La gestione</h2><p>Il vostro pannello, pensato per un tablet in sala: tasti grandi, tutto a portata di dito. Funziona anche dal computer e dal telefono. Qui con prenotazioni di esempio.</p></div>
+  <div class="g dash">
+   <a class="c rv" href="../admin/?tema=chiaro"><div class="pic"><img src="../web/admin-chiaro.jpg" alt="Il pannello in versione chiara"></div><div class="cap"><h3>Pannello <i>chiaro</i></h3><b>Apri</b></div></a>
+   <a class="c rv" href="../admin/?tema=scuro"><div class="pic"><img src="../web/admin-scuro.jpg" alt="Il pannello in versione scura"></div><div class="cap"><h3>Pannello <i>scuro</i></h3><b>Apri</b></div></a>
+  </div>
+  <a class="tab rv" href="../admin/tablet.html"><span class="tab-k">Demo dal vivo</span><span class="tab-h">Provatelo sul <i>tablet</i></span><span class="tab-p">Il pannello dentro la cornice di un tablet, in orizzontale o in verticale. Toccate il tasto arancione: una nuova prenotazione si fa in tre tocchi.</span><b>Apri la demo</b></a>
+  <ul class="n">
+   <li><strong>Prenotazioni</strong>La serata ora per ora, una scheda per tavolo. Le richieste dal sito si confermano con un tocco e il cliente riceve un SMS. Quelle al telefono: persone, orario, nome.</li>
+   <li><strong>Sala e tavoli</strong>La pianta di sala e veranda: assegnate i tavoli e vedete subito cosa è libero.</li>
+   <li><strong>Carta e pescato</strong>Cambiate prezzi e piatti, togliete ciò che è finito, pubblicate il pescato del giorno.</li>
+  </ul>
+ </section>
+
+ <footer><span>Bozza riservata: non è ancora il sito ufficiale. Le foto in sala le rifaremo noi.</span><span>AK Design</span></footer>
+</main>
+<script>
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .15 });
+document.querySelectorAll(".rv").forEach(el => io.observe(el));
+</script>
+</body>
+</html>
