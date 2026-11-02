@@ -107,6 +107,20 @@
    veil.innerHTML = `<div class="ld-word">${[..."Marechiaro"].map(c => `<span>${c}</span>`).join("")}</div>`;
    document.body.append(veil);
   };
+  // after the jump, whatever is now on screen is drawn finished: entrance animations that would start only as the curtain lifts
+  // (headings rising, blocks fading in) are completed under it, so the page never shows its bare background
+  const settle = () => {
+   // once-triggers kill themselves when they fire, so keep their animations before updating
+   const pend = ScrollTrigger.getAll().filter(st => st.vars.once && st.animation).map(st => [st.start, st.animation]);
+   ScrollTrigger.update();
+   pend.forEach(([s, a]) => { if (s <= scrollY + 1) a.progress(1); });
+   // and anything on screen still waiting for its entrance (scroll-scrubbed effects stay tied to the scroll)
+   qa(".wd > span, [data-up], [data-clip]").forEach(el => {
+    const r = el.getBoundingClientRect(); if (r.top >= innerHeight || r.bottom <= 0) return;
+    gsap.getTweensOf(el).forEach(tw => { const st = tw.scrollTrigger; if (!(st && st.vars.scrub)) tw.progress(1); });
+   });
+   qa("[data-r]:not(.in)").forEach(el => { const r = el.getBoundingClientRect(); if (r.top < innerHeight && r.bottom > 0) { el.style.transition = "none"; el.classList.add("in"); requestAnimationFrame(() => requestAnimationFrame(() => el.style.transition = "")); } });
+  };
   const jump = t => {
    if (busy) return; busy = true;
    if (!veil) makeVeil();
@@ -116,8 +130,8 @@
      .set(letters, { yPercent: 110 })
      .to(veil, { clipPath: "inset(0% 0 0 0)", duration: .75, ease: "expo.inOut" })
      .to(letters, { yPercent: 0, duration: .7, stagger: .035, ease: "expo.out" }, "-=.35")
-     .add(() => { closeMenu(); lenis ? lenis.scrollTo(t, { immediate: true, force: true }) : t.scrollIntoView(); ScrollTrigger.update(); })
-     .to(letters, { yPercent: -110, duration: .5, stagger: .025, ease: "expo.in" }, "+=.15")
+     .add(() => { closeMenu(); lenis ? lenis.scrollTo(t, { immediate: true, force: true }) : t.scrollIntoView(); settle(); })
+     .to(letters, { yPercent: -110, duration: .5, stagger: .025, ease: "expo.in" }, "+=.3")
      .to(veil, { clipPath: "inset(0 0 100% 0)", duration: .8, ease: "expo.inOut" }, "-=.2")
      .set(veil, { visibility: "hidden" });
   };
