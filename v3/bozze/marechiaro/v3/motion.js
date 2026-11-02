@@ -61,7 +61,31 @@
   });
  }
 
+ // sideways rows on phones: counter and progress follow the swipe; the row peeks to the left once when it comes into view
+ function setupSwipe() {
+  qa(".hp-nav").forEach(nav => {
+   const track = nav.previousElementSibling, cards = [...track.children].filter(c => !c.classList.contains("hp-intro"));
+   const cnt = nav.querySelector(".hp-count"), bar = nav.querySelector(".hp-bar i"), n = cards.length;
+   const upd = () => {
+    const max = track.scrollWidth - track.clientWidth; if (max <= 0) return;
+    const p = track.scrollLeft / max, i = Math.min(n, Math.max(1, Math.round(p * (n - 1)) + 1));
+    cnt.textContent = String(i).padStart(2, "0") + " / " + String(n).padStart(2, "0");
+    bar.style.setProperty("--p", Math.max(1 / n, p));
+    if (track.scrollLeft > 30) nav.classList.add("used");
+   };
+   track.addEventListener("scroll", upd, { passive: true }); upd();
+   if (reduce) return;
+   const io = new IntersectionObserver(([e]) => {
+    if (!e.isIntersecting || innerWidth >= 900) return; io.disconnect();
+    // slide the whole row left and back, so the next card shows itself; no scrolling involved, so snapping can't fight it
+    setTimeout(() => { if (track.scrollLeft > 30) return; [...track.children].forEach(c => c.animate([{ transform: "translateX(0)" }, { transform: "translateX(-90px)", offset: .45 }, { transform: "translateX(0)" }], { duration: 1500, easing: "cubic-bezier(.65,0,.35,1)", composite: "add" })); }, 450);
+   }, { threshold: .55 });
+   io.observe(track);
+  });
+ }
+
  function init() {
+  setupSwipe();
   document.documentElement.classList.add(ok ? "mo" : "no-mo");
   if (!ok) return;
   gsap.registerPlugin(ScrollTrigger);

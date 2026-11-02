@@ -165,7 +165,22 @@ html:not(.mo) .mq-track{animation:mq 30s linear infinite}
 .mo-card p{margin:0;color:var(--mute);font-size:16px;max-width:36ch}
 .mo-card small{font-family:var(--serif);font-style:italic;color:var(--acc);font-size:18px}
 @media(min-width:900px){.sera .hp-track{height:100svh;align-items:center;padding-top:78px;padding-bottom:0}.mo-card .ph,.mo-card:nth-child(odd) .ph{aspect-ratio:auto;height:46svh}.mo-card:nth-child(odd){padding-top:0;margin-top:9svh}.mo-card{width:min(30vw,380px)}}
-@media(max-width:899px){.sera .hp-track{width:auto;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}.sera .hp-track>*{flex:none;scroll-snap-align:start}.mo-card:nth-child(odd){padding-top:0}}
+@media(max-width:899px){.sera .hp-track{width:auto;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:clamp(16px,4vw,56px);scrollbar-width:none;padding-bottom:28px}.sera .hp-track::-webkit-scrollbar{display:none}.sera .hp-track>*{flex:none;scroll-snap-align:start}.mo-card:nth-child(odd){padding-top:0}
+ .hp-intro{width:68vw;padding-right:0}
+ .mo-card{width:74vw}
+ .sera{padding-bottom:clamp(90px,12vw,140px)}}
+/* phones: the row scrolls sideways, so say it: a counter, a progress line and an arrow that keeps nudging right */
+.hp-nav{display:none}
+@media(max-width:899px){.hp-nav{display:flex;align-items:center;gap:16px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}}
+.hp-count{min-width:62px}
+.hp-bar{flex:1;height:1px;background:var(--line);position:relative;overflow:hidden}
+.hp-bar i{position:absolute;inset:0;background:var(--acc);transform-origin:left;transform:scaleX(var(--p,.14));transition:transform .4s var(--ease)}
+.hp-hint{display:flex;align-items:center;gap:10px;color:var(--acc);transition:opacity .6s}
+.hp-arr{position:relative;width:34px;height:1px;background:currentColor;animation:nudge 1.6s var(--ease) infinite}
+.hp-arr::after{content:"";position:absolute;right:0;top:-4px;width:8px;height:8px;border-top:1px solid currentColor;border-right:1px solid currentColor;transform:rotate(45deg)}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(8px)}}
+.hp-nav.used .hp-hint{opacity:0}
+@media (prefers-reduced-motion:reduce){.hp-arr{animation:none}}
 
 /* materie prime */
 .mp-head{display:grid;gap:22px;margin-bottom:60px}
@@ -436,6 +451,7 @@ body.past .fab{opacity:1;transform:none;pointer-events:auto}
    <article class="mo-card"><div class="ph"><img src="../web/02.jpg" alt="" loading="lazy"></div><h3 data-i="s6h"></h3><p data-i="s6p"></p></article>
    <article class="mo-card"><div class="ph"><img src="../web/03.jpg" alt="" loading="lazy"></div><h3 data-i="s7h"></h3><p data-i="s7p"></p></article>
   </div>
+  <div class="hp-nav w" aria-hidden="true"><span class="hp-count num">01 / 07</span><span class="hp-bar"><i></i></span><span class="hp-hint"><span data-i="swipe">Scorri</span><i class="hp-arr"></i></span></div>
  </section>
 
  <section class="pad" id="materie">
@@ -558,11 +574,11 @@ body.past .fab{opacity:1;transform:none;pointer-events:auto}
 <a class="btn fab" href="#prenota" data-i="book">Prenota</a>
 <nav class="draft" aria-label="Bozze"><span data-i="draft"></span><a href="b-bianco.html" aria-current="page">B</a><a href="c-mare.html">C</a></nav>
 
-<script src="shared.js?v=7"></script>
+<script src="shared.js?v=10"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="motion.js?v=7"></script>
+<script src="motion.js?v=10"></script>
 <script>
 // the printed-menu heading follows the selected category; the overlay picture follows the hovered link
 (() => {
