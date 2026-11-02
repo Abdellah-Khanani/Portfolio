@@ -560,5 +560,8 @@ body.past .fab{opacity:1;transform:none;pointer-events:auto}
  });
 })();
 </script>
+<!-- Umami, tagged per draft so each one has its own counter. Skipped inside the tablet frame, which would count the panel twice;
+     data-domains keeps localhost out. -->
+<script>if (window.top === window) { const u = document.createElement("script"); u.defer = true; u.src = "https://cloud.umami.is/script.js"; Object.assign(u.dataset, { websiteId: "a5f40550-e9eb-4055-88af-d4f7bbf08a78", domains: "ak-design.it", tag: "bozza-marechiaro" }); document.head.append(u); }</script>
 </body>
 </html>
