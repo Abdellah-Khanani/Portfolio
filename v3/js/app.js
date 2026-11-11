@@ -907,7 +907,7 @@ function choreography() {
     if (lv && desk) {
       const shots = $$('.lv__shot', lv), N = shots.length;
       const beam = $('.lv__beam', lv), names = $$('.lv__name', lv), hudI = $('.lv__i', lv);
-      const SRC = [.26, .74, .5];          // where each artist's light hangs, as a share of stage width
+      const SRC = [.26, .74, .5, .62];     // where each artist's light hangs, as a share of stage width
       const W = .14;                       // transition half-width, in shots
       const ease = x => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
       const data = shots.map((s, k) => {
