@@ -6,7 +6,7 @@
 window.PROJECTS = [
   {
     "slug": "nayt",
-    "title": "nayt × Billboard",
+    "title": "Nayt × Billboard",
     "category": "Concert photography",
     "layout": "gallery",
     "cover": "assets/live/nayt-w16.webp",
@@ -15,7 +15,7 @@ window.PROJECTS = [
     "client": "Billboard Italia",
     "lead": "The Noi Individui Tour at the Unipol Forum, shot for Billboard Italia.",
     "body": [
-      "nayt's show runs on contrast: long stretches of near darkness cut by a single line of light along the stage, then whole songs drowned in red smoke. From the pit the work is to be ready for the moment the light finds him.",
+      "Nayt's show runs on contrast: long stretches of near darkness cut by a single line of light along the stage, then whole songs drowned in red smoke. From the pit the work is to be ready for the moment the light finds him.",
       "I photographed the night at the Unipol Forum in Assago for Billboard Italia, on a Sony A7 V with the FE 24-70 f/2.8 GM lent by NSHOT in Verona.",
       "The photographs ran in Billboard Italia's review of the concert two days later."
     ],
@@ -29,7 +29,6 @@ window.PROJECTS = [
       "assets/live/nayt-w07.webp",
       "assets/live/nayt-w08.webp",
       "assets/live/nayt-w09.webp",
-      "assets/live/nayt-w10.webp",
       "assets/live/nayt-w11.webp",
       "assets/live/nayt-w12.webp",
       "assets/live/nayt-w13.webp",
@@ -42,15 +41,12 @@ window.PROJECTS = [
       "assets/live/nayt-w20.webp",
       "assets/live/nayt-w21.webp",
       "assets/live/nayt-w22.webp",
-      "assets/live/nayt-w23.webp",
       "assets/live/nayt-w24.webp",
       "assets/live/nayt-w25.webp",
       "assets/live/nayt-w26.webp",
       "assets/live/nayt-w27.webp",
       "assets/live/nayt-w28.webp",
-      "assets/live/nayt-w29.webp",
-      "assets/live/nayt-w30.webp",
-      "assets/live/nayt-w31.webp"
+      "assets/live/nayt-w29.webp"
     ],
     "video": "",
     "poster": "",
@@ -73,7 +69,6 @@ window.PROJECTS = [
       1.5,
       1.5,
       1.5,
-      0.667,
       1.5,
       1.5,
       1.625,
@@ -86,16 +81,68 @@ window.PROJECTS = [
       0.667,
       0.667,
       0.571,
-      0.667,
       0.586,
       1.5,
       1.5,
       1.5,
       0.667,
-      0.667,
-      0.667,
       0.667
-    ]
+    ],
+    "links": [
+      [
+        "Read the article on Billboard Italia",
+        "https://billboard.it/eventi/nayt-concerto-milano/2026/11/09213700/"
+      ]
+    ],
+    "pov": {
+      "video": "assets/video/nayt-pov.mp4",
+      "poster": "assets/video/nayt-pov-poster.webp",
+      "title": "From the pit",
+      "note": "The same night from my own eye line: the lens going up from under the stage, the smoke, the white light and then the red.",
+      "place": "Unipol Forum, Assago",
+      "wall": "assets/img/nayt-pov-wall.webp"
+    }
+  },
+  {
+    "slug": "nshot",
+    "title": "NSHOT × AK Design",
+    "category": "Sponsored reel",
+    "layout": "phone",
+    "cover": "assets/img/nshot-01.webp",
+    "role": "Filming, editing and concert photography",
+    "year": "2026",
+    "client": "NSHOT Verona",
+    "lead": "A sponsored reel for a photo and video shop in Verona: from their counter to the pit at Nayt's concert.",
+    "body": [
+      "NSHOT, a photo and video shop in Verona, lent me a Sony A7 V and the FE 24-70 f/2.8 GM for Nayt's concert at the Unipol Forum. In return I filmed the whole day for them, from the counter to the pit.",
+      "The reel follows the kit: the pickup at the shop, packing it in the car, the drive to Assago and the songs shot from under the stage, all from my own eye line.",
+      "It went out as a collaboration between my profile and NSHOT's, on the feed and in their stories."
+    ],
+    "facts": [
+      [
+        "Kit",
+        "Sony A7 V and FE 24-70 f/2.8 GM"
+      ],
+      [
+        "Route",
+        "Verona to the Unipol Forum"
+      ],
+      [
+        "Published",
+        "Instagram reel, in collab with @nshot_verona"
+      ]
+    ],
+    "links": [
+      [
+        "See the concert photographs",
+        "project.html?p=nayt"
+      ]
+    ],
+    "video": "assets/video/nshot-reel.mp4",
+    "poster": "assets/video/nshot-reel-poster.webp",
+    "credits": "For NSHOT Verona. Concert photographs for Billboard Italia.",
+    "phoneCap": "The reel as it was published, in collab with @nshot_verona",
+    "images": []
   },
   {
     "slug": "marracash",

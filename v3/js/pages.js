@@ -128,7 +128,7 @@ function project() {
       `<div class="pj__bars" aria-hidden="true"><i class="is-on"></i><i></i><i></i></div>` +
       `<div class="pj__story"><img class="pj__av" src="assets/logo/ak-icon-180.png" alt="">` +
       `<span class="pj__who"><b>${handle}</b><em>Partnership pubblicizzata</em></span></div>` +
-      `</div></div><figcaption class="cap">The story as it was published</figcaption></figure>`;
+      `</div></div><figcaption class="cap">${esc(p.phoneCap || 'The story as it was published')}</figcaption></figure>`;
   };
   const swipe = () => imgs.length
     ? `<section class="pj__swipe" aria-label="${esc(p.title)}, photo set"><div class="pj__strip">` +
@@ -153,7 +153,7 @@ function project() {
     const lock = p.brand
       ? `<div class="gl__brand"><img src="${esc(p.brand.logo)}" alt="${esc(p.brand.name)}" width="${p.brand.w || 600}" height="${p.brand.h || 140}"><span class="cap">&times; Abde</span></div>`
       : '';
-    media = lock + cover() + para(0, 1);
+    media = lock + cover() + para(0, 1) + links();
   } else if (L === 'stage') {
     media = FIT
       ? cover() + para(0, 1) + rhythm(0) + para(1) + facts() + links() + credits()
