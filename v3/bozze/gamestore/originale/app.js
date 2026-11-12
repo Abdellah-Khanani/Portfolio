@@ -109,7 +109,7 @@
       [['PlayStation', CAT + '?pl=ps5'], ['Nintendo', CAT + '?pl=sw2'], ['Xbox', CAT + '?pl=xbox'], ['Accessori', CAT + '?k=ac'], ['Funko', CAT + '?k=funko'], ['Action Figures', CAT + '?k=fig'], ['Gadgets', CAT + '?k=gad'], ['Trading Card Games', CAT + '?k=tcg']].map(function (a) { return '<li><a href="' + a[1] + '">' + a[0] + '</a></li>'; }).join('') + '</ul></div>' +
       '<div><h4>Informazioni</h4><ul><li><a href="index.html#usato">Usato e permuta</a></li><li><a href="index.html#tessera">Tessera punti</a></li><li><a href="prodotto.html#consegna">Spedizioni e ritiro</a></li><li><a href="' + SHOP + '" target="_blank" rel="noopener">Resi</a></li><li><a href="' + SHOP + '" target="_blank" rel="noopener">Privacy</a></li><li><a href="index.html#negozio">Dove siamo</a></li></ul></div>' +
       '<div><h4>Pagamenti sicuri</h4><div class="chips"><span>Carta</span><span>PayPal</span><span>Bonifico</span><span>Contanti in negozio</span></div><p class="ftr-note">Spedizione gratuita da 49,99 € (console escluse, contributo 14,99 €).</p></div>' +
-      '</div><div class="wrap ftr-bot"><span>© 2026 Gamestore Bolzano. Tutti i marchi appartengono ai rispettivi proprietari.</span><span>Proposta grafica di AK Design, non online.</span></div></footer>';
+      '</div><div class="wrap ftr-bot"><span>© 2026 Gamestore Bolzano. Tutti i marchi appartengono ai rispettivi proprietari.</span><span>Proposta grafica di AK Design, non online. · <a href="studio.html" class="ftr-staff">Area negozio</a></span></div></footer>';
   }
 
   /* ---------- card prodotto ---------- */

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Area negozio · Studio grafiche — Gamestore Bolzano (bozza Originale)</title>
+<meta name="description" content="Bozza grafica di AK Design: strumento per creare storie, post e caroselli Instagram on-brand dal telefono.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="studio.css">
+</head>
+<body class="st-body">
+<header class="st-hdr">
+  <a class="plate" href="index.html" aria-label="Torna al sito"><img src="studio/img/logo.jpg" alt="Gamestore Bolzano"></a>
+  <div class="st-ttl"><b>Area negozio · Studio grafiche</b><span class="demo">demo</span></div>
+  <a class="st-back" href="index.html">← Sito</a>
+</header>
+<main class="st">
+  <section class="st-tpl" aria-labelledby="h1s">
+    <h2 id="h1s"><span>1</span>Cosa vuoi pubblicare?</h2>
+    <div class="tpl-row" id="tplRow"></div>
+  </section>
+  <section class="st-prev" aria-label="Anteprima">
+    <div class="pv-head"><span id="fmtLbl"></span><div id="slideNav" class="sn" hidden><button type="button" id="prev" aria-label="Slide precedente">‹</button><b id="slideLbl"></b><button type="button" id="next" aria-label="Slide successiva">›</button></div></div>
+    <div class="pv"><canvas id="cv" width="1080" height="1920" role="img" aria-label="Anteprima"></canvas></div>
+    <div class="strip" id="strip" hidden></div>
+    <div class="dlbar"><p id="blk" class="blk" hidden></p><div class="dl-in"><button type="button" class="btn btn-main" id="dl1">Scarica PNG</button><button type="button" class="btn btn-blue" id="dlAll" hidden>Scarica tutto (.zip)</button></div></div>
+  </section>
+  <section class="st-ctl" aria-label="Impostazioni">
+    <h2><span>2</span>Formato</h2>
+    <div class="fmt" id="fmt"></div>
+    <h2><span>3</span>Contenuto: <em id="formTitle"></em></h2>
+    <div id="form"></div>
+    <p class="note">Tutto resta sul tuo telefono: le immagini non vengono caricate da nessuna parte. Per Instagram: nelle storie la parte alta e quella bassa restano libere dal testo importante.</p>
+  </section>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<a class="draft-badge" href="../index.html" title="Torna alla scelta delle proposte">Bozza di AK Design — proposta grafica</a>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
+<script src="../shared/data.js"></script>
+<script src="studio.js"></script>
+</body>
+</html>

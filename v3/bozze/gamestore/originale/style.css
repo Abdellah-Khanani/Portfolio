@@ -429,3 +429,4 @@ details[open]>summary{color:var(--y)}
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   .rv{opacity:1;transform:none}
 }
+.ftr-staff{opacity:.7;text-decoration:underline!important}
