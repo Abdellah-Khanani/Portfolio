@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Trattoria Esempio · Pizzeria moderna</title>
+<meta name="theme-color" content="#fbfbf7">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="booking.css">
+<style>
+:root{--off:#fbfbf7;--tom:#e94f2b;--yel:#ffd23f;--blk:#111;--mute:#5c5c56;--line:rgba(17,17,17,.14);--r:28px;--ease:cubic-bezier(.16,1,.3,1)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--off);color:var(--blk);font:400 17px/1.5 "Space Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3{font-family:inherit;font-weight:700;text-transform:uppercase;letter-spacing:-.035em;line-height:.92;margin:0}
+.wrap{width:min(1240px,100% - 32px);margin:0 auto}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 28px;border-radius:999px;border:2.5px solid var(--blk);background:var(--blk);color:var(--off);font:700 16px/1 "Space Grotesk";text-transform:uppercase;letter-spacing:.01em;text-decoration:none;cursor:pointer;transition:transform .3s var(--ease),background .2s,color .2s}
+.btn:hover{transform:translateY(-3px) rotate(-1deg)}
+.btn.tom{background:var(--tom);border-color:var(--blk);color:#fff}
+.btn.out{background:none;color:var(--blk)}
+.pill{display:inline-block;padding:7px 14px;border-radius:999px;background:var(--yel);border:2px solid var(--blk);font:700 13px/1 "Space Grotesk";text-transform:uppercase;letter-spacing:.04em}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:30;background:rgba(251,251,247,.92);backdrop-filter:blur(10px);border-bottom:2px solid transparent;transition:border-color .3s}
+.nav.solid{border-color:var(--blk)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;min-height:64px;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;min-height:44px;text-decoration:none;font:700 17px/1 "Space Grotesk";text-transform:uppercase;letter-spacing:-.02em}
+.logo i{width:34px;height:34px;border-radius:50%;background:var(--tom);border:2.5px solid var(--blk);display:grid;place-items:center;position:relative;overflow:hidden}
+.logo i::after{content:"";position:absolute;width:10px;height:10px;border-radius:50%;background:var(--yel);top:7px;left:6px;box-shadow:9px 9px 0 -2px var(--yel)}
+.nav ul{display:none;list-style:none;margin:0;padding:0;gap:6px}
+.nav ul a{display:block;padding:12px 16px;border-radius:999px;text-decoration:none;font-weight:500;font-size:15px}
+.nav ul a:hover{background:var(--yel)}
+.nav .btn{min-height:46px;padding:0 20px;font-size:14px}
+@media(min-width:900px){.nav ul{display:flex}}
+
+/* stories */
+.stories{display:flex;gap:16px;overflow-x:auto;padding:16px 16px 6px;scrollbar-width:none;margin:0 auto;max-width:1240px}
+.stories::-webkit-scrollbar{display:none}
+.st{flex:none;width:76px;text-align:center;text-decoration:none;font-size:12.5px;font-weight:500}
+.st span{display:block;width:76px;height:76px;padding:3px;border-radius:50%;background:conic-gradient(from 200deg,var(--tom),var(--yel),var(--tom));margin-bottom:6px}
+.st img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:3px solid var(--off)}
+
+/* hero */
+.hero{padding:30px 0 20px}
+.hero h1{font-size:clamp(52px,16.5vw,168px);line-height:.86}
+.hero h1 mark{background:var(--yel);color:inherit;padding:0 .08em;border-radius:.14em;display:inline-block;transform:rotate(-2deg);margin-top:.04em}
+.hero h1 span{color:var(--tom)}
+.hero .lead{max-width:34ch;font-size:19px;margin:24px 0 26px;color:var(--mute)}
+.hero .cta{display:flex;flex-wrap:wrap;gap:12px}
+.hero .cta .btn{flex:1 1 220px}
+@media(min-width:900px){.hero{padding:56px 0 30px}.hero .cta .btn{flex:none}.hero .head{display:grid;grid-template-columns:1fr 380px;align-items:end;gap:40px}.hero h1{font-size:clamp(80px,8.6vw,132px)}.hero .cta{flex-direction:column}.hero .lead{margin:0 0 6px}}
+
+/* bento */
+.bento{display:grid;grid-template-columns:repeat(2,1fr);grid-auto-rows:minmax(150px,auto);gap:12px;margin-top:26px}
+.bt{position:relative;border-radius:var(--r);overflow:hidden;border:2.5px solid var(--blk);min-height:150px}
+.bt img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.bt:hover img{transform:scale(1.05)}
+.bt .tag{position:absolute;left:12px;bottom:12px;z-index:2}
+.bt.big{grid-column:span 2;grid-row:span 2;min-height:340px}
+.bt.wide{grid-column:span 2}
+.bt.txt{padding:20px;display:flex;flex-direction:column;justify-content:space-between;gap:12px}
+.bt.txt b{font-size:clamp(44px,12vw,76px);line-height:.85;letter-spacing:-.05em}
+.bt.txt span{font-weight:500;font-size:15px;line-height:1.3}
+.bt.y{background:var(--yel)}.bt.t{background:var(--tom);color:#fff}.bt.k{background:var(--blk);color:var(--off)}
+@media(min-width:900px){
+ .bento{grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:16px}
+ .bt.big{grid-column:span 2;grid-row:span 2;min-height:0}
+}
+
+/* marquee */
+.mq{margin:54px 0 0;background:var(--blk);color:var(--yel);overflow:hidden;white-space:nowrap;transform:rotate(-1.5deg);padding:16px 0;border-block:3px solid var(--blk)}
+.mq div{display:inline-block;animation:mq 26s linear infinite;font:700 clamp(24px,5vw,40px)/1 "Space Grotesk";text-transform:uppercase;letter-spacing:-.02em}
+.mq span{margin:0 18px;color:var(--tom)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* sections */
+main{overflow-x:clip}
+main>section{padding:clamp(60px,9vw,120px) 0 0}
+.sh{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px 30px;margin-bottom:30px}
+.sh h2{font-size:clamp(44px,12vw,120px)}
+.sh h2 em{font-style:normal;color:var(--tom)}
+.sh p{margin:0;max-width:32ch;color:var(--mute)}
+
+/* menu */
+.tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:2px 16px 14px;margin:0 -16px}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;min-height:50px;padding:0 24px;border-radius:999px;border:2.5px solid var(--blk);background:var(--off);font:700 15px/1 "Space Grotesk";text-transform:uppercase;cursor:pointer;transition:background .2s,transform .3s var(--ease)}
+.tabs button:hover{transform:translateY(-2px)}
+.tabs button[aria-selected=true]{background:var(--tom);color:#fff}
+@media(min-width:900px){.tabs{margin:0;padding-inline:0}}
+.dishes{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:12px}
+@media(min-width:760px){.dishes{grid-template-columns:1fr 1fr;gap:16px}}
+.dish{background:#fff;border:2.5px solid var(--blk);border-radius:var(--r);padding:20px 20px 18px;animation:pop .5s var(--ease) both;animation-delay:calc(var(--i)*50ms);transition:transform .3s var(--ease),background .2s}
+.dish:hover{transform:translateY(-4px) rotate(-.5deg);background:#fffbe9}
+@keyframes pop{from{opacity:0;transform:scale(.94) translateY(10px)}}
+.dh{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+.dh h3{font-size:19px;line-height:1.1;letter-spacing:-.02em}
+.lead-dots{display:none}
+.pr{flex:none;background:var(--yel);border:2px solid var(--blk);border-radius:999px;padding:6px 12px;font:700 16px/1 "Space Grotesk"}
+.dish p{margin:8px 0 0;color:var(--mute);font-size:15px;line-height:1.4;max-width:34ch}
+.ico{display:inline-grid;place-items:center;width:21px;height:21px;border-radius:50%;margin-left:7px;font:700 11px/1 "Space Grotesk";vertical-align:2px;background:var(--blk);color:var(--off)}
+.ico-p{background:var(--tom)}.ico-v{background:#2d8a4e}
+.legend{margin:18px 0 0;font-size:14px;color:var(--mute)}
+
+/* steps */
+.steps{display:grid;gap:12px}
+.step{border:2.5px solid var(--blk);border-radius:var(--r);padding:22px;display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:center}
+.step b{grid-row:span 2;font-size:clamp(64px,16vw,96px);line-height:.8;letter-spacing:-.06em}
+.step h3{font-size:clamp(24px,6vw,32px)}
+.step p{margin:0;font-size:15px;line-height:1.35}
+.step.a{background:var(--yel)}.step.b{background:var(--tom);color:#fff}.step.c{background:var(--blk);color:var(--off)}
+.step.c b{color:var(--yel)}
+@media(min-width:900px){.steps{grid-template-columns:repeat(3,1fr);gap:16px}.step{grid-template-columns:1fr;padding:30px;min-height:240px;align-content:space-between}.step b{grid-row:auto;font-size:120px}}
+
+/* prenota */
+.prenota .box{background:var(--tom);border:2.5px solid var(--blk);border-radius:36px;padding:26px 16px 16px;display:grid;gap:26px}
+.prenota .box h2{font-size:clamp(44px,12vw,110px);color:#fff}
+.prenota .box h2 em{font-style:normal;color:var(--yel)}
+.prenota .box>div>p{color:#ffe8dd;margin:16px 0 0;max-width:34ch}
+.hrs{display:grid;gap:10px;margin-top:22px}
+.hrs div{background:rgba(17,17,17,.9);color:var(--off);border-radius:18px;padding:14px 18px;display:flex;justify-content:space-between;gap:12px;font-size:15px}
+.hrs b{color:var(--yel);font-weight:700;text-align:right}
+.form{background:var(--off);border:2.5px solid var(--blk);border-radius:26px;padding:20px 16px}
+.form .bk{--bk-ink:var(--blk);--bk-mute:var(--mute);--bk-line:rgba(17,17,17,.3);--bk-acc:var(--blk);--bk-acc-ink:var(--yel);--bk-soft:var(--yel);--bk-r:16px;--bk-qfont:"Space Grotesk",sans-serif;--bk-bg:#fff}
+.form .bk-q{text-transform:uppercase;font-weight:700;letter-spacing:-.03em;line-height:1}
+.form .bk-q em{font-style:normal;color:var(--tom)}
+.form .bk-prog{background:rgba(17,17,17,.12);height:6px}.form .bk-prog i{background:var(--tom)}
+.form .bk-send{background:var(--tom);color:#fff;border:2.5px solid var(--blk);text-transform:uppercase}
+.form .bk-nums button{font-weight:700;font-size:22px}
+@media(min-width:900px){.prenota .box{grid-template-columns:.85fr 1.15fr;padding:48px;gap:56px;align-items:start}.form{padding:30px}}
+
+/* dove */
+.dove .grid{display:grid;gap:12px}
+.dove .card{border:2.5px solid var(--blk);border-radius:var(--r);padding:26px;background:#fff}
+.dove .card h3{font-size:clamp(28px,7vw,40px);margin-bottom:12px}
+.dove .card p{margin:0;color:var(--mute)}
+.dove .card.y{background:var(--yel)}.dove .card.y p{color:var(--blk)}
+.dove .ph{position:relative;min-height:240px;border-radius:var(--r);overflow:hidden;border:2.5px solid var(--blk)}
+.dove .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+@media(min-width:900px){.dove .grid{grid-template-columns:1fr 1fr 1fr;gap:16px}.dove .ph{min-height:0}}
+footer{margin-top:80px;background:var(--blk);color:var(--off);border-radius:36px 36px 0 0;padding:44px 0 130px}
+footer .big{font-size:clamp(46px,13vw,150px);color:var(--yel);letter-spacing:-.05em;line-height:.85;text-transform:uppercase;font-weight:700}
+footer p{margin:20px 0 0;font-size:14px;opacity:.7}
+
+/* sticky cta */
+.sticky{position:fixed;z-index:50;left:16px;right:16px;bottom:40px;display:flex;justify-content:center;pointer-events:none;transition:transform .5s var(--ease),opacity .3s}
+.sticky.off{transform:translateY(140%);opacity:0}
+.sticky a{pointer-events:auto;width:100%;max-width:420px;min-height:60px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 10px 0 26px;border-radius:999px;background:var(--blk);color:var(--off);border:2.5px solid var(--blk);box-shadow:0 10px 0 -4px var(--tom),0 18px 30px rgba(0,0,0,.25);font:700 17px/1 "Space Grotesk";text-transform:uppercase;text-decoration:none;letter-spacing:-.01em}
+.sticky a i{width:44px;height:44px;border-radius:50%;background:var(--yel);color:var(--blk);display:grid;place-items:center;font-style:normal;font-size:22px}
+
+[data-r]{opacity:0;transform:translateY(24px) scale(.98);transition:opacity .7s var(--ease),transform .9s var(--ease)}
+[data-r].in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){[data-r]{opacity:1;transform:none;transition:none}.mq div,.dish{animation:none}html{scroll-behavior:auto}}
+.akdemo{position:fixed;right:8px;bottom:8px;z-index:2147483000;font:500 11px/1 -apple-system,system-ui,sans-serif;letter-spacing:.02em;padding:6px 12px;border-radius:99px;background:rgba(20,18,16,.72);color:#f5eee3;text-decoration:none;backdrop-filter:blur(6px);opacity:.78;white-space:nowrap;max-width:94vw;overflow:hidden;text-overflow:ellipsis}.akdemo:hover{opacity:1}
+</style>
+</head>
+<body>
+<span id="top-sentinel" style="position:absolute;top:0;height:60px;width:1px"></span>
+<header class="nav">
+ <div class="wrap">
+  <a class="logo" href="#"><i></i>Esempio</a>
+  <ul>
+   <li><a href="#menu">Menu</a></li>
+   <li><a href="#come">Come funziona</a></li>
+   <li><a href="#dove">Dove</a></li>
+  </ul>
+  <a class="btn tom" href="#prenota">Prenota</a>
+ </div>
+</header>
+
+<nav class="stories" aria-label="Scorciatoie">
+ <a class="st" href="#menu"><span><img src="../web/13.jpg" alt=""></span>Forno</a>
+ <a class="st" href="#menu"><span><img src="../web/09.jpg" alt=""></span>Pizze</a>
+ <a class="st" href="#menu"><span><img src="../web/06.jpg" alt=""></span>Pasta</a>
+ <a class="st" href="#menu"><span><img src="../web/s4.jpg" alt="" style="object-position:50% 30%"></span>Mare</a>
+ <a class="st" href="#dove"><span><img src="../web/05.jpg" alt=""></span>Sala</a>
+ <a class="st" href="#prenota"><span><img src="../web/14.jpg" alt=""></span>Feste</a>
+</nav>
+
+<main>
+<section class="hero" style="padding-bottom:20px">
+ <div class="wrap">
+  <div class="head">
+   <h1>Pizza che<br>fa <mark>rumore.</mark></h1>
+   <div>
+    <p class="lead">Impasto di 48 ore, forno a legna a 450 gradi, pomodoro vero. Tavolo pronto in tre tocchi.</p>
+    <div class="cta"><a class="btn tom" href="#prenota">Prenota in 3 tocchi</a><a class="btn out" href="#menu">Vedi il menu</a></div>
+   </div>
+  </div>
+  <div class="bento">
+   <div class="bt big"><img src="../web/09.jpg" alt="Pizza margherita con bufala"><span class="pill tag">Margherita · € 8</span></div>
+   <div class="bt txt y"><b>48h</b><span>di lievitazione per un impasto leggero</span></div>
+   <div class="bt"><img src="../web/13.jpg" alt="Pizza nel forno a legna" style="object-position:40% 50%"><span class="pill tag">Forno a legna</span></div>
+   <div class="bt wide"><img src="../web/04.jpg" alt="Pizza su carta da forno" style="object-position:50% 60%"><span class="pill tag" style="background:var(--tom);color:#fff">Diavola · € 10</span></div>
+   <div class="bt txt k"><b style="color:var(--yel)">450°</b><span>il forno non si spegne mai</span></div>
+   <div class="bt txt t"><b>Sì,<br>anche<br>dolci</b><span>Tiramisù fatto in casa</span></div>
+   <div class="bt wide"><img src="../web/s3.jpg" alt="Pizza bianca dorata" style="object-position:50% 55%"><span class="pill tag">Bianca ai funghi</span></div>
+  </div>
+ </div>
+</section>
+
+<div class="mq" aria-hidden="true"><div>Pizza <span>●</span> Pasta <span>●</span> Dolci <span>●</span> Forno a legna <span>●</span> Pizza <span>●</span> Pasta <span>●</span> Dolci <span>●</span> Forno a legna <span>●</span> Pizza <span>●</span> Pasta <span>●</span> Dolci <span>●</span> Forno a legna <span>●</span> Pizza <span>●</span> Pasta <span>●</span> Dolci <span>●</span> Forno a legna <span>●</span></div></div>
+
+<section id="menu">
+ <div class="wrap">
+  <div class="sh" data-r><h2>Cosa c'è<br><em>in forno</em></h2><p>Piatti e prezzi di esempio: nel tuo sito ci sono i tuoi.</p></div>
+  <div class="tabs" id="tabs" role="tablist" aria-label="Sezioni del menu"></div>
+  <ul class="dishes" id="dishes"></ul>
+  <p class="legend"><span class="ico ico-v">V</span> vegetariano &nbsp; <span class="ico ico-p">P</span> piccante &nbsp; <span class="ico">S</span> senza glutine</p>
+ </div>
+</section>
+
+<section id="come">
+ <div class="wrap">
+  <div class="sh" data-r><h2>Prenota<br><em>in 3 tocchi</em></h2><p>Niente telefonate, niente moduli lunghi.</p></div>
+  <div class="steps">
+   <div class="step a" data-r><b>1</b><h3>Quanti siete</h3><p>Da 1 a 9 persone, un tocco.</p></div>
+   <div class="step b" data-r><b>2</b><h3>Che giorno</h3><p>Il lunedì siamo chiusi, il resto è tutto tuo.</p></div>
+   <div class="step c" data-r><b>3</b><h3>Che ora</h3><p>Pranzo o cena. Poi il tuo nome, e via.</p></div>
+  </div>
+ </div>
+</section>
+
+<section class="prenota" id="prenota">
+ <div class="wrap">
+  <div class="box" data-r>
+   <div>
+    <h2>Il tavolo<br>è <em>tuo</em></h2>
+    <p>Rispondiamo con un SMS di conferma.</p>
+    <div class="hrs"><div><span>Mar - Dom</span><b>12:00 - 14:30 · 18:30 - 22:30</b></div><div><span>Lunedì</span><b>Chiuso</b></div></div>
+   </div>
+   <div class="form"><div id="booking"></div></div>
+  </div>
+ </div>
+</section>
+
+<section class="dove" id="dove">
+ <div class="wrap">
+  <div class="sh" data-r><h2>Dove<br><em>siamo</em></h2></div>
+  <div class="grid">
+   <div class="card y" data-r><h3>Via dell'Esempio 1</h3><p>00100 Città Esempio<br>Tel. +39 000 000 0000</p></div>
+   <div class="card" data-r><h3>Orari</h3><p>Martedì - Domenica<br>12:00 - 14:30 e 18:30 - 22:30<br>Lunedì chiuso</p></div>
+   <div class="ph" data-r><img src="../web/05.jpg" alt="Un cameriere porta i piatti ai tavoli all'aperto" loading="lazy" style="object-position:30% 50%"></div>
+  </div>
+ </div>
+</section>
+</main>
+
+<footer>
+ <div class="wrap">
+  <div class="big">Ci vediamo<br>a tavola.</div>
+  <p>Ristorante di fantasia · demo di AK Design · foto da Unsplash</p>
+ </div>
+</footer>
+
+<div class="sticky" id="sticky"><a href="#prenota">Prenota in 3 tocchi <i>→</i></a></div>
+
+<script src="shared.js"></script>
+<script>
+// the sticky call-to-action hides while the booking block is on screen
+const stk = document.getElementById("sticky"), pr = document.getElementById("prenota");
+new IntersectionObserver(([x]) => stk.classList.toggle("off", x.isIntersecting)).observe(pr);
+</script>
+<a class="akdemo" href="https://ak-design.it/" target="_blank" rel="noopener">Demo di AK Design · ristorante di fantasia</a>
+</body>
+</html>

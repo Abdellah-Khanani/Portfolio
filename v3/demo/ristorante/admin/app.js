@@ -36,10 +36,10 @@ function demo() {
   const n = day === FOCUS ? 16 : Math.round(6 + rnd() * 10);
   for (let k = 0; k < n; k++) {
    const lunch = rnd() < .22, slots = lunch ? LUNCH : DINNER;
-   const [name, lang] = names[(k * 7 + (d + 1) * 3) % names.length];
+   const [name] = names[(k * 7 + (d + 1) * 3) % names.length];
    const people = [2, 2, 2, 2, 3, 4, 4, 5, 6, 2][Math.floor(rnd() * 10)];
    let status = d < 0 ? "seated" : day === FOCUS ? (k < 3 ? "pending" : k === 3 ? "cancelled" : "confirmed") : (d < 4 && rnd() < .1 ? "pending" : "confirmed");
-   res.push({ id: uid(), name, lang, phone: "+39 3" + Math.floor(10 + rnd() * 89) + " " + Math.floor(1000000 + rnd() * 8999999), people, date: day, time: slots[Math.floor(rnd() * slots.length)], status, table: "", where: rnd() < .3 ? "veranda" : rnd() < .5 ? "sala" : "", notes: notes[Math.floor(rnd() * notes.length)], source: rnd() < .62 ? "sito" : "telefono", created: iso(addDays(new Date(), d - 1 - Math.floor(rnd() * 5))) });
+   res.push({ id: uid(), name, lang: "it", phone: "+39 3" + Math.floor(10 + rnd() * 89) + " " + Math.floor(1000000 + rnd() * 8999999), people, date: day, time: slots[Math.floor(rnd() * slots.length)], status, table: "", where: rnd() < .3 ? "veranda" : rnd() < .5 ? "sala" : "", notes: notes[Math.floor(rnd() * notes.length)], source: rnd() < .62 ? "sito" : "telefono", created: iso(addDays(new Date(), d - 1 - Math.floor(rnd() * 5))) });
   }
  }
  // seat a few of tonight's early bookings so the plan is not empty
@@ -47,34 +47,41 @@ function demo() {
  const free = tables.slice();
  tonight.slice(0, 7).forEach((r, i) => { const t = free.find(t => t.seats >= r.people && (r.where ? t.zone === r.where : true)); if (t) { r.table = t.id; free.splice(free.indexOf(t), 1); } if (i < 2 && FOCUS_IS_TODAY) r.status = "seated"; });
  const menu = [
-  { cat: "Antipasti di mare", de: "Vorspeisen vom Meer", dishes: [] },
-  { cat: "Antipasti di terra", de: "Vorspeisen vom Land", dishes: [] },
-  { cat: "Primi di mare", de: "Erste Gänge vom Meer", dishes: [
-   ["Tagliolini al ragù d'astice", "Scampi e vongole", "Hummerragout, Scampi und Venusmuscheln", "p"],
-   ["Spaghettoni quadrati alla granseola", "", "Mit Seespinne", ""],
-   ["Linguine all'astice", "Con pomodorini", "Hummer und Kirschtomaten", ""],
-   ["Linguine all'aragostella nostrana", "", "Mit heimischer Languste", ""],
-   ["Gnocchi di patate alla tarantina", "In bianco, cozze, vongole veraci e bottarga di tonno", "Miesmuscheln, Venusmuscheln und Thunfisch-Bottarga", ""],
-   ["Tagliolini al branzino", "Limone emulsionato e zenzero", "Wolfsbarsch, emulgierte Zitrone und Ingwer", ""],
-   ["Spaghetti allo scoglio", "Molluschi e crostacei secondo il mercato", "Muscheln und Krustentiere je nach Markt", ""],
-   ["Linguine alla Ciro", "Acciughe del Mar Cantabrico", "Sardellen aus dem Kantabrischen Meer", "p"],
-   ["Risotto Acquerello ai molluschi e crostacei", "Servito in padella e impiattato al tavolo", "In der Pfanne serviert, am Tisch angerichtet", "g"],
-   ["Risotto Acquerello al ragù di polpo", "Servito in padella e impiattato al tavolo", "In der Pfanne serviert, am Tisch angerichtet", "g"],
-   ["Fusilloni al nero, sì ma di calamaro!", "Calamaretti interi grigliati e due pomodorini", "Ganze gegrillte Babykalmare und zwei Kirschtomaten", "p"]
-  ] },
-  { cat: "Primi di terra", de: "Erste Gänge vom Land", dishes: [] },
-  { cat: "Secondi di mare", de: "Zweite Gänge vom Meer", dishes: [["Grigliata di gamberoni e calamari", "Con zucchine", "Mit Zucchini", ""], ["Calamari fritti", "", "", ""]] },
-  { cat: "Secondi di terra", de: "Zweite Gänge vom Land", dishes: [] },
-  { cat: "Pizze", de: "Pizzen", dishes: [] },
-  { cat: "Dolci", de: "Desserts", dishes: [] }
- ].map(c => ({ ...c, dishes: c.dishes.map(([n, d, dd, f]) => ({ id: uid(), n, nde: n, d, dde: dd, price: "", flags: f, on: true })) }));
+  { cat: "Antipasti", dishes: [
+   ["Bruschetta al pomodoro", "Pane croccante, pomodorini, basilico", 6, ""],
+   ["Burrata e pomodorini", "Burrata pugliese, pomodorini, olio nuovo", 11, ""],
+   ["Frittura di calamari", "Calamari e verdure in pastella leggera", 13, ""],
+   ["Polpo e patate", "Polpo tenero, patate, sedano, limone", 14, "g"],
+   ["Tagliere della casa", "Salumi, formaggi, miele, mostarda", 14, ""],
+   ["Insalata di mare", "Frutti di mare, sedano, olive taggiasche", 13, "g"]] },
+  { cat: "Primi", dishes: [
+   ["Spaghetti al pomodoro", "Pomodoro fresco, basilico, un filo d'olio", 10, ""],
+   ["Tagliatelle al ragù", "Pasta fresca, ragù cotto per sei ore", 13, ""],
+   ["Linguine alle vongole", "Vongole veraci, aglio, prezzemolo", 16, ""],
+   ["Gnocchi alla sorrentina", "Pomodoro, mozzarella, basilico", 12, ""],
+   ["Risotto ai frutti di mare", "Per due persone, mantecato in padella", 17, "g"],
+   ["Paccheri allo scoglio", "Molluschi e crostacei del giorno", 17, "p"]] },
+  { cat: "Pizze", dishes: [
+   ["Margherita", "Pomodoro, fior di latte, basilico", 8, ""],
+   ["Marinara", "Pomodoro, aglio, origano", 7, ""],
+   ["Diavola", "Salame piccante, mozzarella, olio al peperoncino", 10, "p"],
+   ["Quattro formaggi", "Mozzarella, gorgonzola, provola, parmigiano", 11, ""],
+   ["Bufala e pomodorini", "Mozzarella di bufala, pomodorini, basilico", 12, ""],
+   ["Ortolana", "Verdure di stagione grigliate, mozzarella", 11, ""]] },
+  { cat: "Dolci", dishes: [
+   ["Tiramisù", "Come lo fa la nonna", 6, ""],
+   ["Panna cotta", "Ai frutti di bosco", 6, "g"],
+   ["Cannolo siciliano", "Ricotta di pecora e scorza d'arancia", 5, ""],
+   ["Torta della nonna", "Crema pasticcera e pinoli", 6, ""],
+   ["Sorbetto al limone", "Fatto in casa, senza latte", 5, "g"]] }
+ ].map(c => ({ ...c, dishes: c.dishes.map(([n, d, p, f]) => ({ id: uid(), n, nde: n, d, dde: d, price: String(p), flags: f, on: true })) }));
  return {
   tables, res, menu,
   fish: { on: true, img: "../web/18.jpg", sample: true, t: "", tde: "", p: "", pde: "", price: "" },
   week: [1, 2, 3, 4, 5, 6, 0].map(d => ({ d, open: d !== 1, l: ["12:00", "14:00"], c: ["18:00", "24:00"] })),
   closures: [],
   rules: { online: true, auto: true, autoMax: 4, cap: 24, notice: 2, sms: true },
-  ui: { view: "overview", day: FOCUS, svc: "cena", status: "all", cat: 2, plang: "it" }
+  ui: { view: "overview", day: FOCUS, svc: "cena", status: "all", cat: 1, plang: "it" }
  };
 }
 
@@ -337,11 +344,11 @@ function rFloor() {
 function rMenu() {
  const c = S.menu[S.ui.cat], L = S.ui.plang;
  $("#v-menu").innerHTML = `
-  <div class="toolbar"><span class="mute">Ogni modifica va sul sito appena la salvate, in italiano e in tedesco.</span><span class="sp"></span><button class="btn pri" id="addDish"><i class="ph ph-plus"></i>Aggiungi piatto</button></div>
+  <div class="toolbar"><span class="mute">Ogni modifica va sul sito appena la salvate.</span><span class="sp"></span><button class="btn pri" id="addDish"><i class="ph ph-plus"></i>Aggiungi piatto</button></div>
   <div class="menu-g">
    <div class="card cats">${S.menu.map((m, i) => `<button data-cat="${i}" aria-pressed="${i === S.ui.cat}">${m.cat}<span>${m.dishes.length}</span></button>`).join("")}</div>
    <div class="card">
-    <div class="card-h"><h2>${c.cat}</h2><span class="mute" style="font-size:13px">${c.de}</span><span class="sp"></span><span class="mute" style="font-size:13px">${c.dishes.filter(d => d.on).length} disponibili oggi</span></div>
+    <div class="card-h"><h2>${c.cat}</h2><span class="sp"></span><span class="mute" style="font-size:13px">${c.dishes.filter(d => d.on).length} disponibili oggi</span></div>
     <div style="margin-top:14px">${c.dishes.length ? c.dishes.map((d, i) => `
      <div class="dish-row ${d.on ? "" : "off"}">
       <div class="grip"><button data-mv="-1" data-i="${i}" aria-label="Sposta su" ${i ? "" : "disabled"}><i class="ph ph-caret-up"></i></button><button data-mv="1" data-i="${i}" aria-label="Sposta giù" ${i < c.dishes.length - 1 ? "" : "disabled"}><i class="ph ph-caret-down"></i></button></div>
@@ -351,8 +358,8 @@ function rMenu() {
       <div class="acts"><button class="icon-btn" data-edit="${i}" aria-label="Modifica" style="width:36px;height:36px"><i class="ph ph-pencil-simple"></i></button></div>
      </div>`).join("") : `<div class="empty"><i class="ph ph-book-open-text"></i>Questa pagina della carta è ancora vuota.<br><button class="btn sec" style="margin-top:14px" id="addDish2">Aggiungi il primo piatto</button></div>`}</div>
    </div>
-   <div class="prev"><div class="prev-l">Anteprima sul sito<div class="lt">${["it", "de"].map(l => `<button data-pl="${l}" aria-pressed="${L === l}">${l.toUpperCase()}</button>`).join("")}</div></div>
-    <div class="phone"><div class="screen"><div class="sb"><i></i></div><div class="sh"><span>ESEMPIO</span><span>${L.toUpperCase()}</span></div><h4>${L === "de" ? "Die Karte" : "La carta"}</h4>
+   <div class="prev"><div class="prev-l">Anteprima sul sito</div>
+    <div class="phone"><div class="screen"><div class="sb"><i></i></div><div class="sh"><span>ESEMPIO</span><span>IT</span></div><h4>${L === "de" ? "Die Karte" : "La carta"}</h4>
      <div class="tabs2">${S.menu.slice(Math.max(0, S.ui.cat - 1), S.ui.cat + 3).map(m => `<span class="${m === c ? "on" : ""}">${L === "de" ? m.de : m.cat}</span>`).join("")}</div>
      <ul>${c.dishes.length ? c.dishes.filter(d => d.on).map(d => `<li><b><span>${esc(L === "de" ? d.nde || d.n : d.n)}</span><span class="pr">${d.price ? "€ " + esc(d.price) : ""}</span></b><small>${esc(L === "de" ? d.dde : d.d)}</small></li>`).join("") : `<li><small>${L === "de" ? "Diese Seite folgt." : "Pagina in arrivo."}</small></li>`}</ul>
     </div></div>
@@ -367,9 +374,7 @@ function editDish(i) {
   $("#drawer").innerHTML = `
    <div class="dr-h"><h3>${isNew ? "Nuovo piatto" : "Modifica piatto"}</h3><span class="tag">${c.cat}</span><button class="icon-btn" data-close aria-label="Chiudi"><i class="ph ph-x"></i></button></div>
    <div class="dr-b">
-    <div class="lt" style="justify-self:start">${[["it", "Italiano"], ["de", "Deutsch"]].map(([k, l]) => `<button data-tab="${k}" aria-pressed="${tab === k}">${l}</button>`).join("")}</div>
-    ${tab === "it" ? `<label class="f">Nome del piatto<input class="in" id="e-n" value="${esc(d.n)}"></label><label class="f">Descrizione<textarea class="in" id="e-d">${esc(d.d)}</textarea></label>`
-     : `<label class="f">Name des Gerichts <small>Lasciate il nome italiano se è un nome proprio</small><input class="in" id="e-n" value="${esc(d.nde || d.n)}"></label><label class="f">Beschreibung<textarea class="in" id="e-d">${esc(d.dde)}</textarea></label>`}
+    <label class="f">Nome del piatto<input class="in" id="e-n" value="${esc(d.n)}"></label><label class="f">Descrizione<textarea class="in" id="e-d">${esc(d.d)}</textarea></label>
     <div class="grid2"><label class="f">Prezzo in euro<input class="in num" id="e-p" value="${esc(d.price)}" inputmode="decimal" placeholder="Es. 24"></label>
      <div class="f">Disponibile oggi<label class="sw" style="margin-top:9px"><input type="checkbox" id="e-on" ${d.on ? "checked" : ""}><span></span></label></div></div>
     <div class="f">Indicazioni<div class="chips"><button type="button" data-fl="p" aria-pressed="${d.flags.includes("p")}"><span class="fl p" style="margin:0 6px 0 0">P</span>Piccante</button><button type="button" data-fl="g" aria-pressed="${d.flags.includes("g")}"><span class="fl g" style="margin:0 6px 0 0">G</span>Senza glutine</button></div></div>
@@ -395,8 +400,8 @@ function rFish() {
     <div class="card-b" style="display:grid;gap:16px">
      <label class="drop ${f.img ? "has" : ""}" style="background-image:url('${f.img}')"><input type="file" accept="image/*" id="f-img" aria-label="Foto del pescato"><span><i class="ph ph-camera" style="font-size:26px"></i><br>Scattate o caricate la foto del banco</span></label>
      ${f.sample ? `<p class="mute" style="margin:-6px 0 0;font-size:13px"><i class="ph ph-info"></i> Foto di esempio: sostituitela con quella di oggi.</p>` : ""}
-     <div class="grid2"><label class="f">Titolo<input class="in" id="f-t" value="${esc(f.t)}" placeholder="Il pescato di oggi"></label><label class="f">Titel (Deutsch)<input class="in" id="f-tde" value="${esc(f.tde)}" placeholder="Der Fang des Tages"></label></div>
-     <div class="grid2"><label class="f">Cosa c'è oggi<textarea class="in" id="f-p" placeholder="Scrivete il pesce arrivato stamattina">${esc(f.p)}</textarea></label><label class="f">Was es heute gibt<textarea class="in" id="f-pde" placeholder="Auf Deutsch">${esc(f.pde)}</textarea></label></div>
+     <div class="grid2"><label class="f">Titolo<input class="in" id="f-t" value="${esc(f.t)}" placeholder="Il pescato di oggi"></label></div>
+     <div class="grid2"><label class="f">Cosa c'è oggi<textarea class="in" id="f-p" placeholder="Scrivete il pesce arrivato stamattina">${esc(f.p)}</textarea></label></div>
      <label class="f">Prezzo <small>Facoltativo, per esempio "al kg" o "all'etto"</small><input class="in" id="f-price" value="${esc(f.price)}"></label>
      <div style="display:flex;gap:10px;justify-content:flex-end"><button class="btn pri" id="f-save"><i class="ph ph-paper-plane-tilt"></i>Pubblica sul sito</button></div>
     </div></div>
@@ -408,7 +413,7 @@ function rFish() {
  ["#f-t", "#f-p"].forEach(s => $(s).oninput = live);
  $("#f-img").onchange = e => { const file = e.target.files[0]; if (!file) return; const rd = new FileReader(); rd.onload = () => { f.img = rd.result; f.sample = false; $(".drop").style.backgroundImage = `url(${rd.result})`; $("#f-prev-img").style.backgroundImage = `url(${rd.result})`; }; rd.readAsDataURL(file); };
  $("#f-on").onchange = e => { f.on = e.target.checked; save(); toast(f.on ? "Il pescato è visibile sul sito." : "Il pescato è nascosto dal sito.", f.on ? "eye" : "eye-slash"); };
- $("#f-save").onclick = () => { Object.assign(f, { t: $("#f-t").value, tde: $("#f-tde").value, p: $("#f-p").value, pde: $("#f-pde").value, price: $("#f-price").value }); save(); toast("Pubblicato. Il sito mostra il pescato di oggi.", "paper-plane-tilt"); };
+ $("#f-save").onclick = () => { Object.assign(f, { t: $("#f-t").value, p: $("#f-p").value, price: $("#f-price").value }); save(); toast("Pubblicato. Il sito mostra il pescato di oggi.", "paper-plane-tilt"); };
 }
 
 /* ---------- hours and rules ---------- */
@@ -433,7 +438,7 @@ function rHours() {
      <div class="setrow"><div><b>Fino a quante persone</b><small>Oltre, la richiesta aspetta voi</small></div><input class="in num" type="number" min="1" data-rule="autoMax" value="${R.autoMax}"></div>
      <div class="setrow"><div><b>Coperti per fascia oraria</b><small>Oltre questo numero il sito propone un altro orario</small></div><input class="in num" type="number" min="1" data-rule="cap" value="${R.cap}"></div>
      <div class="setrow"><div><b>Preavviso minimo</b><small>Ore prima del servizio</small></div><input class="in num" type="number" min="0" data-rule="notice" value="${R.notice}"></div>
-     <div class="setrow"><div><b>SMS di conferma</b><small>Nella lingua del cliente, italiano o tedesco</small></div><label class="sw"><input type="checkbox" data-rule="sms" ${R.sms ? "checked" : ""}><span></span></label></div>
+     <div class="setrow"><div><b>SMS di conferma</b><small>Un SMS al cliente appena confermate</small></div><label class="sw"><input type="checkbox" data-rule="sms" ${R.sms ? "checked" : ""}><span></span></label></div>
     </div></div>
     <div class="card"><div class="card-b" style="display:flex;align-items:center;gap:14px"><i class="ph ph-arrow-counter-clockwise" style="font-size:22px;color:var(--mute)"></i><div style="flex:1"><b>Dati di esempio</b><br><small class="mute">Questa demo salva tutto solo in questo browser.</small></div><button class="btn sec sm" id="reset">Ripristina</button></div></div>
    </div>

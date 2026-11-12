@@ -24,11 +24,14 @@ section{margin-top:clamp(64px,9vw,120px)}
 .sh h2{font:400 clamp(28px,3.4vw,44px)/1.1 "Playfair Display",Georgia,serif;margin:0}
 .sh p{margin:0;color:var(--mute);max-width:52ch;font-size:16px}
 .g{display:grid;gap:20px}
-@media(min-width:860px){.g{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:860px){.g{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.g3{display:grid;gap:28px}
+.sw{display:flex;gap:6px;margin-top:12px}.sw u{width:22px;height:22px;border-radius:50%;border:1px solid var(--line)}
 a.c{color:inherit;text-decoration:none;display:block}
 .pic{overflow:hidden;background:#e4e4de}
 .pic img{display:block;width:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
-.site .pic img{aspect-ratio:4/5}
+.site .pic{border:1px solid var(--line)}
+.site .pic img{aspect-ratio:16/11;object-position:top center}
 .dash .pic{border:1px solid var(--line)}
 .dash .pic img{aspect-ratio:16/10;object-position:top left}
 a.c:hover .pic img{transform:scale(1.03)}
@@ -59,13 +62,14 @@ footer{margin-top:90px;padding-top:22px;border-top:1px solid var(--line);display
 <main>
  <p class="k">Demo · ristorante di fantasia</p>
  <h1>Un sito con prenotazioni <em>per il tuo ristorante.</em></h1>
- <p class="lead">Questo è un esempio di quello che posso realizzare per il tuo locale: un sito in due stili, uno chiaro e uno scuro, con carta, prenotazione online e due lingue, e il pannello di gestione pensato per un tablet in sala. Il ristorante, la Trattoria Esempio, è di fantasia: il sito può essere costruito con il tuo nome, la tua carta e le tue foto. Tutto è navigabile, prova pure a prenotare o a cambiare un piatto.</p>
+ <p class="lead">Questo è un esempio di quello che posso realizzare per il tuo locale: un sito con carta, prenotazione online passo dopo passo e il pannello di gestione pensato per un tablet in sala. Qui sotto trovi tre stili diversi, scegli quello che somiglia di più al tuo ristorante. La Trattoria Esempio è di fantasia: il sito si costruisce con il tuo nome, il tuo menu e le tue foto. Tutto è navigabile, prova pure a prenotare un tavolo.</p>
 
  <section>
-  <div class="sh"><h2>Il sito</h2><p>Stessi contenuti, due stili. Si guardano meglio dal computer, ma funzionano anche dal telefono.</p></div>
-  <div class="g site">
-   <a class="c rv" href="b-bianco.html"><div class="pic"><img src="../web/16.jpg" alt=""></div><div class="cap"><h3>Versione <i>chiara</i></h3><b>Apri</b></div><span>Editoriale, come le tovaglie bianche. La carta è impaginata come quella stampata.</span></a>
-   <a class="c rv" href="c-mare.html"><div class="pic"><img src="../web/18.jpg" alt=""></div><div class="cap"><h3>Versione <i>scura</i></h3><b>Apri</b></div><span>Verde mare profondo e corallo, la sera a lume di candela.</span></a>
+  <div class="sh"><h2>Il sito, in tre stili</h2><p>Stesso ristorante, tre caratteri molto diversi. Si guardano bene dal telefono e dal computer.</p></div>
+  <div class="g3 site">
+   <a class="c rv" href="a-trattoria.html"><div class="pic"><img src="../web/thumb-a.jpg" alt="Anteprima dello stile Trattoria calda"></div><div class="cap"><h3>Trattoria <i>calda</i></h3><b>Apri</b></div><span>Crema e terracotta, cornici ad arco e motivi a quadretti: casalingo, accogliente, di famiglia.</span><em class="sw"><u style="background:#f3ead8"></u><u style="background:#c4562f"></u><u style="background:#3a2418"></u></em></a>
+   <a class="c rv" href="b-mare.html"><div class="pic"><img src="../web/thumb-b.jpg" alt="Anteprima dello stile Elegante di mare"></div><div class="cap"><h3>Elegante <i>di mare</i></h3><b>Apri</b></div><span>Blu notte, sabbia e filetti oro: grandi foto a tutto schermo e una carta impaginata con calma.</span><em class="sw"><u style="background:#0f1d2b"></u><u style="background:#e9e2d0"></u><u style="background:#c9a96e"></u></em></a>
+   <a class="c rv" href="c-pizzeria.html"><div class="pic"><img src="../web/thumb-c.jpg" alt="Anteprima dello stile Pizzeria moderna"></div><div class="cap"><h3>Pizzeria <i>moderna</i></h3><b>Apri</b></div><span>Pomodoro, giallo e nero: blocchi di foto in stile Instagram e prenotazione in tre tocchi.</span><em class="sw"><u style="background:#fbfbf7"></u><u style="background:#e94f2b"></u><u style="background:#ffd23f"></u></em></a>
   </div>
  </section>
 
