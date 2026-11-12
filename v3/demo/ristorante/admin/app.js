@@ -22,6 +22,86 @@ const svc = t => (t < "16:00" ? "pranzo" : "cena");
 const ST = { pending: "Da confermare", confirmed: "Confermata", seated: "Al tavolo", cancelled: "Cancellata" };
 
 /* ---------- demo data ---------- */
+/* the "of the day" section changes with the style: fish only for the seafood one */
+const STY = document.documentElement.dataset.stile;
+const DAY = ({
+ a: { nav: "Piatto del giorno", short: "Del giorno", icon: "cooking-pot", h: "Il piatto di oggi", img: "../web/06.jpg", alt: "Foto del piatto", drop: "Scattate o caricate la foto del piatto", ph: "Scrivete il piatto di oggi e cosa c'è dentro", price: 'Facoltativo, per esempio "14 €"', tag: "Oggi in cucina", on: "Il piatto del giorno", pub: "il piatto di oggi" },
+ c: { nav: "Pizza del giorno", short: "Del giorno", icon: "pizza", h: "La pizza di oggi", img: "../web/13.jpg", alt: "Foto della pizza", drop: "Scattate o caricate la foto della pizza", ph: "Scrivete gli ingredienti della pizza di oggi", price: 'Facoltativo, per esempio "12 €"', tag: "Oggi dal forno", on: "La pizza del giorno", pub: "la pizza di oggi" }
+})[STY] || { nav: "Pescato del giorno", short: "Pescato", icon: "fish", h: "Il pescato di oggi", img: "../web/18.jpg", alt: "Foto del pescato", drop: "Scattate o caricate la foto del banco", ph: "Scrivete il pesce arrivato stamattina", price: 'Facoltativo, per esempio "al kg" o "all\'etto"', tag: "Oggi dal mercato", on: "Il pescato", pub: "il pescato di oggi" };
+
+/* a menu that fits each style: Alto Adige trattoria, seafood, pizzeria */
+const MENUS = {
+ a: [
+  { cat: "Antipasti", dishes: [
+   ["Tagliere altoatesino", "Speck, formaggi di malga, Schüttelbrot", 14, ""],
+   ["Carne salada", "Con rucola, scaglie di grana e olio", 12, "g"],
+   ["Canederli in brodo", "Due canederli allo speck nel brodo di manzo", 9, ""],
+   ["Insalata di stagione", "Con speck croccante e noci", 9, "g"]] },
+  { cat: "Primi", dishes: [
+   ["Schlutzkrapfen", "Mezzelune di segale con spinaci, burro e grana", 13, ""],
+   ["Canederli tris", "Speck, formaggio e spinaci, con burro fuso", 14, ""],
+   ["Tagliatelle al ragù di cervo", "Pasta fresca, ragù cotto a lungo", 15, ""],
+   ["Risotto ai funghi porcini", "Mantecato con grana stagionato", 15, "g"]] },
+  { cat: "Secondi", dishes: [
+   ["Gulasch con polenta", "Manzo cotto per tre ore, paprika dolce", 17, "g"],
+   ["Stinco di maiale al forno", "Con patate arrosto e crauti", 19, "g"],
+   ["Cotoletta alla viennese", "Di vitello, con insalata di patate", 18, ""],
+   ["Formaggio fuso", "Con polenta e funghi", 14, "g"]] },
+  { cat: "Dolci", dishes: [
+   ["Strudel di mele", "Con salsa alla vaniglia", 6, ""],
+   ["Kaiserschmarrn", "Con marmellata di mirtilli rossi", 9, ""],
+   ["Krapfen alla marmellata", "Fatti in casa", 4, ""],
+   ["Semifreddo al mirtillo", "Con frutti di bosco", 6, "g"]] }
+ ],
+ b: [
+  { cat: "Crudi e antipasti", dishes: [
+   ["Crudo del giorno", "Ostriche, gamberi rossi e scampi", 24, "g"],
+   ["Carpaccio di branzino", "Agrumi, finocchio e pepe rosa", 15, "g"],
+   ["Polpo e patate", "Polpo tenero, patate, sedano, limone", 14, "g"],
+   ["Insalata di mare", "Frutti di mare, sedano, olive taggiasche", 14, "g"]] },
+  { cat: "Primi", dishes: [
+   ["Linguine alle vongole", "Vongole veraci, aglio, prezzemolo", 17, ""],
+   ["Risotto ai frutti di mare", "Per due persone, mantecato in padella", 19, "g"],
+   ["Paccheri allo scoglio", "Molluschi e crostacei del giorno", 19, "p"],
+   ["Tagliolini al nero di seppia", "Con seppioline e pomodorini", 17, ""]] },
+  { cat: "Secondi", dishes: [
+   ["Branzino al sale", "Cotto intero, per una o due persone", 24, "g"],
+   ["Frittura di mare", "Calamari, gamberi e verdure in pastella leggera", 19, ""],
+   ["Tagliata di tonno", "Sesamo, rucola e salsa di soia", 22, ""],
+   ["Grigliata di pesce", "Il pescato del giorno alla griglia", 26, "g"]] },
+  { cat: "Dolci", dishes: [
+   ["Tiramisù", "Fatto in casa", 7, ""],
+   ["Sorbetto al limone", "Fatto in casa, senza latte", 6, "g"],
+   ["Cannolo siciliano", "Ricotta di pecora e scorza d'arancia", 6, ""],
+   ["Panna cotta", "Ai frutti di bosco", 6, "g"]] }
+ ],
+ c: [
+  { cat: "Fritti e antipasti", dishes: [
+   ["Supplì al telefono", "Riso, ragù e mozzarella filante", 4, ""],
+   ["Montanara", "Pizza fritta con pomodoro e grana", 6, ""],
+   ["Bruschetta al pomodoro", "Pane croccante, pomodorini, basilico", 6, ""],
+   ["Burrata e pomodorini", "Burrata pugliese, pomodorini, olio nuovo", 11, ""]] },
+  { cat: "Pizze classiche", dishes: [
+   ["Margherita", "Pomodoro, fior di latte, basilico", 8, ""],
+   ["Marinara", "Pomodoro, aglio, origano", 7, ""],
+   ["Diavola", "Salame piccante, mozzarella, olio al peperoncino", 10, "p"],
+   ["Quattro formaggi", "Mozzarella, gorgonzola, provola, parmigiano", 11, ""],
+   ["Capricciosa", "Prosciutto cotto, funghi, carciofi, olive", 11, ""],
+   ["Prosciutto e funghi", "Pomodoro, mozzarella, cotto, champignon", 10, ""]] },
+  { cat: "Pizze speciali", dishes: [
+   ["Bufala e pomodorini", "Mozzarella di bufala, pomodorini, basilico", 12, ""],
+   ["Speck e brie", "Mozzarella, brie e speck altoatesino", 12, ""],
+   ["Mortadella e pistacchio", "Fior di latte, mortadella, crema di pistacchio", 13, ""],
+   ["Ortolana", "Verdure di stagione grigliate, mozzarella", 11, ""],
+   ["Base senza glutine", "Supplemento per qualsiasi pizza", 3, "g"]] },
+  { cat: "Dolci e bibite", dishes: [
+   ["Tiramisù", "Fatto in casa", 6, ""],
+   ["Pizza alla Nutella", "Per due persone", 8, ""],
+   ["Birra alla spina", "Media 0,4 l", 5, ""],
+   ["Bibite in lattina", "Coca-Cola, aranciata, chinotto", 3, ""]] }
+ ]
+};
+
 function demo() {
  const tables = [
   ...[2, 2, 4, 4, 2, 6, 4, 2, 4, 8, 2, 4].map((s, i) => ({ id: "T" + (i + 1), seats: s, zone: "sala" })),
@@ -46,38 +126,10 @@ function demo() {
  const tonight = res.filter(r => r.date === FOCUS && r.status === "confirmed" && svc(r.time) === "cena").sort((a, b) => a.time.localeCompare(b.time));
  const free = tables.slice();
  tonight.slice(0, 7).forEach((r, i) => { const t = free.find(t => t.seats >= r.people && (r.where ? t.zone === r.where : true)); if (t) { r.table = t.id; free.splice(free.indexOf(t), 1); } if (i < 2 && FOCUS_IS_TODAY) r.status = "seated"; });
- const menu = [
-  { cat: "Antipasti", dishes: [
-   ["Bruschetta al pomodoro", "Pane croccante, pomodorini, basilico", 6, ""],
-   ["Burrata e pomodorini", "Burrata pugliese, pomodorini, olio nuovo", 11, ""],
-   ["Frittura di calamari", "Calamari e verdure in pastella leggera", 13, ""],
-   ["Polpo e patate", "Polpo tenero, patate, sedano, limone", 14, "g"],
-   ["Tagliere della casa", "Salumi, formaggi, miele, mostarda", 14, ""],
-   ["Insalata di mare", "Frutti di mare, sedano, olive taggiasche", 13, "g"]] },
-  { cat: "Primi", dishes: [
-   ["Spaghetti al pomodoro", "Pomodoro fresco, basilico, un filo d'olio", 10, ""],
-   ["Tagliatelle al ragù", "Pasta fresca, ragù cotto per sei ore", 13, ""],
-   ["Linguine alle vongole", "Vongole veraci, aglio, prezzemolo", 16, ""],
-   ["Gnocchi alla sorrentina", "Pomodoro, mozzarella, basilico", 12, ""],
-   ["Risotto ai frutti di mare", "Per due persone, mantecato in padella", 17, "g"],
-   ["Paccheri allo scoglio", "Molluschi e crostacei del giorno", 17, "p"]] },
-  { cat: "Pizze", dishes: [
-   ["Margherita", "Pomodoro, fior di latte, basilico", 8, ""],
-   ["Marinara", "Pomodoro, aglio, origano", 7, ""],
-   ["Diavola", "Salame piccante, mozzarella, olio al peperoncino", 10, "p"],
-   ["Quattro formaggi", "Mozzarella, gorgonzola, provola, parmigiano", 11, ""],
-   ["Bufala e pomodorini", "Mozzarella di bufala, pomodorini, basilico", 12, ""],
-   ["Ortolana", "Verdure di stagione grigliate, mozzarella", 11, ""]] },
-  { cat: "Dolci", dishes: [
-   ["Tiramisù", "Come lo fa la nonna", 6, ""],
-   ["Panna cotta", "Ai frutti di bosco", 6, "g"],
-   ["Cannolo siciliano", "Ricotta di pecora e scorza d'arancia", 5, ""],
-   ["Torta della nonna", "Crema pasticcera e pinoli", 6, ""],
-   ["Sorbetto al limone", "Fatto in casa, senza latte", 5, "g"]] }
- ].map(c => ({ ...c, dishes: c.dishes.map(([n, d, p, f]) => ({ id: uid(), n, nde: n, d, dde: d, price: String(p), flags: f, on: true })) }));
+ const menu = MENUS[STY || "b"].map(c => ({ ...c, dishes: c.dishes.map(([n, d, p, f]) => ({ id: uid(), n, nde: n, d, dde: d, price: String(p), flags: f, on: true })) }));
  return {
   tables, res, menu,
-  fish: { on: true, img: "../web/18.jpg", sample: true, t: "", tde: "", p: "", pde: "", price: "" },
+  fish: { on: true, img: DAY.img, sample: true, t: "", tde: "", p: "", pde: "", price: "" },
   week: [1, 2, 3, 4, 5, 6, 0].map(d => ({ d, open: d !== 1, l: ["12:00", "14:00"], c: ["18:00", "24:00"] })),
   closures: [],
   rules: { online: true, auto: true, autoMax: 4, cap: 24, notice: 2, sms: true },
@@ -86,10 +138,10 @@ function demo() {
 }
 
 let S;
-try { S = JSON.parse(localStorage.getItem("mc-admin-v4")); } catch (e) {}
+try { S = JSON.parse(localStorage.getItem("mc-admin-v4" + (STY || ""))); } catch (e) {}
 if (!S || !S.res) S = demo();
 S.ui.day = S.ui.day < TODAY ? FOCUS : S.ui.day;
-const save = () => { try { localStorage.setItem("mc-admin-v4", JSON.stringify({ ...S, fish: { ...S.fish, img: S.fish.img.startsWith("data:") ? "../web/18.jpg" : S.fish.img } })); } catch (e) {} };
+const save = () => { try { localStorage.setItem("mc-admin-v4" + (STY || ""), JSON.stringify({ ...S, fish: { ...S.fish, img: S.fish.img.startsWith("data:") ? DAY.img : S.fish.img } })); } catch (e) {} };
 
 /* ---------- toast ---------- */
 function toast(msg, icon = "check-circle", undo) {
@@ -102,7 +154,7 @@ function toast(msg, icon = "check-circle", undo) {
 /* ---------- navigation ---------- */
 const VIEWS = [
  ["h", "Servizio"], ["overview", "Panoramica", "squares-four", "Oggi"], ["res", "Prenotazioni", "calendar-check", "Prenot."], ["floor", "Sala e tavoli", "armchair", "Sala"],
- ["h", "Sito"], ["menu", "La carta", "book-open-text", "Carta"], ["fish", "Pescato del giorno", "fish", "Pescato"],
+ ["h", "Sito"], ["menu", "La carta", "book-open-text", "Carta"], ["fish", DAY.nav, DAY.icon, DAY.short],
  ["h", "Impostazioni"], ["hours", "Orari e regole", "clock", "Orari"]
 ];
 const pendingCount = () => S.res.filter(r => r.status === "pending" && r.date >= TODAY).length;
@@ -176,7 +228,7 @@ function rOverview() {
   <div class="ov-g2">
    <div class="card"><div class="card-h"><h2>Prossimi arrivi</h2></div><div class="card-b">${next.length ? `<ul class="list">${next.map(r => `<li class="li" data-open="${r.id}" style="cursor:pointer"><span class="t num">${r.time}</span><div class="who"><b>${esc(r.name)}</b><small>${r.people} persone${r.table ? ", tavolo " + r.table : ", tavolo da assegnare"}</small></div>${r.lang === "de" ? '<span class="tag">DE</span>' : ""}</li>`).join("")}</ul>` : `<div class="empty"><i class="ph ph-moon-stars"></i>Nessun arrivo in programma.</div>`}</div></div>
    <div class="card"><div class="card-h"><h2>Prossimi 7 giorni</h2><span class="sp"></span><span class="mute" style="font-size:13px">coperti</span></div><div class="card-b">${bars(week, 200)}</div></div>
-   <div class="card"><div class="card-h"><h2>Pescato del giorno</h2><span class="sp"></span><span class="pill ${f.on ? "s-confirmed" : "s-done"}">${f.on ? "Sul sito" : "Nascosto"}</span></div><div class="card-b"><div class="fish-mini"><div class="img" style="background-image:url('${f.img}')"></div><div><b>${esc(f.t) || "Non ancora scritto"}</b><p class="mute" style="margin:4px 0 12px;font-size:13px">${f.t ? esc(f.p) : "Una foto e due righe: chi lo vede sui social o su Google arriva sul sito e prenota."}</p><button class="btn sm sec" data-go="fish"><i class="ph ph-pencil-simple"></i>Aggiorna</button></div></div></div></div>
+   <div class="card"><div class="card-h"><h2>${DAY.nav}</h2><span class="sp"></span><span class="pill ${f.on ? "s-confirmed" : "s-done"}">${f.on ? "Sul sito" : "Nascosto"}</span></div><div class="card-b"><div class="fish-mini"><div class="img" style="background-image:url('${f.img}')"></div><div><b>${esc(f.t) || "Non ancora scritto"}</b><p class="mute" style="margin:4px 0 12px;font-size:13px">${f.t ? esc(f.p) : "Una foto e due righe: chi lo vede sui social o su Google arriva sul sito e prenota."}</p><button class="btn sm sec" data-go="fish"><i class="ph ph-pencil-simple"></i>Aggiorna</button></div></div></div></div>
   </div>`;
 }
 
@@ -396,24 +448,24 @@ function rFish() {
  const f = S.fish;
  $("#v-fish").innerHTML = `
   <div class="fish-g">
-   <div class="card"><div class="card-h"><h2>Il pescato di oggi</h2><span class="sp"></span><label class="sw" title="Mostra sul sito"><input type="checkbox" id="f-on" ${f.on ? "checked" : ""} aria-label="Mostra sul sito"><span></span></label></div>
+   <div class="card"><div class="card-h"><h2>${DAY.h}</h2><span class="sp"></span><label class="sw" title="Mostra sul sito"><input type="checkbox" id="f-on" ${f.on ? "checked" : ""} aria-label="Mostra sul sito"><span></span></label></div>
     <div class="card-b" style="display:grid;gap:16px">
-     <label class="drop ${f.img ? "has" : ""}" style="background-image:url('${f.img}')"><input type="file" accept="image/*" id="f-img" aria-label="Foto del pescato"><span><i class="ph ph-camera" style="font-size:26px"></i><br>Scattate o caricate la foto del banco</span></label>
+     <label class="drop ${f.img ? "has" : ""}" style="background-image:url('${f.img}')"><input type="file" accept="image/*" id="f-img" aria-label="${DAY.alt}"><span><i class="ph ph-camera" style="font-size:26px"></i><br>${DAY.drop}</span></label>
      ${f.sample ? `<p class="mute" style="margin:-6px 0 0;font-size:13px"><i class="ph ph-info"></i> Foto di esempio: sostituitela con quella di oggi.</p>` : ""}
-     <div class="grid2"><label class="f">Titolo<input class="in" id="f-t" value="${esc(f.t)}" placeholder="Il pescato di oggi"></label></div>
-     <div class="grid2"><label class="f">Cosa c'è oggi<textarea class="in" id="f-p" placeholder="Scrivete il pesce arrivato stamattina">${esc(f.p)}</textarea></label></div>
-     <label class="f">Prezzo <small>Facoltativo, per esempio "al kg" o "all'etto"</small><input class="in" id="f-price" value="${esc(f.price)}"></label>
+     <div class="grid2"><label class="f">Titolo<input class="in" id="f-t" value="${esc(f.t)}" placeholder="${DAY.h}"></label></div>
+     <div class="grid2"><label class="f">Cosa c'è oggi<textarea class="in" id="f-p" placeholder="${DAY.ph}">${esc(f.p)}</textarea></label></div>
+     <label class="f">Prezzo <small>${DAY.price}</small><input class="in" id="f-price" value="${esc(f.price)}"></label>
      <div style="display:flex;gap:10px;justify-content:flex-end"><button class="btn pri" id="f-save"><i class="ph ph-paper-plane-tilt"></i>Pubblica sul sito</button></div>
     </div></div>
    <div><div class="prev-l">Come appare sul sito</div>
-    <div class="post"><div class="im" id="f-prev-img" style="background-image:url('${f.img}')"></div><div class="tx"><small>Oggi dal mercato</small><h4 id="f-prev-t">${esc(f.t) || "Il pescato di oggi"}</h4><p id="f-prev-p">${esc(f.p) || "Qui comparirà il testo che scrivete."}</p></div></div>
+    <div class="post"><div class="im" id="f-prev-img" style="background-image:url('${f.img}')"></div><div class="tx"><small>${DAY.tag}</small><h4 id="f-prev-t">${esc(f.t) || DAY.h}</h4><p id="f-prev-p">${esc(f.p) || "Qui comparirà il testo che scrivete."}</p></div></div>
    </div>
   </div>`;
- const live = () => { $("#f-prev-t").textContent = $("#f-t").value || "Il pescato di oggi"; $("#f-prev-p").textContent = $("#f-p").value || "Qui comparirà il testo che scrivete."; };
+ const live = () => { $("#f-prev-t").textContent = $("#f-t").value || DAY.h; $("#f-prev-p").textContent = $("#f-p").value || "Qui comparirà il testo che scrivete."; };
  ["#f-t", "#f-p"].forEach(s => $(s).oninput = live);
  $("#f-img").onchange = e => { const file = e.target.files[0]; if (!file) return; const rd = new FileReader(); rd.onload = () => { f.img = rd.result; f.sample = false; $(".drop").style.backgroundImage = `url(${rd.result})`; $("#f-prev-img").style.backgroundImage = `url(${rd.result})`; }; rd.readAsDataURL(file); };
- $("#f-on").onchange = e => { f.on = e.target.checked; save(); toast(f.on ? "Il pescato è visibile sul sito." : "Il pescato è nascosto dal sito.", f.on ? "eye" : "eye-slash"); };
- $("#f-save").onclick = () => { Object.assign(f, { t: $("#f-t").value, p: $("#f-p").value, price: $("#f-price").value }); save(); toast("Pubblicato. Il sito mostra il pescato di oggi.", "paper-plane-tilt"); };
+ $("#f-on").onchange = e => { f.on = e.target.checked; save(); toast(f.on ? DAY.on + " è visibile sul sito." : DAY.on + " è nascosto dal sito.", f.on ? "eye" : "eye-slash"); };
+ $("#f-save").onclick = () => { Object.assign(f, { t: $("#f-t").value, p: $("#f-p").value, price: $("#f-price").value }); save(); toast("Pubblicato. Il sito mostra " + DAY.pub + ".", "paper-plane-tilt"); };
 }
 
 /* ---------- hours and rules ---------- */
