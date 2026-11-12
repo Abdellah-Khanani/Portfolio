@@ -33,8 +33,8 @@ h1,h2,h3,h4{font-family:var(--d);font-weight:400;text-transform:uppercase;letter
 .ibtn:hover{background:var(--y);color:var(--k)}
 .cart{background:var(--y);color:var(--k)}
 .logo{text-decoration:none;display:inline-flex}
-.plate{display:block;background:#fff;border-radius:10px;padding:3px 10px;transform:skewX(-6deg);box-shadow:3px 3px 0 var(--b)}
-.plate img{height:36px;width:auto;transform:skewX(6deg)}
+.plate{display:block;padding:0}
+.plate img{height:40px;width:auto}
 .cart-n{position:absolute;top:2px;right:6px;min-width:20px;height:20px;border-radius:99px;background:var(--b);color:#fff;font:700 11px/20px var(--f);text-align:center;transform:scale(0);transition:transform .2s cubic-bezier(.3,1.6,.5,1)}
 .cart-n.on{transform:scale(1)}
 .cart.bump{animation:bump .4s}
@@ -363,7 +363,7 @@ details[open]>summary{color:var(--y)}
 @media (min-width:900px){
   :root{--gut:28px}
   .hdr-in{grid-template-columns:auto 1fr auto;grid-template-areas:"l s c";gap:26px}
-  .burger{display:none}.logo{justify-self:start}.plate img{height:44px}
+  .burger{display:none}.logo{justify-self:start}.plate img{height:52px}
   .search-go{display:block}.search{height:50px;padding-left:18px}.search input{font-size:16.5px}
   .nav{display:block;background:var(--k2);border-top:1px solid var(--line);position:relative}
   .nav ul{list-style:none;margin:0 auto;padding:0 var(--gut);max-width:1360px;display:flex;gap:2px}
