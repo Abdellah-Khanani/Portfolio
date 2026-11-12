@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Trattoria Esempio · Pannello su tablet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* a live demo of the panel inside a tablet frame, sized to the screen of an 11-inch tablet and scaled to fit the window */
+:root{--bg:#e9ebe8;--ink:#14201f;--mute:#6c7775;--line:#d6dbd8;--acc:#e9805f;--ease:cubic-bezier(.16,1,.3,1)}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:radial-gradient(120% 90% at 50% 0%,#f6f7f5 0%,var(--bg) 70%);color:var(--ink);font:400 15px/1.5 "Hanken Grotesk",system-ui,sans-serif;display:grid;grid-template-rows:auto 1fr;overflow:hidden}
+header{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;padding:18px 28px}
+header h1{font:400 20px "Tenor Sans",sans-serif;letter-spacing:.24em;margin:0;display:flex;align-items:center;gap:10px}
+header h1::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--acc)}
+header p{margin:0;color:var(--mute);flex:1;min-width:220px}
+.seg{display:inline-flex;padding:4px;border-radius:999px;background:#fff;border:1px solid var(--line)}
+.seg button{border:0;background:none;height:36px;padding:0 16px;border-radius:999px;font:600 13px inherit;font-family:inherit;color:var(--mute);cursor:pointer;display:flex;align-items:center;gap:8px}
+.seg button[aria-pressed=true]{background:var(--ink);color:#fff}
+.stage{position:relative;display:grid;place-items:center;min-height:0;padding:10px 20px 28px}
+.dev{position:relative;border-radius:46px;background:linear-gradient(145deg,#2b2f31,#121516);padding:22px;box-shadow:0 0 0 1.5px #3c4244 inset,0 60px 120px -40px rgba(10,20,19,.55),0 20px 40px -20px rgba(10,20,19,.4);transform-origin:center;transition:width .8s var(--ease),height .8s var(--ease)}
+.dev::before{content:"";position:absolute;top:10px;left:50%;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:#262b2d;box-shadow:0 0 0 2px #1b1f20}
+.dev.portrait::before{top:10px}
+.scr{width:100%;height:100%;border-radius:26px;overflow:hidden;background:#f3f4f2}
+iframe{display:block;border:0;width:100%;height:100%}
+.hint{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);font-size:13px;color:var(--mute);white-space:nowrap}
+@media(max-width:700px){header{padding:14px 16px}.hint{display:none}}
+</style>
+<style>.akdemo{position:fixed;left:50%;top:3px;transform:translateX(-50%);z-index:2147483000;font:500 10px/1 -apple-system,system-ui,sans-serif;letter-spacing:.02em;padding:4px 10px;border-radius:99px;background:rgba(20,18,16,.72);color:#f5eee3;text-decoration:none;backdrop-filter:blur(6px);opacity:.78;white-space:nowrap;max-width:94vw;overflow:hidden;text-overflow:ellipsis}.akdemo:hover{opacity:1}</style>
+</head>
+<body>
+<header>
+ <h1>ESEMPIO</h1>
+ <p>Il pannello di gestione su un tablet da 11 pollici. È una demo vera: toccate il tasto arancione per una nuova prenotazione.</p>
+ <div class="seg" id="ori"><button data-o="land" aria-pressed="true">Orizzontale</button><button data-o="port" aria-pressed="false">Verticale</button></div>
+ <div class="seg" id="th"><button data-t="chiaro" aria-pressed="true">Chiaro</button><button data-t="scuro" aria-pressed="false">Scuro</button></div>
+</header>
+<div class="stage" id="stage">
+ <div class="dev" id="dev"><div class="scr"><iframe id="fr" title="Pannello Trattoria Esempio" src="index.html?tema=chiaro"></iframe></div></div>
+ <div class="hint">Dati di esempio: tutto resta in questo browser.</div>
+</div>
+<script>
+// the iframe gets a real tablet viewport (1180x820 or 820x1180), then the whole device is scaled to fit the window
+const dev = document.getElementById("dev"), fr = document.getElementById("fr"), stage = document.getElementById("stage");
+let land = true;
+function fit() {
+ const w = land ? 1180 : 820, h = land ? 820 : 1180, bez = 44;
+ dev.style.width = w + bez + "px"; dev.style.height = h + bez + "px";
+ dev.classList.toggle("portrait", !land);
+ const r = stage.getBoundingClientRect(), k = Math.min(1, (r.width - 40) / (w + bez), (r.height - 76) / (h + bez));
+ dev.style.transform = `scale(${k})`;
+ dev.style.margin = `${-(1 - k) * (h + bez) / 2}px ${-(1 - k) * (w + bez) / 2}px`;
+}
+document.getElementById("ori").onclick = e => { const b = e.target.closest("button"); if (!b) return; land = b.dataset.o === "land"; [...b.parentNode.children].forEach(x => x.setAttribute("aria-pressed", x === b)); fit(); };
+document.getElementById("th").onclick = e => { const b = e.target.closest("button"); if (!b) return; [...b.parentNode.children].forEach(x => x.setAttribute("aria-pressed", x === b)); fr.src = "index.html?tema=" + b.dataset.t; };
+addEventListener("resize", fit); fit();
+</script>
+<a class="akdemo" href="https://ak-design.it/" target="_blank" rel="noopener">Demo di AK Design · ristorante di fantasia</a>
+</body>
+</html>

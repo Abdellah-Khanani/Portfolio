@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /dashboard.html
 Disallow: /bozze/
+Disallow: /demo/
 
 Sitemap: https://ak-design.it/sitemap.xml
