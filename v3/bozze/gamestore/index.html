@@ -1,6 +1,62 @@
-<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Gamestore Bolzano - bozze homepage</title>
-<style>body{margin:0;font:16px/1.5 system-ui,sans-serif;background:#f4f4f4;color:#111;display:grid;place-items:center;min-height:100vh;padding:24px;box-sizing:border-box}main{max-width:460px;width:100%}h1{font-size:1.5rem;margin:0 0 6px}p{margin:0 0 20px;color:#444}a{display:block;padding:16px 18px;margin-bottom:12px;border:2px solid #111;border-radius:12px;background:#fff;color:#111;text-decoration:none;font-weight:700}a span{display:block;font-weight:400;color:#444;font-size:.92rem}a:focus-visible,a:hover{background:#ffe14d}small{color:#555}</style></head><body><main>
-<h1>Gamestore Bolzano</h1><p>Due proposte per la homepage. Il negozio online (/shop/) resta invariato.</p>
-<a href="a-pop.html">Bozza A - Pop<span>Colori vivaci, nuova identità</span></a>
-<a href="b-originale.html">Bozza B - Originale<span>La loro identità, fatta bene</span></a>
-<small>Bozza di AK Design - proposta grafica</small></main></body></html>
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Gamestore Bolzano — bozze del sito</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font:400 16px/1.5 'Inter',system-ui,sans-serif;background:#eceef3;color:#0d0d16;-webkit-font-smoothing:antialiased}
+main{max-width:1080px;margin:0 auto;padding:40px 16px 90px}
+h1{font:400 clamp(46px,9vw,84px)/.92 'Bebas Neue',sans-serif;margin:0 0 10px;letter-spacing:.01em;text-transform:uppercase}
+.lead{max-width:60ch;margin:0 0 30px;color:#454556}
+.cards{display:grid;gap:20px}
+.c{border-radius:22px;overflow:hidden;display:flex;flex-direction:column}
+.c-top{position:relative;display:block;aspect-ratio:16/9;overflow:hidden;text-decoration:none}
+.c-top img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.c-top:hover img{transform:scale(1.05)}
+.c-b{padding:22px 22px 24px;display:grid;gap:12px}
+.c h2{margin:0;font-size:36px;line-height:1}
+.c p{margin:0}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.links a{text-decoration:none;font-weight:800;padding:10px 18px;border-radius:99px;transition:transform .15s}
+.links a:hover{transform:translateY(-2px)}
+.pop{background:#fff7d6;border:2px solid #14143a;box-shadow:7px 7px 0 #14143a;font-family:'Bricolage Grotesque','Inter',sans-serif}
+.pop h2{font-family:'Inter',sans-serif;font-weight:800;letter-spacing:-.04em;color:#14143a;font-size:38px}
+.pop .c-top{border-bottom:2px solid #14143a}
+.pop .links a{border:2px solid #14143a;background:#ffe14d;color:#14143a;box-shadow:3px 3px 0 #14143a}
+.pop .links a:first-child{background:#2b46ff;color:#fff}
+.ori{background:#07070C;color:#f1f1f6;border:1px solid #2a2a3d;border-top:5px solid #FAC205}
+.ori h2{font-family:'Bebas Neue',sans-serif;font-size:50px;letter-spacing:.02em;color:#fff;text-transform:uppercase}
+.ori p{color:#c9c9dd}
+.ori .links a{background:#FAC205;color:#07070C;border-radius:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:21px;letter-spacing:.05em;text-transform:uppercase;padding:8px 22px;clip-path:polygon(7% 0,100% 0,93% 100%,0 100%)}
+.ori .links a:first-child{background:#003BFF;color:#fff}
+.note{margin-top:28px;font-size:14px;color:#565668;max-width:70ch}
+.badge{position:fixed;left:10px;bottom:10px;background:#07070C;color:#FAC205;font-size:11px;font-weight:800;padding:6px 12px;border-radius:99px;text-decoration:none}
+@media(min-width:800px){.cards{grid-template-columns:1fr 1fr;gap:28px}}
+</style>
+</head>
+<body>
+<main>
+  <h1>Gamestore Bolzano, il sito nuovo</h1>
+  <p class="lead">Due proposte grafiche per tutto il sito: homepage, catalogo e scheda prodotto. Il catalogo e gli ordini restano quelli di oggi (Ecwid), cambia come si vede e come si usa.</p>
+  <div class="cards">
+    <article class="c pop">
+      <a class="c-top" href="pop/" aria-label="Apri la versione Pop"><img src="https://www.gamestorebolzano.it/wp-content/uploads/2026/06/GTA-VI.png" alt="" referrerpolicy="no-referrer"></a>
+      <div class="c-b"><h2>Pop</h2><p>Colori pieni, bordi spessi, adesivi. Un negozio di giochi che si riconosce a colpo d’occhio.</p>
+        <div class="links"><a href="pop/">Homepage</a><a href="pop/catalogo.html">Catalogo</a><a href="pop/prodotto.html">Scheda prodotto</a></div></div>
+    </article>
+    <article class="c ori">
+      <a class="c-top" href="originale/" aria-label="Apri la versione Originale"><img src="https://www.gamestorebolzano.it/wp-content/uploads/2026/08/EA-FC-27.png" alt="" referrerpolicy="no-referrer"></a>
+      <div class="c-b"><h2>Originale</h2><p>I colori e il carattere del vostro marchio, giallo e blu, in versione scura e curata.</p>
+        <div class="links"><a href="originale/">Homepage</a><a href="originale/catalogo.html">Catalogo</a><a href="originale/prodotto.html">Scheda prodotto</a></div></div>
+    </article>
+  </div>
+  <p class="note">I prodotti, i prezzi e le immagini sono quelli reali del vostro negozio online, letti oggi. Gli orari di apertura e i video sono da inserire.</p>
+</main>
+<a class="badge" href="#">Bozza di AK Design — proposta grafica</a>
+</body>
+</html>
