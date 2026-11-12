@@ -644,6 +644,9 @@
     $('#fmtLbl').textContent = TPL[state.tpl].name + ' · ' + FMT[state.fmt].name + ' ' + FMT[state.fmt].size;
     $('#pvNote').textContent = state.fmt === 'story' ? 'Le fasce alta e bassa restano libere dal testo importante: Instagram le copre.' : '';
     $('#dockT').textContent = TPL[state.tpl].name; dock.textContent = n > 1 ? 'Scarica zip' : 'Scarica';
+    var sh = $('#share'); if (sh) { sh.hidden = !canShareFiles; sh.disabled = !!bl.length; sh.textContent = n > 1 ? 'Condividi le ' + n + ' slide su Instagram' : (state.fmt === 'story' ? 'Metti in storia su Instagram' : 'Condividi su Instagram'); }
+    if (canShareFiles) { dock.textContent = 'Instagram'; }
+    schedulePrep();
   }
 
   var thumbTok = 0, thumbKey = '';
@@ -822,6 +825,32 @@
   }
   function dockDl() { count() > 1 ? dlAll() : dlOne(); }
 
+
+  /* ---------- condividi su Instagram (Web Share con file) ---------- */
+  var canShareFiles = (function () { try { return !!(navigator.canShare && navigator.canShare({ files: [new File([new Blob(['x'], { type: 'image/png' })], 'x.png', { type: 'image/png' })] })); } catch (e) { return false; } })();
+  var prep = { key: '', files: null }, prepT;
+  function stateKey() { return JSON.stringify([state.tpl, state.fmt, state.bg, state.style, state.acc, state.f[state.tpl], state.over, state.custom.length]); }
+  function prepare() {
+    if (!canShareFiles || blockers().length) return Promise.resolve(null);
+    var key = stateKey(), n = count(), list = [], seq = Promise.resolve();
+    if (prep.key === key && prep.files) return Promise.resolve(prep.files);
+    for (var i = 0; i < n; i++) (function (i) { seq = seq.then(function () { return blobFor(i).then(function (b) { list.push(new File([b], fname(i, n), { type: 'image/png' })); }); }); })(i);
+    return seq.then(function () { if (stateKey() === key) { prep = { key: key, files: list }; } return list; });
+  }
+  function schedulePrep() { if (!canShareFiles) return; prep.files = null; clearTimeout(prepT); prepT = setTimeout(prepare, 500); }
+  function shareIG() {
+    var go = function (files) {
+      return navigator.share({ files: files }).then(function () { toast('Fatto. Su Instagram scegli Storia o Post.'); }).catch(function (e) {
+        if (e && e.name === 'AbortError') return;
+        if (e && e.name === 'NotAllowedError') { toast('Immagine pronta: tocca di nuovo Condividi.'); return; }
+        toast('Condivisione non riuscita: usa Scarica.');
+      });
+    };
+    if (prep.files && prep.key === stateKey()) return go(prep.files);
+    toast('Preparo l\u2019immagine…');
+    prepare().then(function (f) { if (f) go(f); });
+  }
+
   /* ---------- API per i test ---------- */
   window.__render = function (tpl, fmt, idx, opt) {
     opt = opt || {};
@@ -837,7 +866,7 @@
   function sheet(open) { $('#prevPanel').classList.toggle('open', open); document.documentElement.classList.toggle('lock', open); if (open) refresh(); }
   function init() {
     cv = $('#cv'); cvMini = $('#cvMini'); buildTemplates(); buildFormat(); buildStyle(); buildForm();
-    $('#dl1').addEventListener('click', function () { dlOne(); }); $('#dlAll').addEventListener('click', dlAll); $('#dockDl').addEventListener('click', dockDl);
+    $('#dl1').addEventListener('click', function () { dlOne(); }); $('#dlAll').addEventListener('click', dlAll); $('#dockDl').addEventListener('click', function () { canShareFiles ? shareIG() : dockDl(); }); if ($('#share')) $('#share').addEventListener('click', shareIG);
     $('#perSlide').addEventListener('click', function (e) { var b = e.target.closest('button[data-i]'); if (b) dlOne(+b.dataset.i); });
     $('#prev').addEventListener('click', function () { state.slide = Math.max(0, state.slide - 1); refresh(); });
     $('#next').addEventListener('click', function () { state.slide = Math.min(count() - 1, state.slide + 1); refresh(); });

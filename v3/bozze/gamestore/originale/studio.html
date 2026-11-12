@@ -8,7 +8,7 @@
 <meta name="description" content="Bozza grafica di AK Design: strumento per creare storie, post e caroselli Instagram on-brand dal telefono.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="studio.css">
+<link rel="stylesheet" href="studio.css?v=3">
 </head>
 <body class="st-body">
 <header class="st-hdr">
@@ -46,9 +46,11 @@
     </section>
 
     <section class="step" id="s5" aria-labelledby="h5">
-      <h2 id="h5"><i>5</i>Scarica</h2>
+      <h2 id="h5"><i>5</i>Pubblica o scarica</h2>
       <p id="blk" class="blk" hidden></p>
-      <button type="button" class="btn-main" id="dl1">Scarica PNG</button>
+      <button type="button" class="btn-main btn-ig" id="share" hidden>Metti in storia su Instagram</button>
+      <p class="note ig-note" id="igNote">Si apre il menu di condivisione del telefono: tocca <b>Instagram</b>, poi <b>Storia</b> (o Post). Le slide di un carosello arrivano già insieme.</p>
+      <button type="button" class="btn-alt dl-sec" id="dl1">Scarica PNG</button>
       <button type="button" class="btn-alt" id="dlAll" hidden>Scarica tutte le slide (.zip)</button>
       <div class="per" id="perSlide" hidden></div>
       <p class="note">Tutto resta sul tuo telefono: le immagini non vengono caricate da nessuna parte. Nelle storie la parte alta (250 px) e quella bassa (300 px) restano libere dal testo importante, così Instagram non le copre.</p>
@@ -74,6 +76,6 @@
 <a class="draft-badge" href="../index.html" title="Torna alla scelta delle proposte">Bozza di AK Design — proposta grafica</a>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
 <script src="../shared/data.js"></script>
-<script src="studio.js"></script>
+<script src="studio.js?v=3"></script>
 </body>
 </html>
