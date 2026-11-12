@@ -8,7 +8,7 @@
 <title>Trattoria Esempio · Pannello su tablet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Hanken+Grotesk:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400&family=DM+Sans:wght@500;600&family=Bodoni+Moda:opsz,wght@6..96,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 /* a live demo of the panel inside a tablet frame, sized to the screen of an 11-inch tablet and scaled to fit the window */
 :root{--bg:#e9ebe8;--ink:#14201f;--mute:#6c7775;--line:#d6dbd8;--acc:#e9805f;--ease:cubic-bezier(.16,1,.3,1)}
@@ -30,12 +30,24 @@ header p{margin:0;color:var(--mute);flex:1;min-width:220px}
 iframe{display:block;border:0;width:100%;height:100%}
 .hint{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);font-size:13px;color:var(--mute);white-space:nowrap}
 @media(max-width:700px){header{padding:14px 16px}.hint{display:none}}
+body[data-stile=a]{--bg:#e9dcc2;--ink:#2b1d14;--mute:#6f5c4a;--line:#d8c9a8;--acc:#c4562f;background:radial-gradient(120% 90% at 50% 0%,#f3ead8 0%,var(--bg) 70%)}
+body[data-stile=b]{--bg:#0b1622;--ink:#e9e2d0;--mute:#9fb0bd;--line:#25394b;--acc:#c9a96e;background:radial-gradient(120% 90% at 50% 0%,#14263a 0%,var(--bg) 70%)}
+body[data-stile=c]{--bg:#fbfbf7;--ink:#111;--mute:#5f5f55;--line:#111;--acc:#e94f2b;background:var(--bg)}
+body[data-stile=a] header h1{font:400 22px Fraunces,serif;letter-spacing:.02em}
+body[data-stile=b] header h1{font:400 22px "Bodoni Moda",serif;letter-spacing:.04em}
+body[data-stile=c] header h1{font:700 22px "Space Grotesk",sans-serif;letter-spacing:-.01em}
+body[data-stile=a]{font-family:"DM Sans",system-ui,sans-serif}body[data-stile=b]{font-family:"DM Sans",system-ui,sans-serif}body[data-stile=c]{font-family:"Space Grotesk",system-ui,sans-serif}
+body[data-stile=b] .seg{background:#132434}body[data-stile=b] .seg button[aria-pressed=true]{background:#c9a96e;color:#0f1d2b}
+body[data-stile=a] .seg button[aria-pressed=true]{background:#2b1d14}body[data-stile=c] .seg button[aria-pressed=true]{background:#111;color:#ffd23f}
+body[data-stile=a] .seg{background:#fbf6ea}body[data-stile=c] .seg{border-color:#111}
+.seg button{height:44px}
+.sitelink{color:inherit;font-weight:600}
 </style>
 <style>.akdemo{position:fixed;left:50%;top:3px;transform:translateX(-50%);z-index:2147483000;font:500 10px/1 -apple-system,system-ui,sans-serif;letter-spacing:.02em;padding:4px 10px;border-radius:99px;background:rgba(20,18,16,.72);color:#f5eee3;text-decoration:none;backdrop-filter:blur(6px);opacity:.78;white-space:nowrap;max-width:94vw;overflow:hidden;text-overflow:ellipsis}.akdemo:hover{opacity:1}</style>
 </head>
 <body>
 <header>
- <h1>ESEMPIO</h1>
+ <h1 id="nm">ESEMPIO</h1>
  <p>Il pannello di gestione su un tablet da 11 pollici. È una demo vera: toccate il tasto arancione per una nuova prenotazione.</p>
  <div class="seg" id="ori"><button data-o="land" aria-pressed="true">Orizzontale</button><button data-o="port" aria-pressed="false">Verticale</button></div>
  <div class="seg" id="th"><button data-t="chiaro" aria-pressed="true">Chiaro</button><button data-t="scuro" aria-pressed="false">Scuro</button></div>
@@ -46,6 +58,11 @@ iframe{display:block;border:0;width:100%;height:100%}
 </div>
 <script>
 // the iframe gets a real tablet viewport (1180x820 or 820x1180), then the whole device is scaled to fit the window
+const ST = (new URLSearchParams(location.search).get("stile") || "").match(/^[abc]$/) ? new URLSearchParams(location.search).get("stile") : "";
+const SQ = ST ? "&stile=" + ST : "";
+const SITES = { a: ["a-trattoria.html", "Trattoria Esempio"], b: ["b-mare.html", "Trattoria Esempio"], c: ["c-pizzeria.html", "Esempio"] };
+if (ST) { document.body.dataset.stile = ST; document.getElementById("nm").textContent = SITES[ST][1]; document.title = SITES[ST][1] + " · Pannello su tablet"; fr0(); }
+function fr0() { const f = document.getElementById("fr"); f.src = "index.html?tema=" + (ST === "b" ? "scuro" : "chiaro") + SQ; document.querySelectorAll("#th button").forEach(b => b.setAttribute("aria-pressed", b.dataset.t === (ST === "b" ? "scuro" : "chiaro"))); const p = document.querySelector("header p"); p.innerHTML += ' <a class="sitelink" href="../v3/' + SITES[ST][0] + '">Torna al sito</a>.'; }
 const dev = document.getElementById("dev"), fr = document.getElementById("fr"), stage = document.getElementById("stage");
 let land = true;
 function fit() {
@@ -57,7 +74,7 @@ function fit() {
  dev.style.margin = `${-(1 - k) * (h + bez) / 2}px ${-(1 - k) * (w + bez) / 2}px`;
 }
 document.getElementById("ori").onclick = e => { const b = e.target.closest("button"); if (!b) return; land = b.dataset.o === "land"; [...b.parentNode.children].forEach(x => x.setAttribute("aria-pressed", x === b)); fit(); };
-document.getElementById("th").onclick = e => { const b = e.target.closest("button"); if (!b) return; [...b.parentNode.children].forEach(x => x.setAttribute("aria-pressed", x === b)); fr.src = "index.html?tema=" + b.dataset.t; };
+document.getElementById("th").onclick = e => { const b = e.target.closest("button"); if (!b) return; [...b.parentNode.children].forEach(x => x.setAttribute("aria-pressed", x === b)); fr.src = "index.html?tema=" + b.dataset.t + SQ; };
 addEventListener("resize", fit); fit();
 </script>
 <a class="akdemo" href="https://ak-design.it/" target="_blank" rel="noopener">Demo di AK Design · ristorante di fantasia</a>

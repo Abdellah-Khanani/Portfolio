@@ -355,11 +355,11 @@ function rMenu() {
       <div style="min-width:0;cursor:pointer" data-edit="${i}"><b>${esc(d.n)}${d.flags.includes("p") ? '<span class="fl p" title="Piccante">P</span>' : ""}${d.flags.includes("g") ? '<span class="fl g" title="Senza glutine">G</span>' : ""}</b><small>${esc(d.d) || "Nessuna descrizione"}${d.dde ? "" : ' · <span style="color:var(--wait)">manca il tedesco</span>'}</small></div>
       <label class="pr-w"><input class="price num" data-price="${i}" value="${esc(d.price)}" placeholder="Prezzo" inputmode="decimal" aria-label="Prezzo in euro"><span>€</span></label>
       <label class="sw" title="Disponibile oggi"><input type="checkbox" data-on="${i}" ${d.on ? "checked" : ""} aria-label="Disponibile oggi"><span></span></label>
-      <div class="acts"><button class="icon-btn" data-edit="${i}" aria-label="Modifica" style="width:36px;height:36px"><i class="ph ph-pencil-simple"></i></button></div>
+      <div class="acts"><button class="icon-btn" data-edit="${i}" aria-label="Modifica" style="width:44px;height:44px"><i class="ph ph-pencil-simple"></i></button></div>
      </div>`).join("") : `<div class="empty"><i class="ph ph-book-open-text"></i>Questa pagina della carta è ancora vuota.<br><button class="btn sec" style="margin-top:14px" id="addDish2">Aggiungi il primo piatto</button></div>`}</div>
    </div>
    <div class="prev"><div class="prev-l">Anteprima sul sito</div>
-    <div class="phone"><div class="screen"><div class="sb"><i></i></div><div class="sh"><span>ESEMPIO</span><span>IT</span></div><h4>${L === "de" ? "Die Karte" : "La carta"}</h4>
+    <div class="phone"><div class="screen"><div class="sb"><i></i></div><div class="sh"><span>${document.documentElement.dataset.stile === "a" ? "TRATTORIA" : "ESEMPIO"}</span><span>IT</span></div><h4>${L === "de" ? "Die Karte" : "La carta"}</h4>
      <div class="tabs2">${S.menu.slice(Math.max(0, S.ui.cat - 1), S.ui.cat + 3).map(m => `<span class="${m === c ? "on" : ""}">${L === "de" ? m.de : m.cat}</span>`).join("")}</div>
      <ul>${c.dishes.length ? c.dishes.filter(d => d.on).map(d => `<li><b><span>${esc(L === "de" ? d.nde || d.n : d.n)}</span><span class="pr">${d.price ? "€ " + esc(d.price) : ""}</span></b><small>${esc(L === "de" ? d.dde : d.d)}</small></li>`).join("") : `<li><small>${L === "de" ? "Diese Seite folgt." : "Pagina in arrivo."}</small></li>`}</ul>
     </div></div>
@@ -489,7 +489,10 @@ addEventListener("keydown", e => { if (e.key === "Escape") closeAll(); if (e.key
 (() => {
  // ?tema=scuro or ?tema=chiaro in the link wins over the last choice in this browser
  const q = new URLSearchParams(location.search).get("tema");
- let th = q ? (q === "scuro" ? "dark" : "light") : null;
+ // ?stile=a|b|c: the panel takes the name, colours and fonts of the matching site
+ const st = document.documentElement.dataset.stile, NAMES = { a: ["Trattoria Esempio", "Trattoria"], b: ["Trattoria Esempio", "Esempio"], c: ["Esempio", "Esempio"] };
+ if (st) { document.querySelector(".brand b").textContent = NAMES[st][0]; document.title = NAMES[st][0] + " · Gestione"; }
+ let th = q ? (q === "scuro" ? "dark" : "light") : (st ? (st === "b" ? "dark" : "light") : null);
  if (!th) try { th = localStorage.getItem("mc-admin-theme"); } catch (e) {}
  if (th) document.documentElement.dataset.theme = th;
  $("#theme").onclick = () => {
@@ -497,7 +500,7 @@ addEventListener("keydown", e => { if (e.key === "Escape") closeAll(); if (e.key
   document.documentElement.dataset.theme = th; icon();
   try { localStorage.setItem("mc-admin-theme", th); } catch (e) {}
  };
- const icon = () => { const d = document.documentElement.dataset.theme === "dark"; $("#theme").innerHTML = `<i class="ph ph-${d ? "sun" : "moon"}"></i>`; $('meta[name="theme-color"]').content = d ? "#0b1716" : "#f3f4f2"; };
+ const icon = () => { const d = document.documentElement.dataset.theme === "dark"; $("#theme").innerHTML = `<i class="ph ph-${d ? "sun" : "moon"}"></i>`; $('meta[name="theme-color"]').content = getComputedStyle(document.body).backgroundColor; };
  icon();
 })();
 $("#today").textContent = new Date().toLocaleDateString("it-IT", { weekday: "long", day: "numeric", month: "long" });
