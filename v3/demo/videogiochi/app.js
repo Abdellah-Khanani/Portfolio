@@ -76,7 +76,7 @@
           return '<div class="mega-col"><p class="mega-h">' + c[0] + '</p>' + c[1].map(function (a) {
             return '<a href="' + a[1] + '"' + (a[1].indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + '>' + a[0] + '</a>';
           }).join('') + '</div>';
-        }).join('') + (n.art ? '<a class="mega-art" href="' + n.h + '" tabindex="-1"><img src="' + n.art + '" alt="" loading="lazy" referrerpolicy="no-referrer"><span>Vedi tutto</span></a>' : '') + '</div></div>';
+        }).join('') + (n.art ? '<a class="mega-art" href="' + n.h + '" tabindex="-1"><img src="' + n.art + '"' + (n.art.indexOf("/c/") > 0 ? ' srcset="' + n.art.replace(".webp", "-hd.webp") + ' 2x"' : "") + ' alt="" loading="lazy" referrerpolicy="no-referrer"><span>Vedi tutto</span></a>' : '') + '</div></div>';
       }
       return '<li class="nav-i' + (n.cols ? ' has-mega' : '') + '"><a href="' + n.h + '"' + (n.l === 'Prenotazioni' ? ' class="nav-pre"' : '') + '>' + n.l + (n.cols ? I.chev : '') + '</a>' + mega + '</li>';
     }).join('');

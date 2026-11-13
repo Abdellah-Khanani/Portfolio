@@ -532,3 +532,14 @@ details[open]>summary{color:var(--y)}
   .hs-us .hs-art .cv.a{height:72%;right:7%;top:14%}.hs-us .hs-art .cv.b{height:60%;right:22%;top:24%}.hs-us .hs-art .cv.c{height:52%;right:35%;top:32%}
   .hs-us .hs-art .coin{right:2.5%;top:8%}
 }
+
+/* --- copertine: scatole rettangolari nitide, senza ritagli --- */
+.hs-art .cv,.us-art .cv,.cat-t>img,.mega-art img[src*="img/c/"],.plat-t>img[src*="img/c/"]{
+  border-radius:4px;filter:none;background:#fff;
+  box-shadow:0 0 0 1px rgba(0,0,0,.28),0 1px 0 1px rgba(255,255,255,.18) inset,0 2px 4px rgba(0,0,0,.3),0 18px 32px -6px rgba(0,0,0,.5);
+  image-rendering:auto;backface-visibility:hidden}
+.cat-t>img{object-fit:fill;max-width:80%;height:50%}
+.mega-art img[src*="img/c/"]{width:auto;max-width:100%;object-fit:fill}
+.plat-t>img[src*="img/c/"]{width:auto;height:auto;max-width:62%;max-height:96px;object-fit:fill}
+.plat-t:nth-child(5)>img[src*="img/c/"]{max-width:46%;max-height:110px;object-fit:fill}
+@media (min-width:880px){.plat-t:nth-child(5)>img[src*="img/c/"]{max-width:68%;max-height:150px}}
