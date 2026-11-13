@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Catalogo — Livello Uno (demo di AK Design)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div data-gs="header"></div>
+<main id="catalogo">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Percorso"><a href="index.html">Home</a><span class="sep">/</span><a href="catalogo.html">Catalogo</a><span class="sep">/</span><span class="now" id="bcnow">Catalogo</span></nav>
+    <div class="cat-head" id="ctop"><h1 id="ctitle">Catalogo</h1><span class="count-st" id="ccount"></span></div>
+    <div class="cat-lay">
+      <aside class="fpanel" id="fpanel" aria-label="Filtri">
+        <div class="fp-h"><span>Filtri</span><button type="button" class="ibtn" data-fclose aria-label="Chiudi i filtri" data-ic="close" id="fclose"></button></div>
+        <div class="fbody" id="fbody"></div>
+        <div class="fp-f"><button type="button" class="btn btn-main" data-fclose>Mostra i prodotti</button></div>
+      </aside>
+      <section aria-label="Prodotti">
+        <div class="toolbar">
+          <button type="button" class="fbtn" id="fopen"><span data-ic="filter" style="display:grid"></span>Filtri <span id="fcount"></span></button>
+          <span class="shown" id="shown"></span>
+          <div class="sortw"><label for="sort"><span>Ordina per</span></label>
+            <select id="sort"><option value="rilevanza">Rilevanza</option><option value="prezzo-asc">Prezzo: dal più basso</option><option value="prezzo-desc">Prezzo: dal più alto</option><option value="nome">Nome A-Z</option></select></div>
+        </div>
+        <div class="active" id="active"></div>
+        <div class="grid" id="grid"></div>
+        <div class="pager" id="pager"></div>
+      </section>
+    </div>
+  </div>
+</main>
+<div data-gs="footer"></div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

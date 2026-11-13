@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Studio grafiche — Livello Uno (demo di AK Design)</title>
+<meta name="description" content="Demo di AK Design: strumento per creare storie, post e caroselli Instagram on-brand dal telefono, per negozi di videogiochi.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="studio.css?v=4">
+</head>
+<body class="st-body">
+<div class="demo-strip" id="demoStrip" hidden><p>Demo di AK Design — sito e studio grafiche per negozi di videogiochi · <a href="https://ak-design.it">ak-design.it</a></p><button type="button" aria-label="Chiudi l’avviso" id="demoX">✕</button></div>
+<script>try{if(!sessionStorage.getItem("demoStrip"))document.getElementById("demoStrip").hidden=false}catch(e){document.getElementById("demoStrip").hidden=false}document.getElementById("demoX").onclick=function(){document.getElementById("demoStrip").hidden=true;try{sessionStorage.setItem("demoStrip","1")}catch(e){}}</script>
+<header class="st-hdr">
+  <a class="st-logo" href="index.html" aria-label="Livello Uno, torna al sito"><span class="wm"><b>LIVELLO UNO</b></span></a>
+  <div class="st-ttl"><b>Studio grafiche</b><span>Area negozio</span></div>
+  <a class="st-back" href="index.html">← Sito</a>
+</header>
+
+<main class="st">
+  <div class="st-steps">
+    <section class="step" id="s1" aria-labelledby="h1">
+      <h2 id="h1"><i>1</i>Cosa vuoi comunicare?</h2>
+      <div class="tpl-grid" id="tplRow"></div>
+    </section>
+
+    <section class="step" id="s2" aria-labelledby="h2">
+      <h2 id="h2"><i>2</i>Formato</h2>
+      <div class="fmt" id="fmt"></div>
+      <div class="strip-wrap" id="stripWrap" hidden>
+        <p class="lbl">Slide del carosello: tocca per vederla</p>
+        <div class="strip" id="strip"></div>
+      </div>
+    </section>
+
+    <section class="step" id="s3" aria-labelledby="h3">
+      <h2 id="h3"><i>3</i>Contenuto <em id="formTitle"></em></h2>
+      <div id="form"></div>
+    </section>
+
+    <section class="step" id="s4" aria-labelledby="h4">
+      <h2 id="h4"><i>4</i>Stile</h2>
+      <div class="fld"><span class="lbl">Colore di sfondo</span><div class="sw" id="swBg" role="group" aria-label="Colore di sfondo"></div></div>
+      <div class="fld"><span class="lbl">Disegno dello sfondo</span><div class="sty" id="sty" role="group" aria-label="Disegno dello sfondo"></div></div>
+      <div class="fld"><span class="lbl">Colore in evidenza <small>(titoli e fasce; il testo si adatta da solo)</small></span><div class="sw sm" id="swAcc" role="group" aria-label="Colore in evidenza"></div></div>
+    </section>
+
+    <section class="step" id="s5" aria-labelledby="h5">
+      <h2 id="h5"><i>5</i>Pubblica o scarica</h2>
+      <p id="blk" class="blk" hidden></p>
+      <button type="button" class="btn-main btn-ig" id="share" hidden>Metti in storia su Instagram</button>
+      <p class="note ig-note" id="igNote">Si apre il menu di condivisione del telefono: tocca <b>Instagram</b>, poi <b>Storia</b> (o Post). Le slide di un carosello arrivano già insieme.</p>
+      <button type="button" class="btn-alt dl-sec" id="dl1">Scarica PNG</button>
+      <button type="button" class="btn-alt" id="dlAll" hidden>Scarica tutte le slide (.zip)</button>
+      <div class="per" id="perSlide" hidden></div>
+      <p class="note">Tutto resta sul tuo telefono: le immagini non vengono caricate da nessuna parte. Nelle storie la parte alta (250 px) e quella bassa (300 px) restano libere dal testo importante, così Instagram non le copre.</p>
+    </section>
+  </div>
+
+  <aside class="st-prev" id="prevPanel" aria-label="Anteprima">
+    <div class="sheet-bar"><b>Anteprima</b><button type="button" id="closeSheet" aria-label="Chiudi anteprima">Chiudi ✕</button></div>
+    <div class="pv-head"><span id="fmtLbl"></span><div id="slideNav" class="sn" hidden><button type="button" id="prev" aria-label="Slide precedente">‹</button><b id="slideLbl"></b><button type="button" id="next" aria-label="Slide successiva">›</button></div></div>
+    <div class="pv"><canvas id="cv" width="1080" height="1920" role="img" aria-label="Anteprima"></canvas></div>
+    <p class="pv-note" id="pvNote"></p>
+  </aside>
+</main>
+
+<footer class="st-ftr"><a href="index.html">Livello Uno</a> · <a href="https://ak-design.it" rel="noopener">Demo realizzata da AK Design — ak-design.it</a></footer>
+
+<div class="dock" id="dock">
+  <button type="button" class="dock-pv" id="openSheet" aria-label="Apri anteprima grande"><canvas id="cvMini" width="54" height="96"></canvas></button>
+  <div class="dock-tx"><b id="dockT">Anteprima</b><span>Tocca per ingrandire</span></div>
+  <button type="button" class="dock-dl" id="dockDl">Scarica</button>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
+<script src="data.js"></script>
+<script src="studio.js?v=3"></script>
+</body>
+</html>

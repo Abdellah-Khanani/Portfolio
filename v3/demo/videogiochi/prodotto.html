@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Prodotto — Livello Uno (demo di AK Design)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div data-gs="header"></div>
+<main id="prodotto">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Percorso"><a href="index.html">Home</a><span class="sep">/</span><a href="catalogo.html" id="bcc">Catalogo</a><span class="sep">/</span><span class="now" id="bcp"></span></nav>
+    <div class="pd">
+      <div class="gal">
+        <div class="gframe" id="gframe"><img id="gmain" src="" alt=""><span class="tag" id="gtag"></span></div>
+        <div class="thumbs" id="gthumbs"></div>
+      </div>
+      <div class="pbox">
+        <span class="plat" id="plat"></span>
+        <h1 id="pt"></h1>
+        <fieldset class="cond" id="cond"><legend>Scegli la condizione</legend>
+          <div class="cond-row">
+            <button type="button" class="cbtn" id="condN"><b>Nuovo</b><em></em></button>
+            <button type="button" class="cbtn" id="condU"><b>Usato garantito</b><em></em></button>
+          </div>
+        </fieldset>
+        <div class="price-row"><span class="price" id="price"></span><span class="avail" id="avail"><span data-ic="check" style="display:grid"></span><span id="availt"></span></span></div>
+        <div class="buy">
+          <div class="qty"><button type="button" id="qminus" aria-label="Meno">−</button><input id="qty" value="1" readonly aria-label="Quantità"><button type="button" id="qplus" aria-label="Più">+</button></div>
+          <button type="button" class="btn btn-blue" id="addb"><span data-ic="cart" style="display:grid"></span>Aggiungi al carrello<span class="addp-w">&nbsp;· <span id="addp"></span></span></button>
+        </div>
+        <p class="ship-note" id="ship"></p>
+        <div class="deliv" id="consegna">
+          <div class="dl"><i data-ic="pin"></i><div><b>Ritiro in negozio</b><span>Via Esempio 1, La tua città. Ritiri al banco, senza costi di spedizione.</span></div></div>
+          <div class="dl"><i data-ic="truck"></i><div><b>Spedizione</b><span>Gratuita da 49,99 €. Console escluse, con contributo di 14,99 €.</span></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="pinfo">
+      <section class="pcard"><h2>Descrizione</h2><p>Qui il negozio inserisce la descrizione del prodotto: titoli chiari, paragrafi leggibili, nessuna scheda “nuda”.</p><p>Titoli, immagini, prezzi e disponibilità sono dati di esempio: in un sito vero arrivano dal tuo catalogo.</p></section>
+      <section class="pcard"><h2>Scheda</h2><dl class="spec" id="spec"></dl></section>
+    </div>
+    <section class="sec" aria-labelledby="h-rel" style="padding-bottom:30px">
+      <div class="sec-h"><h2 id="h-rel">Potrebbe piacerti</h2><a class="pill-link" href="catalogo.html">Vai al catalogo</a></div>
+      <div class="rail" data-rail="related"><div class="rail-track"></div></div>
+    </section>
+  </div>
+</main>
+<div data-gs="footer"></div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
