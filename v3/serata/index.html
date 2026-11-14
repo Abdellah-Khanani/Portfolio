@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FFE3EC">
+<title>La nostra serata</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose: #E8477E;
+    --rose-soft: #FF8FB1;
+    --blush: #FFE3EC;
+    --ink: #5A1A33;
+    --sub: #A0496A;
+    --paper: #FFFFFF;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { background: #FFE3EC; }
+  body {
+    margin: 0; min-height: 100vh; min-height: 100dvh;
+    font-family: "Nunito", ui-rounded, system-ui, sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(60% 40% at 10% 0%, #FFD0DF 0%, transparent 70%),
+      radial-gradient(55% 35% at 100% 18%, #FFE6C9 0%, transparent 70%),
+      radial-gradient(70% 45% at 0% 100%, #E9DDFF 0%, transparent 70%),
+      linear-gradient(180deg, #FFE3EC 0%, #FFF3EA 100%);
+    background-attachment: fixed;
+    padding: max(22px, env(safe-area-inset-top)) 16px max(40px, env(safe-area-inset-bottom));
+    overflow-x: hidden;
+  }
+  .sky { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .sky span { position: absolute; color: #fff; opacity: .7; animation: float 9s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform: translateY(0) rotate(var(--r)); } 50% { transform: translateY(-14px) rotate(calc(var(--r) + 10deg)); } }
+  main { position: relative; z-index: 1; max-width: 460px; margin: 0 auto; }
+
+  .hero {
+    position: relative; text-align: center; padding: 26px 20px 22px;
+    background: linear-gradient(160deg, #FF7FA8 0%, #E8477E 60%, #D63A8C 100%);
+    border-radius: 32px; color: #fff;
+    box-shadow: 0 14px 30px -12px rgba(232, 71, 126, .6);
+  }
+  .hero .tape {
+    position: absolute; top: -11px; left: 50%; width: 92px; height: 24px; margin-left: -46px;
+    background: rgba(255, 243, 200, .9); transform: rotate(-3deg); border-radius: 3px;
+    box-shadow: 0 2px 4px rgba(90, 26, 51, .12);
+  }
+  .kicker { display: inline-block; margin: 0 0 8px; padding: 5px 12px; font-size: 13px; font-weight: 800; background: rgba(255,255,255,.22); border-radius: 99px; }
+  h1 { font-family: "Fredoka", ui-rounded, sans-serif; font-weight: 700; font-size: 38px; line-height: 1.02; margin: 0; letter-spacing: -.01em; text-wrap: balance; }
+  .hearts { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin: 16px 0 6px; }
+  .hearts svg { width: 24px; height: 24px; fill: rgba(255,255,255,.3); transition: fill .3s ease, transform .3s cubic-bezier(.3,1.6,.5,1); }
+  .hearts svg.on { fill: #fff; transform: scale(1.18); }
+  .count { font-size: 14px; font-weight: 700; opacity: .92; margin: 0; }
+
+  .bar { display: flex; justify-content: space-between; align-items: center; margin: 22px 4px 12px; }
+  .bar h2 { font-family: "Fredoka", sans-serif; font-size: 19px; font-weight: 600; margin: 0; }
+  .pill {
+    font: inherit; font-size: 14px; font-weight: 800; color: var(--rose);
+    background: var(--paper); border: 0; border-radius: 99px; padding: 9px 16px; cursor: pointer;
+    box-shadow: 0 4px 12px -4px rgba(232, 71, 126, .4);
+  }
+  .pill.on { background: var(--rose); color: #fff; }
+
+  ul { list-style: none; margin: 0; padding: 0; }
+  li {
+    position: relative; display: flex; align-items: center; gap: 12px;
+    background: var(--paper); border-radius: 24px; padding: 12px 14px 12px 12px; margin: 0 0 12px;
+    box-shadow: 0 8px 20px -10px rgba(232, 71, 126, .45), 0 0 0 1.5px rgba(255, 143, 177, .35);
+    transform: rotate(var(--tilt, 0deg));
+    transition: transform .2s ease, opacity .3s ease;
+    animation: pop .35s cubic-bezier(.3,1.5,.5,1) both;
+  }
+  @keyframes pop { from { transform: scale(.94) rotate(var(--tilt, 0deg)); } }
+  li:nth-child(odd) { --tilt: -.7deg; }
+  li:nth-child(even) { --tilt: .7deg; }
+  .editing li { --tilt: 0deg; flex-wrap: wrap; }
+  .tile {
+    flex: none; width: 52px; height: 52px; border-radius: 18px; border: 0; padding: 0;
+    display: grid; place-items: center; font-size: 27px; line-height: 1; background: var(--c, #FFD9E4);
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  }
+  .editing .tile { cursor: pointer; outline: 2px dashed var(--rose-soft); outline-offset: 2px; }
+  .txt { flex: 1; min-width: 0; }
+  .txt b { display: block; font-family: "Fredoka", sans-serif; font-size: 18px; font-weight: 600; line-height: 1.2; overflow-wrap: anywhere; }
+  .txt span { display: block; font-size: 14px; font-weight: 700; color: var(--sub); margin-top: 2px; overflow-wrap: anywhere; }
+  .txt input {
+    display: block; width: 100%; font: inherit; font-size: 16px; font-weight: 700; color: var(--ink);
+    background: #FFF4F8; border: 1.5px solid #FFC2D4; border-radius: 12px; padding: 8px 10px; margin: 0 0 6px;
+  }
+  .txt input:last-child { margin: 0; font-weight: 500; }
+  input:focus { outline: 2px solid var(--rose-soft); outline-offset: 1px; }
+
+  .check {
+    flex: none; width: 38px; height: 38px; border-radius: 50%; border: 2.5px solid var(--rose-soft);
+    background: #fff; padding: 0; cursor: pointer; display: grid; place-items: center;
+    transition: background .2s ease, transform .25s cubic-bezier(.3,1.7,.5,1), border-color .2s ease;
+  }
+  .check svg { width: 20px; height: 20px; fill: #fff; opacity: 0; transform: scale(.3); transition: all .25s cubic-bezier(.3,1.7,.5,1); }
+  li.done .check { background: var(--rose); border-color: var(--rose); transform: scale(1.08); }
+  li.done .check svg { opacity: 1; transform: scale(1); }
+  li.done { opacity: .72; }
+  li.done .txt b { text-decoration: line-through; text-decoration-color: var(--rose-soft); text-decoration-thickness: 2px; }
+  .check:active, .tile:active, .pill:active, .tool:active, .add button:active { transform: scale(.92); }
+
+  .tools { display: flex; gap: 8px; width: 100%; justify-content: flex-end; padding-top: 2px; }
+  .tool {
+    font: inherit; font-size: 14px; font-weight: 800; border: 0; border-radius: 12px; height: 38px; min-width: 44px; padding: 0 12px;
+    background: #FFEAF1; color: var(--rose); cursor: pointer;
+  }
+  .tool.del { background: #FFE0E0; color: #C2304A; }
+  .tool:disabled { opacity: .35; }
+
+  .add {
+    display: flex; gap: 10px; align-items: center; margin: 4px 0 0; padding: 10px;
+    border: 2px dashed var(--rose-soft); border-radius: 24px; background: rgba(255,255,255,.55);
+  }
+  .add input { flex: 1; min-width: 0; font: inherit; font-size: 16px; font-weight: 700; color: var(--ink); border: 0; background: transparent; padding: 8px; }
+  .add input::placeholder { color: #C98AA2; }
+  .add input:focus { outline: none; }
+  .add button {
+    flex: none; width: 46px; height: 46px; border-radius: 16px; border: 0; background: var(--rose); color: #fff;
+    font-size: 28px; font-weight: 700; line-height: 1; cursor: pointer; box-shadow: 0 6px 14px -6px rgba(232, 71, 126, .8);
+  }
+  .empty { text-align: center; font-weight: 700; color: var(--sub); padding: 18px 10px; }
+
+  .end {
+    margin: 22px 0 0; padding: 20px; text-align: center; border-radius: 26px;
+    background: rgba(255,255,255,.6); font-weight: 700; color: var(--sub); font-size: 15px;
+    transition: all .35s ease;
+  }
+  .end.all {
+    background: linear-gradient(160deg, #FF7FA8, #D63A8C); color: #fff;
+    font-family: "Fredoka", sans-serif; font-size: 20px; font-weight: 600;
+    box-shadow: 0 14px 30px -12px rgba(232, 71, 126, .7); transform: rotate(-1deg);
+  }
+  .reset { display: block; margin: 16px auto 0; background: none; border: 0; padding: 10px 12px; font: inherit; font-size: 13px; font-weight: 700; color: var(--sub); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+  body.intro main > :not(#intro) { display: none; }
+  body:not(.intro) #intro { display: none; }
+  #intro { padding-top: 14px; }
+  .letter {
+    position: relative; background: #FFFDF8; border-radius: 26px; padding: 34px 24px 26px;
+    transform: rotate(-1deg);
+    box-shadow: 0 18px 36px -16px rgba(232, 71, 126, .55), 0 0 0 1.5px rgba(255, 143, 177, .35);
+  }
+  .letter .tape { position: absolute; top: -11px; left: 50%; width: 92px; height: 24px; margin-left: -46px; background: rgba(255, 214, 228, .95); transform: rotate(3deg); border-radius: 3px; box-shadow: 0 2px 4px rgba(90, 26, 51, .12); }
+  .letter h2 { font-family: "Fredoka", sans-serif; font-size: 30px; font-weight: 700; color: var(--rose); margin: 0 0 14px; line-height: 1.1; }
+  .letter p { font-size: 17px; line-height: 1.55; font-weight: 500; margin: 0 0 14px; }
+  .letter p strong { font-weight: 800; color: var(--rose); }
+  .letter .big { font-family: "Fredoka", sans-serif; font-size: 21px; font-weight: 600; line-height: 1.3; color: var(--ink); margin-top: 20px; }
+  .go {
+    display: block; width: 100%; margin: 22px 0 0; padding: 16px; border: 0; border-radius: 20px; cursor: pointer;
+    font-family: "Fredoka", sans-serif; font-size: 19px; font-weight: 600; color: #fff;
+    background: linear-gradient(160deg, #FF7FA8, #D63A8C); box-shadow: 0 10px 22px -10px rgba(232, 71, 126, .9);
+  }
+  .go:active { transform: scale(.97); }
+  .steps { min-height: 330px; display: flex; flex-direction: column; justify-content: center; text-align: center; }
+  .step { display: none; }
+  .step.on { display: block; animation: slide .45s cubic-bezier(.3,1.5,.5,1); }
+  @keyframes slide { from { transform: translateY(16px) scale(.95); } }
+  .step p:last-child { margin-bottom: 0; }
+  .step .big { margin-top: 0; }
+  .bubble {
+    width: 116px; height: 116px; border-radius: 50%; margin: 0 auto 20px; display: grid; place-items: center;
+    font-size: 60px; line-height: 1; background: var(--c);
+    box-shadow: 0 0 0 8px #fff, 0 0 0 10px var(--c), 0 14px 24px -12px rgba(232, 71, 126, .5);
+    animation: bob 3s ease-in-out infinite;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  }
+  @keyframes bob { 0%,100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-7px) rotate(3deg); } }
+  .dots { display: flex; justify-content: center; gap: 8px; margin: 22px 0 0; }
+  .dots i { width: 8px; height: 8px; border-radius: 99px; background: #FFC9D9; transition: all .3s ease; }
+  .dots i.on { width: 26px; background: var(--rose); }
+  .burst { position: fixed; z-index: 5; pointer-events: none; color: var(--rose); animation: fly 1.5s ease-out forwards; }
+  @keyframes fly { to { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(.4); opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { *, .sky span { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body class="intro">
+<div class="sky" id="sky" aria-hidden="true"></div>
+<main id="app">
+  <section id="intro">
+    <div class="letter">
+      <div class="tape"></div>
+      <div class="steps" aria-live="polite">
+        <div class="step on" style="--c:#FFD9E4"><div class="bubble" aria-hidden="true">🥺</div><h2>Amore, scusami</h2><p>Ti ho fatto pesare una cosa che non dovevo.</p></div>
+        <div class="step" style="--c:#DCE9FF"><div class="bubble" aria-hidden="true">💭</div><p>Ti sei sentita come se non avessimo fatto nulla, come se avessimo sprecato il nostro tempo insieme.</p><p>Mi dispiace di avertelo fatto pesare.</p></div>
+        <div class="step" style="--c:#FFE7C7"><div class="bubble" aria-hidden="true">🫶</div><h2>Non sei stressante</h2><p>E non mi pesa che tu sia così, per niente.</p></div>
+        <div class="step" style="--c:#EADFFF"><div class="bubble" aria-hidden="true">✨</div><p>Vuoi solo dare valore al tempo che passiamo insieme: non sprecarlo, e goderti ogni momento con me.</p><p><strong>È una cosa bella.</strong></p></div>
+        <div class="step" style="--c:#FFF2B8"><div class="bubble" aria-hidden="true">🌙</div><h2>Stasera ci penso io</h2><p class="big">Tu rilassati: faremo tutto.</p></div>
+      </div>
+      <div class="dots" id="dots" aria-hidden="true"></div>
+      <button class="go" id="go" type="button">Avanti</button>
+      <button class="reset" id="back" type="button" style="margin-top:6px">Indietro</button>
+    </div>
+  </section>
+  <header class="hero">
+    <div class="tape"></div>
+    <p class="kicker">Stasera, io e te</p>
+    <h1>La nostra serata</h1>
+    <div class="hearts" id="hearts" aria-hidden="true"></div>
+    <p class="count" id="count" aria-live="polite"></p>
+  </header>
+
+  <div class="bar">
+    <h2>Il programma</h2>
+    <button class="pill" id="edit" type="button" aria-pressed="false">Modifica</button>
+  </div>
+
+  <ul id="list"></ul>
+
+  <form class="add" id="add">
+    <input id="new" type="text" maxlength="60" placeholder="Aggiungi una tappa" aria-label="Nuova tappa" autocomplete="off">
+    <button type="submit" aria-label="Aggiungi">+</button>
+  </form>
+
+  <p class="end" id="end"></p>
+  <button class="reset" id="reset" type="button">Torna al programma iniziale</button>
+  <button class="reset" id="again" type="button" style="margin-top:0">Rileggi il messaggio</button>
+</main>
+<script>
+(function () {
+  var KEY = 'serata-v2';
+  var HEART = 'M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z';
+  var COLORS = ['#FFD9E4', '#FFE7C7', '#DDF3E4', '#DCE9FF', '#EADFFF', '#FFF2B8'];
+  var EMOJI = ['💖', '🍿', '🍕', '🍦', '🎮', '🚗', '🌙', '🎬', '🍔', '📚', '🫧', '💣', '🎵', '🛋️', '🌹', '☕', '🧋', '📸', '💃', '🧸'];
+  var DEFAULTS = [
+    { e: '📚', t: 'Studiamo insieme', s: 'adesso, fino alle 19:30' },
+    { e: '💣', t: 'Keep Talking and Nobody Explodes', s: 'dalle 19:30 alle 20:30 circa' },
+    { e: '🍔', t: 'Twenty, Bolzano', s: 'panini gratis per due' },
+    { e: '🚗', t: 'Giro in macchina', s: 'guidi tu' },
+    { e: '🫧', t: 'Autolavaggio insieme', s: 'schiuma e spazzoloni' },
+    { e: '🎬', t: 'Film sul divano', s: 'lo scegliamo insieme' }
+  ];
+  var list = document.getElementById('list');
+  var app = document.getElementById('app');
+  var editBtn = document.getElementById('edit');
+  var endEl = document.getElementById('end');
+  var editing = false, wasAll = false, seq = 0;
+  var items;
+
+  function fresh() { return DEFAULTS.map(function (d) { return { id: 'i' + (seq++), e: d.e, t: d.t, s: d.s, done: false }; }); }
+  try { items = JSON.parse(localStorage.getItem(KEY)); } catch (e) {}
+  if (!Array.isArray(items)) items = fresh();
+  items.forEach(function (it) { it.id = 'i' + (seq++); });
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(items)); } catch (e) {} }
+
+  function el(tag, cls, text) { var n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; }
+  function svg(cls) {
+    var s = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); s.setAttribute('viewBox', '0 0 24 24');
+    if (cls) s.setAttribute('class', cls);
+    var p = document.createElementNS('http://www.w3.org/2000/svg', 'path'); p.setAttribute('d', HEART); s.appendChild(p); return s;
+  }
+
+  function status() {
+    var n = items.filter(function (i) { return i.done; }).length, tot = items.length;
+    var hearts = document.getElementById('hearts'); hearts.textContent = '';
+    items.forEach(function (it) { hearts.appendChild(svg(it.done ? 'on' : '')); });
+    document.getElementById('count').textContent = tot ? n + ' di ' + tot + ' fatte' : 'Ancora nessuna tappa';
+    var all = tot > 0 && n === tot;
+    endEl.classList.toggle('all', all);
+    endEl.textContent = all ? 'Serata perfetta. Grazie di averla passata con me.' : 'Tocca il cuore quando una tappa è fatta. Con Modifica puoi cambiare tutto.';
+    if (all && !wasAll) burst();
+    wasAll = all;
+  }
+
+  function render() {
+    app.classList.toggle('editing', editing);
+    editBtn.textContent = editing ? 'Fatto' : 'Modifica';
+    editBtn.classList.toggle('on', editing);
+    editBtn.setAttribute('aria-pressed', editing);
+    list.textContent = '';
+    if (!items.length) list.appendChild(el('p', 'empty', 'Tutto vuoto. Aggiungi la prima tappa qui sotto.'));
+    items.forEach(function (it, i) {
+      var li = el('li', it.done ? 'done' : '');
+      var tile = el('button', 'tile', it.e); tile.type = 'button'; tile.style.setProperty('--c', COLORS[i % COLORS.length]);
+      var txt = el('div', 'txt');
+      if (editing) {
+        tile.setAttribute('aria-label', 'Cambia disegno');
+        tile.onclick = function () { it.e = EMOJI[(EMOJI.indexOf(it.e) + 1) % EMOJI.length]; tile.textContent = it.e; save(); };
+        var a = el('input'); a.value = it.t; a.maxLength = 60; a.setAttribute('aria-label', 'Titolo'); a.placeholder = 'Cosa facciamo';
+        var b = el('input'); b.value = it.s; b.maxLength = 60; b.setAttribute('aria-label', 'Dettaglio'); b.placeholder = 'Quando, dove, un dettaglio';
+        a.oninput = function () { it.t = a.value; save(); };
+        b.oninput = function () { it.s = b.value; save(); };
+        txt.appendChild(a); txt.appendChild(b);
+        li.appendChild(tile); li.appendChild(txt);
+        var tools = el('div', 'tools');
+        var up = el('button', 'tool', '↑'); up.type = 'button'; up.setAttribute('aria-label', 'Sposta su'); up.disabled = i === 0;
+        var down = el('button', 'tool', '↓'); down.type = 'button'; down.setAttribute('aria-label', 'Sposta giù'); down.disabled = i === items.length - 1;
+        var del = el('button', 'tool del', 'Togli'); del.type = 'button';
+        up.onclick = function () { items.splice(i - 1, 0, items.splice(i, 1)[0]); save(); render(); };
+        down.onclick = function () { items.splice(i + 1, 0, items.splice(i, 1)[0]); save(); render(); };
+        del.onclick = function () { items.splice(i, 1); save(); render(); };
+        tools.appendChild(up); tools.appendChild(down); tools.appendChild(del);
+        li.appendChild(tools);
+      } else {
+        tile.tabIndex = -1; tile.setAttribute('aria-hidden', 'true');
+        txt.appendChild(el('b', '', it.t || 'Senza nome'));
+        if (it.s) txt.appendChild(el('span', '', it.s));
+        var c = el('button', 'check'); c.type = 'button'; c.setAttribute('role', 'checkbox'); c.setAttribute('aria-checked', it.done);
+        c.setAttribute('aria-label', it.t); c.appendChild(svg());
+        c.onclick = function () { it.done = !it.done; li.classList.toggle('done', it.done); c.setAttribute('aria-checked', it.done); save(); status(); };
+        li.appendChild(tile); li.appendChild(txt); li.appendChild(c);
+      }
+      list.appendChild(li);
+    });
+    status();
+  }
+
+  function burst() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var r = endEl.getBoundingClientRect(), x = r.left + r.width / 2, y = Math.min(r.top, window.innerHeight - 80);
+    for (var i = 0; i < 22; i++) {
+      var h = el('span', 'burst', '♥');
+      h.style.left = x + 'px'; h.style.top = y + 'px'; h.style.fontSize = (14 + Math.random() * 22) + 'px';
+      h.style.color = ['#E8477E', '#FF8FB1', '#FFB347', '#B58CFF'][i % 4];
+      h.style.setProperty('--dx', (Math.random() * 320 - 160) + 'px');
+      h.style.setProperty('--dy', (-120 - Math.random() * 320) + 'px');
+      h.style.setProperty('--rot', (Math.random() * 180 - 90) + 'deg');
+      document.body.appendChild(h);
+      setTimeout(function (n) { n.remove(); }, 1600, h);
+    }
+  }
+
+  var SEEN = 'serata-intro-vista';
+  try { if (localStorage.getItem(SEEN)) document.body.classList.remove('intro'); } catch (e) {}
+  var steps = [].slice.call(document.querySelectorAll('.step'));
+  var dots = document.getElementById('dots'), goBtn = document.getElementById('go'), backBtn = document.getElementById('back'), at = 0;
+  steps.forEach(function () { dots.appendChild(el('i')); });
+  function show(i) {
+    at = i;
+    steps.forEach(function (s, k) { s.classList.toggle('on', k === i); });
+    [].forEach.call(dots.children, function (d, k) { d.classList.toggle('on', k === i); });
+    goBtn.textContent = i === steps.length - 1 ? 'Fammi vedere' : 'Avanti';
+    backBtn.style.visibility = i ? 'visible' : 'hidden';
+  }
+  goBtn.onclick = function () {
+    if (at < steps.length - 1) { show(at + 1); return; }
+    document.body.classList.remove('intro');
+    try { localStorage.setItem(SEEN, '1'); } catch (e) {}
+    window.scrollTo(0, 0);
+  };
+  backBtn.onclick = function () { if (at) show(at - 1); };
+  document.getElementById('again').onclick = function () { show(0); document.body.classList.add('intro'); window.scrollTo(0, 0); };
+  show(0);
+  editBtn.onclick = function () { editing = !editing; render(); };
+  document.getElementById('add').onsubmit = function (ev) {
+    ev.preventDefault();
+    var inp = document.getElementById('new'), v = inp.value.trim();
+    if (!v) { inp.focus(); return; }
+    items.push({ id: 'i' + (seq++), e: EMOJI[items.length % EMOJI.length], t: v, s: '', done: false });
+    inp.value = ''; save(); render();
+  };
+  document.getElementById('reset').onclick = function () {
+    if (!confirm('Tornare al programma iniziale? Le modifiche si perdono.')) return;
+    items = fresh(); editing = false; save(); render();
+  };
+
+  var sky = document.getElementById('sky');
+  [[8, 12, 22, -15], [86, 30, 16, 20], [14, 58, 14, 10], [90, 72, 26, -20], [50, 90, 18, 15], [70, 6, 12, -8]].forEach(function (p, i) {
+    var s = el('span', '', '♥'); s.style.left = p[0] + '%'; s.style.top = p[1] + '%'; s.style.fontSize = p[2] + 'px';
+    s.style.setProperty('--r', p[3] + 'deg'); s.style.animationDelay = (-i * 1.4) + 's'; sky.appendChild(s);
+  });
+  render();
+})();
+</script>
+</body>
+</html>
