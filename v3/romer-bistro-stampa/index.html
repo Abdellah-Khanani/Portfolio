@@ -65,6 +65,14 @@
   .fmt .pp { background: #2a2219; border: 1px solid var(--acc); border-radius: 3px; position: relative; display: grid; place-items: center; color: var(--acc); font: 600 11px/1.3 var(--sans); text-align: center; }
   .fmt .cap { font-size: 13px; color: var(--soft); max-width: 340px; }
 
+  /* versione da non usare: sbarrata, senza download */
+  .opt.no { position: relative; opacity: .55; }
+  .opt.no::after { content: ""; position: absolute; inset: 0; border-radius: 14px; pointer-events: none;
+    background: linear-gradient(to top right, transparent calc(50% - 3px), #e0412f calc(50% - 3px), #e0412f calc(50% + 3px), transparent calc(50% + 3px)); }
+  .stamp { display: inline-block; margin-bottom: 10px; font: 700 12px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; padding: 7px 10px; border-radius: 6px; }
+  .stamp.red { background: #e0412f; color: #fff; } .stamp.try { border: 1px solid var(--acc); color: var(--acc); } .stamp.ok { background: #3f8a4a; color: #fff; }
+  .alert { margin-top: 18px; padding: 16px 18px; border: 2px solid #e0412f; border-radius: 12px; background: rgba(224,65,47,.1); font-size: 16px; }
+  .alert b { color: #ff8a7a; font-size: 18px; display: block; margin-bottom: 4px; }
   footer { margin: 64px 0 40px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 14px; color: var(--soft); }
   footer b { color: var(--ink); }
 </style>
@@ -81,8 +89,8 @@
 <main class="wrap">
   <div class="steps">
     <div class="step"><div class="n">1</div><h3>Menu drink a libretto</h3><p>A5 piegato, 4 pagine. Tre grandezze del testo: sceglietene una.</p><a href="#libretto">Vai al libretto ↓</a></div>
-    <div class="step"><div class="n">2</div><h3>Menu drink lungo</h3><p>Foglio 14,8 × 42 cm, fronte e retro. Tre grandezze del testo: sceglietene una.</p><a href="#drink-lungo">Vai al drink lungo ↓</a></div>
-    <div class="step"><div class="n">3</div><h3>Menu snack lungo</h3><p>Foglio 14,8 × 42 cm, fronte e retro. Un solo file.</p><a href="#snack-lungo">Vai allo snack ↓</a></div>
+    <div class="step"><div class="n">2</div><h3>Menu drink lungo</h3><p>Foglio 14,8 × 42 cm, fronte e retro. Scegliete tra Grande e Molto grande.</p><a href="#drink-lungo">Vai al drink lungo ↓</a></div>
+    <div class="step"><div class="n">3</div><h3>Menu snack lungo</h3><p>Foglio 14,8 × 42 cm. Un solo file, <b style="color:#ff8a7a">da stampare fronte e retro</b>.</p><a href="#snack-lungo">Vai allo snack ↓</a></div>
   </div>
   <div class="legend">
     <div><span class="tag t">Tipografia</span>Il file da mandare alla tipografia: PDF in alta qualità con 3 mm di margine extra per il taglio.</div>
@@ -100,8 +108,9 @@
     <div class="note">Le tre versioni hanno gli stessi drink e gli stessi prezzi. Cambia solo la grandezza delle scritte.</div>
     <div class="opts">
       <div class="opt">
+        <span class="stamp try">Da provare</span>
         <div class="lab"><h3>Principale</h3><span class="size">testo normale</span></div>
-        <p class="desc">La versione originale, con tutti gli ingredienti sotto ogni drink.</p>
+        <p class="desc">La versione originale, con tutti gli ingredienti sotto ogni drink. Stampatene una copia di prova prima di farne tante.</p>
         <div class="thumbs"><a href="img/libA1.jpg"><img src="img/libA1.jpg" alt="Copertina" loading="lazy"></a><a href="img/libA2.jpg"><img src="img/libA2.jpg" alt="Pagina 2" loading="lazy"></a><a href="img/libA3.jpg"><img src="img/libA3.jpg" alt="Pagina 3" loading="lazy"></a><a href="img/libA4.jpg"><img src="img/libA4.jpg" alt="Pagina 4" loading="lazy"></a></div>
         <div class="pagelab"><span>Cop.</span><span>II</span><span>III</span><span>IV</span></div>
         <div class="zoom"><small>Grandezza del testo (stessa zona di pagina)</small><img src="img/zoomlibA.jpg" alt="Dettaglio testo principale" loading="lazy"></div>
@@ -135,13 +144,14 @@
     </div>
     <div class="note">Fronte: aperitivi, cocktail, long drink, analcolici. Retro: birre, birre in bottiglia, amari, whisky e QR del menu snack.</div>
     <div class="opts">
-      <div class="opt">
-        <div class="lab"><h3>Principale</h3><span class="size">testo normale</span></div>
-        <p class="desc">La versione originale, con logo grande e tutti gli ingredienti.</p>
+      <div class="opt no">
+        <span class="stamp red">Non usare</span>
+        <div class="lab"><h3>Principale</h3><span class="size">testo troppo piccolo</span></div>
+        <p class="desc">Scartata: il testo è troppo piccolo. Usate la versione Grande o Molto grande.</p>
         <div class="thumbs"><a href="img/lunA1.jpg"><img src="img/lunA1.jpg" alt="Fronte" loading="lazy"></a><a href="img/lunA2.jpg"><img src="img/lunA2.jpg" alt="Retro" loading="lazy"></a></div>
         <div class="pagelab"><span>Fronte</span><span>Retro</span></div>
         <div class="zoom"><small>Grandezza del testo (stessa zona di pagina)</small><img src="img/zoomlunA.jpg" alt="Dettaglio testo principale" loading="lazy"></div>
-        <div class="btns"><a class="btn t" href="file/2A_drink_lungo_PRINCIPALE_tipografia.pdf" download>Scarica per la tipografia<span>PDF · 2,3 MB</span></a></div>
+        <div class="btns"><span class="btn c" style="justify-content:center; opacity:.7">Non disponibile</span></div>
       </div>
       <div class="opt">
         <div class="lab"><h3>Grande</h3><span class="size">testo più grande</span></div>
@@ -165,14 +175,16 @@
   <!-- 3 · SNACK LUNGO -->
   <section id="snack-lungo">
     <div class="sh"><div class="num">3</div><div><h2>Menu snack lungo</h2><div class="meta">Foglio singolo 14,8 × 42 cm · fronte e retro · una sola versione</div></div></div>
+    <div class="alert"><b>Da stampare fronte E retro</b>Il PDF ha 2 pagine: pagina 1 = fronte (il menu), pagina 2 = retro (logo, indirizzo, Sky Sport e QR). In tipografia va chiesto esplicitamente "fronte e retro": senza il retro il menu è incompleto.</div>
     <div class="note">Fronte: burger, pub classics, finger food e tagliere. Retro: logo, indirizzo, Sky Sport e QR del menu sul telefono.</div>
     <div class="opts">
       <div class="opt" style="max-width:420px">
+        <span class="stamp ok">Approvato · da ristampare fronte e retro</span>
         <div class="lab"><h3>Snack lungo</h3><span class="size">unica versione</span></div>
         <p class="desc">Burger, Weißwurst, club sandwich, finger food e tagliere, con i prezzi in euro.</p>
         <div class="thumbs"><a href="img/snack1.jpg"><img src="img/snack1.jpg" alt="Fronte" loading="lazy"></a><a href="img/snack2.jpg"><img src="img/snack2.jpg" alt="Retro" loading="lazy"></a></div>
         <div class="pagelab"><span>Fronte</span><span>Retro</span></div>
-        <div class="btns"><a class="btn t" href="file/3_snack_lungo_tipografia.pdf" download>Scarica per la tipografia<span>PDF · 2,1 MB</span></a></div>
+        <div class="btns"><a class="btn t" href="file/3_snack_lungo_tipografia.pdf" download>Scarica per la tipografia (2 pagine)<span>PDF · 2,1 MB</span></a></div>
       </div>
     </div>
   </section>
