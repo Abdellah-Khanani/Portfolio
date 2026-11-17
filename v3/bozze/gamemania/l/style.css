@@ -45,7 +45,7 @@ h1 em{font-style:normal;color:var(--y);text-shadow:4px 4px 0 var(--p)}
 .tile{position:relative;display:flex;flex-direction:column;justify-content:space-between;min-height:200px;padding:16px 14px;color:var(--k);overflow:hidden;clip-path:polygon(0 0,100% 0,100% calc(100% - 22px),calc(100% - 22px) 100%,0 100%);transition:transform .2s}
 .tile:hover{transform:translateY(-5px)}
 .tile i{font-size:46px;display:grid;margin-bottom:22px}.tile i svg{stroke-width:1.8}
-.tile h3{font-size:clamp(26px,7.4vw,34px);line-height:.92;margin-bottom:6px;overflow-wrap:anywhere}
+.tile h3{font-size:clamp(22px,6.2vw,34px);line-height:.92;margin-bottom:6px;overflow-wrap:normal;word-break:normal;hyphens:manual}
 .tile p{margin:0;font-size:13px;font-weight:600;line-height:1.35}
 .t1{background:var(--y)}.t2{background:var(--lb)}.t3{background:#fff}.t4{background:var(--p);color:#fff}
 .ev-list{display:grid;gap:14px}
