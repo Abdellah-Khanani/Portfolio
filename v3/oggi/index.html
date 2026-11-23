@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FFE3EC">
+<title>Per te</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --rose:#E8477E; --soft:#FF8FB1; --ink:#5A1A33; --sub:#A0496A; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html { background:#FFE3EC; }
+  body {
+    margin:0; min-height:100vh; min-height:100dvh; color:var(--ink);
+    font-family:"Nunito", ui-rounded, system-ui, sans-serif;
+    background:
+      radial-gradient(60% 40% at 10% 0%, #FFD0DF 0%, transparent 70%),
+      radial-gradient(55% 35% at 100% 18%, #FFE6C9 0%, transparent 70%),
+      radial-gradient(70% 45% at 0% 100%, #E9DDFF 0%, transparent 70%),
+      linear-gradient(180deg, #FFE3EC 0%, #FFF3EA 100%);
+    background-attachment:fixed;
+    padding:max(22px, env(safe-area-inset-top)) 16px max(40px, env(safe-area-inset-bottom));
+    overflow-x:hidden;
+  }
+  .sky { position:fixed; inset:0; pointer-events:none; overflow:hidden; }
+  .sky span { position:absolute; color:#fff; opacity:.7; animation:float 9s ease-in-out infinite; }
+  @keyframes float { 50% { transform:translateY(-14px) rotate(12deg); } }
+  main { position:relative; max-width:460px; margin:0 auto; }
+  section { display:none; }
+  section.on { display:block; animation:slide .45s cubic-bezier(.3,1.5,.5,1); }
+  @keyframes slide { from { transform:translateY(16px) scale(.96); } }
+
+  .card {
+    position:relative; background:#FFFDF8; border-radius:28px; padding:32px 22px 24px; text-align:center;
+    box-shadow:0 18px 36px -16px rgba(232,71,126,.55), 0 0 0 1.5px rgba(255,143,177,.35);
+  }
+  .tape { position:absolute; top:-11px; left:50%; width:92px; height:24px; margin-left:-46px; background:rgba(255,214,228,.95); transform:rotate(3deg); border-radius:3px; }
+  h1, h2 { font-family:"Fredoka", sans-serif; color:var(--rose); margin:0 0 12px; line-height:1.1; }
+  h1 { font-size:32px; } h2 { font-size:26px; }
+  p { font-size:17px; line-height:1.55; font-weight:500; margin:0 0 12px; }
+  .bubble {
+    width:112px; height:112px; border-radius:50%; margin:0 auto 20px; display:grid; place-items:center;
+    font-size:58px; line-height:1; background:var(--c, #FFD9E4);
+    box-shadow:0 0 0 8px #fff, 0 0 0 10px var(--c, #FFD9E4), 0 14px 24px -12px rgba(232,71,126,.5);
+    animation:bob 3s ease-in-out infinite;
+    font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;
+  }
+  @keyframes bob { 0%,100% { transform:translateY(0) rotate(-3deg); } 50% { transform:translateY(-7px) rotate(3deg); } }
+  .steps { min-height:320px; display:flex; flex-direction:column; justify-content:center; }
+  .step { display:none; } .step.on { display:block; animation:slide .45s cubic-bezier(.3,1.5,.5,1); }
+  .dots { display:flex; justify-content:center; gap:8px; margin:20px 0 0; }
+  .dots i { width:8px; height:8px; border-radius:99px; background:#FFC9D9; transition:all .3s; }
+  .dots i.on { width:26px; background:var(--rose); }
+  .go {
+    display:block; width:100%; margin:20px 0 0; padding:16px; border:0; border-radius:20px; cursor:pointer;
+    font-family:"Fredoka", sans-serif; font-size:19px; font-weight:600; color:#fff;
+    background:linear-gradient(160deg, #FF7FA8, #D63A8C); box-shadow:0 10px 22px -10px rgba(232,71,126,.9);
+  }
+  .ghost { display:block; margin:10px auto 0; background:none; border:0; padding:8px 12px; font:inherit; font-size:14px; font-weight:700; color:var(--sub); text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
+  button:active { transform:scale(.96); }
+
+  .duo { display:flex; justify-content:center; align-items:center; gap:10px; margin:0 0 6px; }
+  .me { font-size:15px; font-weight:800; color:var(--sub); display:flex; align-items:center; gap:6px; justify-content:center; margin:0 0 18px; }
+  .me i { width:9px; height:9px; border-radius:50%; background:#3BB273; animation:pulse 1.6s infinite; }
+  @keyframes pulse { 50% { box-shadow:0 0 0 6px rgba(59,178,115,.2); } }
+
+  .ring { position:relative; width:230px; height:230px; margin:0 auto 6px; }
+  .ring svg { width:100%; height:100%; transform:rotate(-90deg); }
+  .ring circle { fill:none; stroke-width:14; stroke-linecap:round; }
+  .ring .bg { stroke:#FFE0EA; } .ring .fg { stroke:var(--rose); transition:stroke-dashoffset 1s linear; }
+  .ring .mid { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .time { font-family:"Fredoka", sans-serif; font-size:52px; font-weight:600; color:var(--ink); font-variant-numeric:tabular-nums; line-height:1; }
+  .mode { font-size:14px; font-weight:800; color:var(--sub); margin-top:6px; }
+  .lens { display:flex; gap:8px; justify-content:center; margin:14px 0 0; }
+  .lens button { font:inherit; font-size:14px; font-weight:800; border:0; border-radius:99px; padding:8px 14px; background:#FFEAF1; color:var(--rose); cursor:pointer; }
+  .lens button.on { background:var(--rose); color:#fff; }
+
+  .hearts { display:flex; flex-wrap:wrap; justify-content:center; gap:6px; margin:16px 0 4px; min-height:26px; }
+  .hearts span { font-size:22px; color:var(--rose); animation:slide .4s; }
+  .small { font-size:14px; font-weight:700; color:var(--sub); margin:0; }
+
+  .note {
+    margin:16px 0 0; padding:18px; border-radius:22px; background:#fff; text-align:center;
+    box-shadow:0 8px 20px -10px rgba(232,71,126,.45), 0 0 0 1.5px rgba(255,143,177,.35);
+    transform:rotate(-1deg);
+  }
+  .note b { display:block; font-family:"Fredoka", sans-serif; font-size:13px; letter-spacing:.06em; color:var(--soft); margin:0 0 6px; }
+  .note p { margin:0; font-family:"Fredoka", sans-serif; font-size:19px; font-weight:500; line-height:1.35; }
+  .row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:14px 0 0; }
+  .row button {
+    font:inherit; font-size:15px; font-weight:800; border:0; border-radius:18px; padding:14px 8px; cursor:pointer;
+    background:#fff; color:var(--rose); box-shadow:0 6px 16px -8px rgba(232,71,126,.5), 0 0 0 1.5px rgba(255,143,177,.35);
+  }
+  .today {
+    position:relative; overflow:hidden; text-align:center; color:#fff; padding:22px 20px 20px; border-radius:28px; margin:8px 0 16px;
+    background:linear-gradient(135deg, #3BB273, #1F9E8F 55%, #2D7FC4); background-size:200% 200%; animation:shift 8s ease infinite;
+    box-shadow:0 16px 30px -14px rgba(31,158,143,.7);
+  }
+  @keyframes shift { 50% { background-position:100% 100%; } }
+  .today small { display:inline-block; font-size:13px; font-weight:800; background:rgba(255,255,255,.22); padding:5px 12px; border-radius:99px; }
+  .today h1 { color:#fff; font-size:38px; margin:8px 0 2px; }
+  .today .dna { position:absolute; font-size:44px; opacity:.28; animation:spin 12s linear infinite; font-family:"Apple Color Emoji","Segoe UI Emoji",sans-serif; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  .plan { list-style:none; margin:0 0 16px; padding:0; position:relative; }
+  .plan:before { content:""; position:absolute; left:33px; top:26px; bottom:26px; width:3px; border-radius:3px; background:repeating-linear-gradient(#FFB8CD 0 8px, transparent 8px 14px); }
+  .plan li {
+    position:relative; display:flex; align-items:center; gap:12px; margin:0 0 10px; padding:10px 12px; border-radius:22px; cursor:pointer;
+    background:rgba(255,255,255,.6); transition:all .35s cubic-bezier(.3,1.5,.5,1);
+  }
+  .plan .ic { flex:none; width:44px; height:44px; border-radius:16px; display:grid; place-items:center; font-size:23px; background:var(--c); position:relative; z-index:1; font-family:"Apple Color Emoji","Segoe UI Emoji",sans-serif; }
+  .plan b { display:block; font-family:"Fredoka",sans-serif; font-size:17px; font-weight:600; }
+  .plan span { font-size:13px; font-weight:700; color:var(--sub); }
+  .plan .tick { margin-left:auto; flex:none; width:30px; height:30px; border-radius:50%; border:2.5px solid var(--soft); display:grid; place-items:center; color:#fff; font-weight:800; font-size:15px; transition:all .3s cubic-bezier(.3,1.7,.5,1); }
+  .plan li.now { background:#fff; transform:scale(1.03); box-shadow:0 12px 24px -12px rgba(232,71,126,.6), 0 0 0 2px var(--rose); }
+  .plan li.now .ic { animation:bob 2.4s ease-in-out infinite; }
+  .plan li.now:after { content:"ADESSO"; position:absolute; top:-9px; right:16px; font-size:11px; font-weight:800; letter-spacing:.06em; color:#fff; background:var(--rose); padding:3px 9px; border-radius:99px; }
+  .plan li.ok { opacity:.55; }
+  .plan li.ok .tick { background:var(--rose); border-color:var(--rose); }
+  .plan li.ok b { text-decoration:line-through; text-decoration-color:var(--soft); }
+  .row button { transition:transform .2s; }
+  #hug { animation:nudge 4s ease-in-out infinite; }
+  @keyframes nudge { 0%,88%,100% { transform:rotate(0); } 92% { transform:rotate(-3deg); } 96% { transform:rotate(3deg); } }
+  .sent { display:block; font-size:12px; font-weight:800; color:#3BB273; margin-top:8px; min-height:16px; }
+  .burst { position:fixed; z-index:5; pointer-events:none; animation:fly 1.5s ease-out forwards; }
+  @keyframes fly { to { transform:translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(.4); opacity:0; } }
+  @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important; } }
+</style>
+</head>
+<body>
+<div class="sky" id="sky" aria-hidden="true"></div>
+<main>
+  <section id="intro" class="on">
+    <div class="card">
+      <div class="tape"></div>
+      <div class="steps">
+        <div class="step on"><div class="bubble" style="--c:#FFD9E4">🫂</div><h2>Ehi, amore</h2><p>Lo so che oggi sei giù.</p></div>
+        <div class="step"><div class="bubble" style="--c:#DCE9FF">💭</div><p>Ti senti in colpa perché questo weekend non hai studiato, e l'hai passato con me.</p></div>
+        <div class="step"><div class="bubble" style="--c:#FFE7C7">💗</div><h2>Non era tempo perso</h2><p>Era tempo nostro. E oggi lo recuperiamo, insieme.</p></div>
+        <div class="step"><div class="bubble" style="--c:#DDF3E4">📚</div><h2>Sono qui</h2><p>Proprio accanto a te, a studiare anche io. Ogni minuto che studi tu, lo studio anche io.</p></div>
+        <div class="step"><div class="bubble" style="--c:#FFF2B8">🔥</div><h2>Si parte</h2><p>Un blocco alla volta. Ad ogni blocco finito c'è un messaggio mio per te.</p></div>
+      </div>
+      <div class="dots" id="dots" aria-hidden="true"></div>
+      <button class="go" id="next" type="button">Avanti</button>
+      <button class="ghost" id="prev" type="button">Indietro</button>
+    </div>
+  </section>
+
+  <section id="study">
+    <div class="today">
+      <span class="dna" style="left:-8px;top:8px" aria-hidden="true">🧬</span>
+      <span class="dna" style="right:-6px;bottom:4px;animation-direction:reverse" aria-hidden="true">🔬</span>
+      <small>Oggi si studia</small>
+      <h1>Biologia</h1>
+      <p style="margin:0;font-size:15px;font-weight:700;opacity:.95">Io accanto a te, tu ci riesci.</p>
+    </div>
+    <ul class="plan" id="plan">
+      <li style="--c:#DCE9FF"><div class="ic">📑</div><div><b>Le slide</b><span>si parte da qui</span></div><div class="tick">✓</div></li>
+      <li style="--c:#EADFFF"><div class="ic">🧠</div><div><b>Flashcard e quiz sull'app</b><span>vediamo cosa è rimasto</span></div><div class="tick">✓</div></li>
+      <li style="--c:#FFE7C7"><div class="ic">🥪</div><div><b>Pranzo</b><span>insieme, testa spenta</span></div><div class="tick">✓</div></li>
+      <li style="--c:#DDF3E4"><div class="ic">📚</div><div><b>Si riprende</b><span>e si studia fino alla fine</span></div><div class="tick">✓</div></li>
+    </ul>
+    <div class="card">
+      <div class="tape"></div>
+      <div class="me"><i></i>Sto studiando anche io, qui accanto a te</div>
+      <div class="ring">
+        <svg viewBox="0 0 230 230" aria-hidden="true"><circle class="bg" cx="115" cy="115" r="100"/><circle class="fg" id="arc" cx="115" cy="115" r="100"/></svg>
+        <div class="mid"><div class="time" id="time">25:00</div><div class="mode" id="mode">Studio</div></div>
+      </div>
+      <div class="lens" id="lens">
+        <button type="button" data-m="25" class="on">25 min</button>
+        <button type="button" data-m="45">45 min</button>
+        <button type="button" data-m="60">60 min</button>
+      </div>
+      <button class="go" id="play" type="button">Iniziamo</button>
+      <button class="ghost" id="reset" type="button">Ricomincia il blocco</button>
+      <div class="hearts" id="hearts" aria-label="Blocchi finiti oggi"></div>
+      <p class="small" id="tally">Ancora nessun blocco oggi. Il primo è il più difficile.</p>
+    </div>
+
+    <div class="note" id="note">
+      <b>DA ME</b>
+      <p id="noteText">Sei più brava di quanto pensi. Partiamo.</p>
+      <span class="sent" id="sent"></span>
+    </div>
+    <div class="row">
+      <button type="button" id="hug">Ho bisogno di un abbraccio</button>
+      <button type="button" id="push">Dammi grinta</button>
+    </div>
+    <button class="ghost" id="again" type="button">Rileggi il messaggio iniziale</button>
+  </section>
+</main>
+<script>
+(function () {
+  function $(id) { return document.getElementById(id); }
+  var HUGS = [
+    'Girati: sono qui. Ti abbraccio appena chiudi il libro.',
+    'Respira. Non devi fare tutto oggi, solo questo blocco.',
+    'Il weekend con te è stato il più bello. Non pentirtene mai.',
+    'Sei stanca, lo so. Sono fiero di te comunque.',
+    'Un sorso d\'acqua, una spalla dritta, e mi guardi un secondo. Ok, ora torna su.'
+  ];
+  var PUSH = [
+    'Una pagina alla volta. Poi un\'altra. Poi è fatta.',
+    'Chi recupera così non è indietro: è una che non molla.',
+    'Fra un\'ora sarai contenta di averlo fatto adesso.',
+    'Testa giù, cuffie, e spacchiamo tutto.',
+    'Tu ce la fai. L\'ho visto ogni volta.'
+  ];
+  var DONE = [
+    'Primo blocco fatto. Il più difficile è passato.',
+    'Due. Vedi che stai già recuperando?',
+    'Tre blocchi. Sei una macchina, amore.',
+    'Quattro. Ti meriti una pausa vera e un bacio.',
+    'Ancora uno? Sei incredibile. Stasera festeggiamo.'
+  ];
+
+  var steps = [].slice.call(document.querySelectorAll('.step')), at = 0;
+  steps.forEach(function () { $('dots').appendChild(document.createElement('i')); });
+  function show(i) {
+    at = i;
+    steps.forEach(function (s, k) { s.classList.toggle('on', k === i); });
+    [].forEach.call($('dots').children, function (d, k) { d.classList.toggle('on', k === i); });
+    $('next').textContent = i === steps.length - 1 ? 'Studiamo insieme' : 'Avanti';
+    $('prev').style.visibility = i ? 'visible' : 'hidden';
+  }
+  function page(id) {
+    ['intro', 'study'].forEach(function (p) { $(p).classList.toggle('on', p === id); });
+    window.scrollTo(0, 0);
+  }
+  $('next').onclick = function () { if (at < steps.length - 1) show(at + 1); else { page('study'); try { localStorage.setItem('grinta-vista', '1'); } catch (e) {} } };
+  $('prev').onclick = function () { if (at) show(at - 1); };
+  $('again').onclick = function () { show(0); page('intro'); };
+  show(0);
+  try { if (localStorage.getItem('grinta-vista')) page('study'); } catch (e) {}
+
+  var C = 2 * Math.PI * 100, arc = $('arc');
+  arc.style.strokeDasharray = C;
+  var mins = 25, total = 25 * 60, left = total, end = 0, timer = null, resting = false;
+  var key = 'grinta-' + new Date().toISOString().slice(0, 10), done = 0;
+  try { done = +localStorage.getItem(key) || 0; } catch (e) {}
+
+  function say(t) { var n = $('note'); $('noteText').textContent = t; n.style.animation = 'none'; n.offsetWidth; n.style.animation = 'slide .45s cubic-bezier(.3,1.5,.5,1)'; }
+  function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
+  function draw() {
+    var m = Math.floor(left / 60), s = left % 60;
+    $('time').textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    arc.style.strokeDashoffset = C * (1 - left / total);
+    arc.style.stroke = resting ? '#3BB273' : '';
+    $('mode').textContent = resting ? 'Pausa' : 'Studio';
+    document.title = timer ? $('time').textContent + ' · Per te' : 'Per te';
+  }
+  function tally() {
+    var h = $('hearts'); h.textContent = '';
+    for (var i = 0; i < done; i++) { var s = document.createElement('span'); s.textContent = '♥'; h.appendChild(s); }
+    $('tally').textContent = done ? done + (done === 1 ? ' blocco fatto oggi' : ' blocchi fatti oggi') + ', insieme.' : 'Ancora nessun blocco oggi. Il primo è il più difficile.';
+  }
+  function set(sec, rest) { stop(); resting = rest; total = left = sec; draw(); $('play').textContent = rest ? 'Inizia la pausa' : 'Iniziamo'; }
+  function stop() { clearInterval(timer); timer = null; }
+  function tick() {
+    left = Math.max(0, Math.round((end - Date.now()) / 1000)); draw();
+    if (left > 0) return;
+    stop();
+    if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+    if (resting) { say('Pausa finita. Si riparte, io sono già sui libri.'); set(mins * 60, false); return; }
+    done++; try { localStorage.setItem(key, done); } catch (e) {}
+    tally(); burst(); say(DONE[Math.min(done, DONE.length) - 1]); ping('💗 Ha finito il blocco numero ' + done + '. Diglielo che sei fiero.');
+    set(5 * 60, true);
+  }
+  $('play').onclick = function () {
+    if (timer) { stop(); $('play').textContent = 'Riprendi'; draw(); return; }
+    end = Date.now() + left * 1000; timer = setInterval(tick, 1000);
+    $('play').textContent = 'Pausa un attimo';
+    if (!resting && left === total) say(pick(PUSH));
+  };
+  $('reset').onclick = function () { set(mins * 60, false); };
+  [].forEach.call($('lens').children, function (b) {
+    b.onclick = function () {
+      mins = +b.dataset.m;
+      [].forEach.call($('lens').children, function (x) { x.classList.toggle('on', x === b); });
+      set(mins * 60, false);
+    };
+  });
+  document.addEventListener('visibilitychange', function () { if (timer) tick(); });
+  function ping(text) {
+    $('sent').textContent = '';
+    fetch('https://ntfy.sh/per-te-e3f52e08f22b', { method: 'POST', body: text })
+      .then(function (r) { $('sent').textContent = r.ok ? 'Mandato ad Abdel, lo sta leggendo 💌' : ''; })
+      .catch(function () {});
+  }
+  $('hug').onclick = function () { say(pick(HUGS)); burst(); ping('🫂 Ha bisogno di un abbraccio, adesso.'); };
+  $('push').onclick = function () { say(pick(PUSH)); ping('🔥 Ti chiede grinta: falle un segno.'); };
+
+  var PK = 'grinta-plan-' + new Date().toISOString().slice(0, 10), plan = [];
+  try { plan = JSON.parse(localStorage.getItem(PK)) || []; } catch (e) {}
+  var lis = [].slice.call(document.querySelectorAll('#plan li'));
+  function drawPlan() {
+    var now = -1;
+    lis.forEach(function (li, i) { var ok = !!plan[i]; li.classList.toggle('ok', ok); if (!ok && now < 0) now = i; });
+    lis.forEach(function (li, i) { li.classList.toggle('now', i === now); });
+  }
+  lis.forEach(function (li, i) {
+    li.onclick = function () {
+      plan[i] = !plan[i];
+      try { localStorage.setItem(PK, JSON.stringify(plan)); } catch (e) {}
+      drawPlan();
+      if (plan[i]) { burst(); ping('✅ Ha finito: ' + li.querySelector('b').textContent); }
+    };
+  });
+  drawPlan();
+
+  function burst() {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var r = $('note').getBoundingClientRect(), x = r.left + r.width / 2, y = Math.max(60, r.top);
+    for (var i = 0; i < 18; i++) {
+      var h = document.createElement('span'); h.className = 'burst'; h.textContent = '♥';
+      h.style.left = x + 'px'; h.style.top = y + 'px'; h.style.fontSize = (14 + Math.random() * 20) + 'px';
+      h.style.color = ['#E8477E', '#FF8FB1', '#FFB347', '#B58CFF'][i % 4];
+      h.style.setProperty('--dx', (Math.random() * 300 - 150) + 'px');
+      h.style.setProperty('--dy', (-100 - Math.random() * 280) + 'px');
+      h.style.setProperty('--rot', (Math.random() * 180 - 90) + 'deg');
+      document.body.appendChild(h); setTimeout(function (n) { n.remove(); }, 1600, h);
+    }
+  }
+  [[8, 12, 22], [86, 30, 16], [14, 58, 14], [90, 72, 26], [50, 92, 18]].forEach(function (p, i) {
+    var s = document.createElement('span'); s.textContent = '♥';
+    s.style.cssText = 'left:' + p[0] + '%;top:' + p[1] + '%;font-size:' + p[2] + 'px;animation-delay:' + (-i * 1.6) + 's';
+    $('sky').appendChild(s);
+  });
+  draw(); tally();
+})();
+</script>
+</body>
+</html>
