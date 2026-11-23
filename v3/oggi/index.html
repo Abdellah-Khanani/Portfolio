@@ -120,6 +120,25 @@
   .plan li.ok { opacity:.55; }
   .plan li.ok .tick { background:var(--rose); border-color:var(--rose); }
   .plan li.ok b { text-decoration:line-through; text-decoration-color:var(--soft); }
+  .planbar { display:flex; justify-content:space-between; align-items:center; margin:0 4px 12px; }
+  .planbar b { font-family:"Fredoka",sans-serif; font-size:19px; font-weight:600; }
+  .pill { font:inherit; font-size:14px; font-weight:800; color:var(--rose); background:#fff; border:0; border-radius:99px; padding:9px 16px; cursor:pointer; box-shadow:0 4px 12px -4px rgba(232,71,126,.4); }
+  .pill.on { background:var(--rose); color:#fff; }
+  .plan .ic { border:0; padding:0; }
+  .editing .plan li { flex-wrap:wrap; cursor:default; transform:none; }
+  .editing .plan li:after { display:none; }
+  .editing .plan .ic { cursor:pointer; outline:2px dashed var(--soft); outline-offset:2px; }
+  .plan .txt { flex:1; min-width:0; }
+  .plan .txt input { display:block; width:100%; font:inherit; font-size:16px; font-weight:700; color:var(--ink); background:#FFF4F8; border:1.5px solid #FFC2D4; border-radius:12px; padding:7px 10px; margin:0 0 6px; }
+  .plan .txt input:last-child { margin:0; font-weight:500; }
+  .tools { display:flex; gap:8px; width:100%; justify-content:flex-end; }
+  .tool { font:inherit; font-size:14px; font-weight:800; border:0; border-radius:12px; height:36px; min-width:42px; padding:0 12px; background:#FFEAF1; color:var(--rose); cursor:pointer; }
+  .tool.del { background:#FFE0E0; color:#C2304A; }
+  .tool:disabled { opacity:.35; }
+  .add { display:flex; gap:10px; align-items:center; margin:0 0 18px; padding:8px; border:2px dashed var(--soft); border-radius:22px; background:rgba(255,255,255,.55); }
+  .add input { flex:1; min-width:0; font:inherit; font-size:16px; font-weight:700; color:var(--ink); border:0; background:transparent; padding:8px; }
+  .add input:focus { outline:none; }
+  .add button { flex:none; width:44px; height:44px; border-radius:15px; border:0; background:var(--rose); color:#fff; font-size:26px; font-weight:700; cursor:pointer; }
   .row button { transition:transform .2s; }
   #hug { animation:nudge 4s ease-in-out infinite; }
   @keyframes nudge { 0%,88%,100% { transform:rotate(0); } 92% { transform:rotate(-3deg); } 96% { transform:rotate(3deg); } }
@@ -156,12 +175,12 @@
       <h1>Biologia</h1>
       <p style="margin:0;font-size:15px;font-weight:700;opacity:.95">Io accanto a te, tu ci riesci.</p>
     </div>
-    <ul class="plan" id="plan">
-      <li style="--c:#DCE9FF"><div class="ic">📑</div><div><b>Le slide</b><span>si parte da qui</span></div><div class="tick">✓</div></li>
-      <li style="--c:#EADFFF"><div class="ic">🧠</div><div><b>Flashcard e quiz sull'app</b><span>vediamo cosa è rimasto</span></div><div class="tick">✓</div></li>
-      <li style="--c:#FFE7C7"><div class="ic">🥪</div><div><b>Pranzo</b><span>insieme, testa spenta</span></div><div class="tick">✓</div></li>
-      <li style="--c:#DDF3E4"><div class="ic">📚</div><div><b>Si riprende</b><span>e si studia fino alla fine</span></div><div class="tick">✓</div></li>
-    </ul>
+    <div class="planbar"><b>Il programma</b><button type="button" class="pill" id="editPlan">Modifica</button></div>
+    <ul class="plan" id="plan"></ul>
+    <form class="add" id="addPlan">
+      <input id="newPlan" type="text" maxlength="50" placeholder="Aggiungi una cosa da fare" aria-label="Nuova cosa da fare" autocomplete="off">
+      <button type="submit" aria-label="Aggiungi">+</button>
+    </form>
     <div class="card">
       <div class="tape"></div>
       <div class="me"><i></i>Sto studiando anche io, qui accanto a te</div>
@@ -257,7 +276,10 @@
     for (var i = 0; i < done; i++) { var s = document.createElement('span'); s.textContent = '♥'; h.appendChild(s); }
     $('tally').textContent = done ? done + (done === 1 ? ' blocco fatto oggi' : ' blocchi fatti oggi') + ', insieme.' : 'Ancora nessun blocco oggi. Il primo è il più difficile.';
   }
-  function set(sec, rest) { stop(); resting = rest; total = left = sec; draw(); $('play').textContent = rest ? 'Inizia la pausa' : 'Iniziamo'; }
+  function persist() {
+    try { localStorage.setItem('grinta-timer', JSON.stringify({ end: end, left: left, total: total, resting: resting, running: !!timer, mins: mins })); } catch (e) {}
+  }
+  function set(sec, rest) { stop(); resting = rest; total = left = sec; draw(); $('play').textContent = rest ? 'Inizia la pausa' : 'Iniziamo'; persist(); }
   function stop() { clearInterval(timer); timer = null; }
   function tick() {
     left = Math.max(0, Math.round((end - Date.now()) / 1000)); draw();
@@ -270,9 +292,9 @@
     set(5 * 60, true);
   }
   $('play').onclick = function () {
-    if (timer) { stop(); $('play').textContent = 'Riprendi'; draw(); return; }
+    if (timer) { stop(); $('play').textContent = 'Riprendi'; draw(); persist(); return; }
     end = Date.now() + left * 1000; timer = setInterval(tick, 1000);
-    $('play').textContent = 'Pausa un attimo';
+    $('play').textContent = 'Pausa un attimo'; persist();
     if (!resting && left === total) say(pick(PUSH));
   };
   $('reset').onclick = function () { set(mins * 60, false); };
@@ -293,22 +315,76 @@
   $('hug').onclick = function () { say(pick(HUGS)); burst(); ping('🫂 Ha bisogno di un abbraccio, adesso.'); };
   $('push').onclick = function () { say(pick(PUSH)); ping('🔥 Ti chiede grinta: falle un segno.'); };
 
-  var PK = 'grinta-plan-' + new Date().toISOString().slice(0, 10), plan = [];
-  try { plan = JSON.parse(localStorage.getItem(PK)) || []; } catch (e) {}
-  var lis = [].slice.call(document.querySelectorAll('#plan li'));
-  function drawPlan() {
-    var now = -1;
-    lis.forEach(function (li, i) { var ok = !!plan[i]; li.classList.toggle('ok', ok); if (!ok && now < 0) now = i; });
-    lis.forEach(function (li, i) { li.classList.toggle('now', i === now); });
+  var COLORS = ['#DCE9FF', '#EADFFF', '#FFE7C7', '#DDF3E4', '#FFD9E4', '#FFF2B8'];
+  var EMO = ['📑', '🧠', '🥪', '📚', '✏️', '🧬', '🔬', '☕', '📝', '🎧', '🚶‍♀️', '💤', '💗'];
+  var PK = 'grinta-plan2-' + new Date().toISOString().slice(0, 10), plan = null, editingPlan = false;
+  try { plan = JSON.parse(localStorage.getItem(PK)); } catch (e) {}
+  if (!Array.isArray(plan)) {
+    plan = [
+      { e: '📑', t: 'Le slide', s: 'si parte da qui' },
+      { e: '🧠', t: 'Flashcard e quiz sull\'app', s: 'vediamo cosa è rimasto' },
+      { e: '🥪', t: 'Pranzo', s: 'insieme, testa spenta' },
+      { e: '📚', t: 'Si riprende', s: 'e si studia fino alla fine' }
+    ];
+    try {
+      var old = JSON.parse(localStorage.getItem('grinta-plan-' + new Date().toISOString().slice(0, 10))) || [];
+      plan.forEach(function (it, i) { if (old[i]) it.done = true; });
+    } catch (e) {}
   }
-  lis.forEach(function (li, i) {
-    li.onclick = function () {
-      plan[i] = !plan[i];
-      try { localStorage.setItem(PK, JSON.stringify(plan)); } catch (e) {}
-      drawPlan();
-      if (plan[i]) { burst(); ping('✅ Ha finito: ' + li.querySelector('b').textContent); }
-    };
-  });
+  function savePlan() { try { localStorage.setItem(PK, JSON.stringify(plan)); } catch (e) {} }
+  function mk(tag, cls, text) { var n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; }
+  function drawPlan() {
+    var ul = $('plan'); ul.textContent = '';
+    document.body.classList.toggle('editing', editingPlan);
+    $('editPlan').textContent = editingPlan ? 'Fatto' : 'Modifica';
+    $('editPlan').classList.toggle('on', editingPlan);
+    var now = -1;
+    plan.forEach(function (it, i) { if (!it.done && now < 0) now = i; });
+    plan.forEach(function (it, i) {
+      var li = mk('li', (it.done ? 'ok ' : '') + (i === now && !editingPlan ? 'now' : ''));
+      li.style.setProperty('--c', COLORS[i % COLORS.length]);
+      var ic = mk('button', 'ic', it.e); ic.type = 'button'; ic.tabIndex = editingPlan ? 0 : -1;
+      var tx = mk('div', 'txt');
+      li.appendChild(ic); li.appendChild(tx);
+      if (editingPlan) {
+        ic.setAttribute('aria-label', 'Cambia disegno');
+        ic.onclick = function () { it.e = EMO[(EMO.indexOf(it.e) + 1) % EMO.length]; ic.textContent = it.e; savePlan(); };
+        var a = mk('input'); a.value = it.t; a.maxLength = 50; a.placeholder = 'Cosa fai'; a.setAttribute('aria-label', 'Titolo');
+        var b = mk('input'); b.value = it.s || ''; b.maxLength = 50; b.placeholder = 'Un dettaglio'; b.setAttribute('aria-label', 'Dettaglio');
+        a.oninput = function () { it.t = a.value; savePlan(); };
+        b.oninput = function () { it.s = b.value; savePlan(); };
+        tx.appendChild(a); tx.appendChild(b);
+        var tools = mk('div', 'tools');
+        var up = mk('button', 'tool', '↑'), dn = mk('button', 'tool', '↓'), del = mk('button', 'tool del', 'Togli');
+        [up, dn, del].forEach(function (x) { x.type = 'button'; tools.appendChild(x); });
+        up.setAttribute('aria-label', 'Sposta su'); dn.setAttribute('aria-label', 'Sposta giù');
+        up.disabled = i === 0; dn.disabled = i === plan.length - 1;
+        up.onclick = function () { plan.splice(i - 1, 0, plan.splice(i, 1)[0]); savePlan(); drawPlan(); };
+        dn.onclick = function () { plan.splice(i + 1, 0, plan.splice(i, 1)[0]); savePlan(); drawPlan(); };
+        del.onclick = function () { plan.splice(i, 1); savePlan(); drawPlan(); };
+        li.appendChild(tools);
+      } else {
+        ic.setAttribute('aria-hidden', 'true');
+        tx.appendChild(mk('b', '', it.t || 'Senza nome'));
+        if (it.s) tx.appendChild(mk('span', '', it.s));
+        li.appendChild(mk('div', 'tick', '✓'));
+        li.setAttribute('role', 'checkbox'); li.setAttribute('aria-checked', !!it.done); li.tabIndex = 0;
+        li.onclick = function () {
+          it.done = !it.done; savePlan(); drawPlan();
+          if (it.done) { burst(); ping('✅ Ha finito: ' + (it.t || 'una tappa')); }
+        };
+      }
+      ul.appendChild(li);
+    });
+  }
+  $('editPlan').onclick = function () { editingPlan = !editingPlan; drawPlan(); };
+  $('addPlan').onsubmit = function (ev) {
+    ev.preventDefault();
+    var v = $('newPlan').value.trim(); if (!v) { $('newPlan').focus(); return; }
+    plan.push({ e: EMO[(plan.length + 4) % EMO.length], t: v, s: '' });
+    $('newPlan').value = ''; savePlan(); drawPlan();
+    ping('📝 Ha aggiunto al programma: ' + v);
+  };
   drawPlan();
 
   function burst() {
@@ -329,6 +405,21 @@
     s.style.cssText = 'left:' + p[0] + '%;top:' + p[1] + '%;font-size:' + p[2] + 'px;animation-delay:' + (-i * 1.6) + 's';
     $('sky').appendChild(s);
   });
+  try {
+    var st = JSON.parse(localStorage.getItem('grinta-timer'));
+    if (st && st.total) {
+      mins = st.mins || 25; resting = !!st.resting; total = st.total;
+      [].forEach.call($('lens').children, function (x) { x.classList.toggle('on', +x.dataset.m === mins); });
+      $('mode').textContent = resting ? 'Pausa' : 'Studio';
+      if (st.running) {
+        end = st.end; timer = setInterval(tick, 1000);
+        $('play').textContent = 'Pausa un attimo';
+        tick();
+      } else {
+        left = st.left; $('play').textContent = left < total ? 'Riprendi' : (resting ? 'Inizia la pausa' : 'Iniziamo');
+      }
+    }
+  } catch (e) {}
   draw(); tally();
 })();
 </script>
