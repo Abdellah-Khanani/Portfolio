@@ -3,5 +3,6 @@ Allow: /
 Disallow: /dashboard.html
 Disallow: /bozze/
 Disallow: /demo/
+Disallow: /portale/
 
 Sitemap: https://ak-design.it/sitemap.xml
