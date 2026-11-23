@@ -198,5 +198,5 @@ function tasks() {
 }
 
 view("turno", { title: "Turno", icon: "turno", order: 1, render(root) {
-  root.append(hero(), kpis(), el("div", { class: "tu-cols" }, el("div", { class: "tu-col" }, approvals(), requests()), el("div", { class: "tu-col" }, moves(), tasks())));
+  root.append(hero(), kpis(), el("div", { class: "tu-cols" }, el("div", { class: "tu-col" }, approvals(), requests(), tasks()), el("div", { class: "tu-col" }, moves())));
 } });
